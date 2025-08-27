@@ -1,2 +1,3 @@
-# sap-abap-learning-hub
-Registros dos meus estudos de SAP ABAP.
+# Registros de Estudos sobre SAP ABAP
+## Objetivos
+- Registrar todo conhecimento que for adquirido em SAP ABAP.
