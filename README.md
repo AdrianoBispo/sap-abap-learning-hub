@@ -29,6 +29,26 @@ Este material foi construído com base na trilha de aprendizagem ["Acquiring Cor
 - Objetos principais de modelagem de dados
 - Introdução ao ABAP Core Data Services (CDS)
 
+### 🔹Módulo 4: Introdução à Criação de um Aplicativo SAP Fiori Elements com Base em um Serviço OData V4 RAP
+- Visão geral do SAP Fiori Elements para OData V4
+- Introdução ao ABAP RESTful Application Programming Model (RAP)
+- Configuração de anotações ABAP CDS no backend
+- Exploração das ferramentas SAP Fiori Tools
+- Compreensão dos floorplans do SAP Fiori Elements
+- Configuração de relatórios de lista e páginas de objeto
+- Configuração de tabelas
+- Conceito de navegação em apps SAP Fiori Elements
+- Configuração de páginas de objeto
+- Modelo de programação flexível
+- Implantação da aplicação SAP Fiori Elements
+
+### 🔹Módulo 5: Praticando a extensibilidade do Clean Core para SAP S/4HANA Cloud
+- Introdução ao SAP S/4HANA Cloud, Extensões e Clean Core
+- Experiência do Usuário de Nível de Consumidor
+- ABAP Cloud em Profundidade
+- Modelo de Extensibilidade do SAP S/4HANA Cloud
+- Considerações Especiais para SAP S/4HANA Cloud Private Edition e On-Premise
+
 ## 👥 **Público-Alvo**
 - Desenvolvedores com conhecimento básico em linguagens como Javascript, Java, C#, Python, etc
 - Profissionais que trabalham com SAP e desejam aprender ABAP
