@@ -2,9 +2,7 @@
 
 Este material foi construído com base na trilha de aprendizagem ["Acquiring Core ABAP Skills"** da plataforma SAP Learning](https://learning.sap.com/learning-journeys/acquire-core-abap-skills) que é uma jornada de aprendizado gratuita e estruturada para quem deseja adquirir habilidades fundamentais em programação ABAP, especialmente voltadas para ambientes modernos como **SAP BTP**, **SAP S/4HANA**, e **ABAP Cloud**. A seguir, um resumo dos principais conteúdos abordados:
 
----
-
-## 📚Estrutura
+## 📚Conteúdo Programático
 
 ### 🔹Módulo 1: Programação ABAP Básica
 - Introdução ao ambiente de desenvolvimento ABAP Cloud
@@ -30,8 +28,6 @@ Este material foi construído com base na trilha de aprendizagem ["Acquiring Cor
 - Conceitos fundamentais do ABAP Dictionary
 - Objetos principais de modelagem de dados
 - Introdução ao ABAP Core Data Services (CDS)
-
----
 
 ## 👥 **Público-Alvo**
 - Desenvolvedores com conhecimento básico em linguagens como Javascript, Java, C#, Python, etc
