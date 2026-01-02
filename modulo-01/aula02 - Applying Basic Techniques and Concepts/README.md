@@ -812,6 +812,7 @@ Any conditional branching with CASE … ENDCASE could be implemented with an IF 
 ### Try It Out: Conditional Branching
 
 1. Like in the first exercise of this course, create a new global class that implements interface ``IF_OO_ADT_CLASSRUN``.
+
 2. Copy the following code snippet to the implementation part of method ``if_oo_adt_classrun~main( )``:
 
   ``` ABAP
@@ -870,7 +871,7 @@ Any conditional branching with CASE … ENDCASE could be implemented with an IF 
         WHEN OTHERS.
           out->write( `The value of C_NUMBER equals non of the above` ).
       ENDCASE.
-    ```
+  ```
 
 3.  Press ``CTRL + F3`` to activate the class and ``F9`` to execute it as a console app.
 4.  Analyze the console output. Play around with the source code to get familiar with the concepts; Uncomment different declarations of constant **c_number** with different values to see, which branches of the code get executed.
@@ -993,12 +994,12 @@ Now that you have learned about exceptions, let's see how you can handle them.
         CATCH cx_sy_itab_line_not_found.
           out->write( |Error: Itab contains less than { 2 / c_char } rows| ).
       ENDTRY.
-    ```
+  ```
     
 3.  Press ``CTRL + F3`` to activate the class and ``F9`` to execute it as a console app.
 4.  Analyze the console output. Play around with the source code to get familiar with the concept:
   - Comment the exception handling to make the system raise a runtime error.
-  - Change the values of constants **c_number**, **c_text**, **c_index**, and **c_char**in a way that no exceptions are raised.
+  - Change the values of constants **c_number**, **c_text**, **c_index**, and **c_char** in a way that no exceptions are raised.
 
 ## Iterations
 
@@ -1072,7 +1073,7 @@ ABAP built-in variable sy-tabix can fulfill a similar purpose for iterations wit
         ENDIF.
     
       ENDDO.
-    ```
+  ```
 
 3.  Press ``CTRL + F3`` to activate the class and ``F9`` to execute it as a console app.
 4.  Analyze the console output. Play around with the source code to get familiar with the concepts; Uncomment different declarations of constant **c_number** to see how the different values affect the result.
@@ -1209,7 +1210,7 @@ By doing so, you not only reduce the amount of code you have to type, you also e
       LOOP AT numbers INTO DATA(number_inline).
         out->write( |Row: { sy-tabix } Content { number_inline }| ).
       ENDLOOP.
-    ```
+  ```
 
 3.  Press ``CTRL + F3`` to activate the class and ``F9`` to execute it as a console app.
 4.  Analyze the console output. Play around with the source code to get familiar with the concepts.
@@ -1229,140 +1230,80 @@ In your own package, create a new global class. Define a constant for the number
 
 #### Steps
 
-1.  Create a new global class that implements the interface **IF_OO_ADT_CLASSRUN** (suggested name: **ZCL_##_ITERATE**, where ## stands for your group number).
-    
-      1.  Choose _File_→_New_→_ABAP Class_.
-          
-      2.  Enter the name of your package in the _Package_ field. In the _Name_ field, enter the name **ZCL_##_ITERATE**, where ## stands for your group number.
-          
-      3.  Enter a description.
-          
-      4.  In the _Interfaces_ group box, choose _Add_.
-          
-      5.  Enter **IF_OO_ADT_CLASSRUN**. When the interface appears in the hit list, double-click it to add it to the class definition.
-          
-      6.  Choose _Next_.
-          
-      7.  Select your transport request and choose _Finish_.
-    
-2.  In the `IF_OO_ADT_CLASSRUN~MAIN` method, define a constant for the number of iterations (suggested name: **count**) with a small value, for example **20**.
-    
-      1.  Add the following code:
-          
-          Code Snippet
-          
-          Copy codeSwitch to dark mode
-          
-          ```
-          
-          
-          123
-          
-             CONSTANTS max_count TYPE i VALUE 20.
-          
-          
-          
-          ```
-    
-3.  Declare a simple internal table to store the Fibonacci numbers (suggested name: **numbers**).
-    
-      1.  Add the following code:
-          
-          Code Snippet
-          
-          Copy codeSwitch to dark mode
-          
-          ```
-          
-          
-          123
-          
-            DATA numbers TYPE TABLE OF i.
-          
-          
-          
-          ```
-    
-4.  Implement an iteration that is executed **max\_count** times.
-    
-      1.  After the declarations, add the following code:
-          
-          Code Snippet
-          
-          Copy codeSwitch to dark mode
-          
-          ```
-          
-          
-          12345
-          
-            DO max_count TIMES.
-          
-            ENDDO.
-          
-          
-          
-          ```
-    
-5.  Inside the iteration, implement a case distinction based on the built-in iteration counter: In the first iteration, add the value **0** to the internal table **numbers**. In the second iteration, add the value **1** to the end of internal table **numbers**.
-    
-    Hint
-    
-    The built-in iteration counter is system field **sy-index**.
-    
-      1.  Between DO and ENDDO, add the following code:
-          
-          Code Snippet
-          
-          Copy codeSwitch to dark mode
-          
-          ```
-          
-          
-          12345678
-          
-             CASE sy-index.
-                WHEN 1.
-                  APPEND 0 TO numbers.
-                WHEN 2.
-                  APPEND 1 TO numbers.
-             ENDCASE.
-          
-          
-          
-          ```
-    
-6.  Add a branch that is executed for all other values. In this branch, calculate the new entry as the sum of the two preceding entries in **numbers**.
-    
-    Hint
-    
-    Access the preceding entries using index **sy-index - 1** and **sy-index - 2**.
-    
-      1.  Adjust the code as follows:
-          
-          Code Snippet
-          
-          Copy codeSwitch to dark mode
-          
-          ```
-          
-          
-          123456789101112
-          
-             CASE sy-index.
-                WHEN 1.
-                  APPEND 0 TO numbers.
-                WHEN 2.
-                  APPEND 1 TO numbers.
-                WHEN OTHERS.
-                    APPEND numbers[  sy-index - 2 ]
-                         19. numbers[  sy-index - 1 ]
-                        TO numbers.
-             ENDCASE.
-          
-          
-          
-          ```
+1. Create a new global class that implements the interface **IF_OO_ADT_CLASSRUN** (suggested name: **ZCL_##_ITERATE**, where ## stands for your group number).
+
+    a. Choose _File_→_New_→_ABAP Class_.
+
+    b. Enter the name of your package in the _Package_ field. In the _Name_ field, enter the name **ZCL_##_ITERATE**, where ## stands for your group number.
+
+    c. Enter a description.
+
+    d. In the _Interfaces_ group box, choose _Add_.
+   
+    e. Enter **IF_OO_ADT_CLASSRUN**. When the interface appears in the hit list, double-click it to add it to the class definition.
+   
+    f. Choose _Next_.
+
+    g. Select your transport request and choose _Finish_.
+
+2. In the `IF_OO_ADT_CLASSRUN~MAIN` method, define a constant for the number of iterations (suggested name: **count**) with a small value, for example **20**.
+
+    a. Add the following code:
+      ``` ABAP
+      CONSTANTS max_count TYPE i VALUE 20.
+      ```
+
+3. Declare a simple internal table to store the Fibonacci numbers (suggested name: **numbers**).
+
+    a. Add the following code:
+
+      ``` ABAP      
+      DATA numbers TYPE TABLE OF i.
+      ```
+
+4. Implement an iteration that is executed **max_count** times.
+
+    a. After the declarations, add the following code:
+
+      ``` ABAP
+      DO max_count TIMES.
+
+      ENDDO.    
+      ```
+
+5. Inside the iteration, implement a case distinction based on the built-in iteration counter: In the first iteration, add the value **0** to the internal table **numbers**. In the second iteration, add the value **1** to the end of internal table **numbers**.
+
+    > **Hint:** The built-in iteration counter is system field **sy-index**.
+
+    a. Between `DO` and `ENDDO`, add the following code:
+
+      ``` ABAP
+      CASE sy-index.
+        WHEN 1.
+          APPEND 0 TO numbers.
+        WHEN 2.
+          APPEND 1 TO numbers.
+      ENDCASE.
+      ```
+
+6. Add a branch that is executed for all other values. In this branch, calculate the new entry as the sum of the two preceding entries in **numbers**.
+
+    > **Hint:** Access the preceding entries using index **sy-index - 1** and **sy-index - 2**.
+
+    a. Adjust the code as follows:
+
+    ``` ABAP
+    CASE sy-index.
+      WHEN 1.
+        APPEND 0 TO numbers.
+      WHEN 2.
+        APPEND 1 TO numbers.
+      WHEN OTHERS.
+        APPEND numbers[  sy-index - 2 ]
+             + numbers[  sy-index - 1 ]
+            TO numbers.
+    ENDCASE.
+    ```
 
 ### Task 2: Prepare a Formatted Output
 
@@ -1370,91 +1311,51 @@ In a loop over the internal table, prepare a formatted output that lists each Fi
 
 #### Steps
 
-1.  At the beginning of the method **if\_oo\_adt\_classrun~main**, declare an internal table of row type _string_ (suggested name: **output**).
+1. At the beginning of the method **if_oo_adt_classrun~main**, declare an internal table of row type _string_ (suggested name: **output**).
     
-2.  Implement a loop over the internal table **numbers** to read the Fibonacci numbers one by one into a variable **number**.
+2. Implement a loop over the internal table **numbers** to read the Fibonacci numbers one by one into a variable **number**.
     
-    Hint
+    > **Hint:** Use an inline declaration for **number**.
     
-    Use an inline declaration for **number**.
+    a. At the end of the method, add the following code:
+
+      ``` ABAP
+      LOOP AT numbers INTO DATA(number).
+      ENDLOOP.
+      ```
+
+3. Declare an integer variable (suggested name: **counter**), that you set to zero before the loop and increase by 1 in each iteration.
+
+    > **Hint:** You can use an inline declaration for **counter**.
+
+    a. Adjust the code as follows:
+
+      ``` ABAP
+      DATA(counter) = 0.
+      LOOP AT numbers INTO DATA(number).
+
+        counter = counter + 1.
+
+      ENDLOOP.
+      ```
+
+4. In each iteration, add a new row to the internal table **output** which contains the content of **counter** (l4 characters wide, left-justified), a colon (;) and the content of **number** (10 characters wide, right justified).
     
-      1.  At the end of the method, add the following code:
-          
-          Code Snippet
-          
-          Copy codeSwitch to dark mode
-          
-          ```
-          
-          
-          12345
-          
-            LOOP AT numbers INTO DATA(number).
-          
-            ENDLOOP.
-          
-          
-          
-          ```
+    > **Hint:** Use a string template with suitable format options to adjust the format.
     
-3.  Declare an integer variable (suggested name: **counter**), that you set to zero before the loop and increase by 1 in each iteration.
-    
-    Hint
-    
-    You can use an inline declaration for **counter**.
-    
-      1.  Adjust the code as follows:
+    a. Adjust the code as follows:
+ 
+      ``` ABAP
+      DATA(counter) = 0.
+        LOOP AT numbers INTO DATA(number).
           
-          Code Snippet
+          counter = counter + 1.
           
-          Copy codeSwitch to dark mode
+          APPEND |{ counter WIDTH = 4 }: { number WIDTH = 10 ALIGN = RIGHT }|
+              TO output.
           
-          ```
-          
-          
-          12345678
-          
-            DATA(counter) = 0.
-            LOOP AT numbers INTO DATA(number).
-          
-               counter = counter + 1.
-          
-            ENDLOOP.
-          
-          
-          
-          ```
-    
-4.  In each iteration, add a new row to the internal table **output** which contains the content of **counter** (l4 characters wide, left-justified), a colon (;) and the content of **number** (10 characters wide, right justified).
-    
-    Hint
-    
-    Use a string template with suitable format options to adjust the format.
-    
-      1.  Adjust the code as follows:
-          
-          Code Snippet
-          
-          Copy codeSwitch to dark mode
-          
-          ```
-          
-          
-          1234567891011
-          
-            DATA(counter) = 0.
-            LOOP AT numbers INTO DATA(number).
-          
-               counter = counter + 1.
-          
-               APPEND |{ counter WIDTH = 4 }: { number WIDTH = 10 ALIGN = RIGHT }|
-                   TO output.
-          
-            ENDLOOP.
-          
-          
-          
-          ```
+      ENDLOOP.
+      ```
 
 ### Task 3: Output and Test
 
@@ -1462,32 +1363,21 @@ Write the result to the console. Then activate and test your class as a console 
 
 #### Steps
 
-1.  At the end of the method, call the method **out->write** to write the content of **output** to the console. Supply the importing parameter **name** with a suitable caption.
-    
-      1.  After ENDLOOP., add the following code:
-          
-          Code Snippet
-          
-          Copy codeSwitch to dark mode
-          
-          ```
-          
-          
-          123456
-          
-            out->write( 
-                   data   = output
-                   name   = |The first { max_count } Fibonacci Numbers|
-                          ) .
-          
-          
-          
-          ```
-    
-2.  Activate the class.
-    
-      1.  Press **Ctrl + F3** to activate the class.
-    
-3.  Execute your class as a console app.
-    
-      1.  Press **F9** to execute the class as console app.
+1. At the end of the method, call the method **out->write** to write the content of **output** to the console. Supply the importing parameter **name** with a suitable caption.
+
+    a. After ENDLOOP., add the following code:
+
+      ``` ABAP
+      out->write( 
+              data   = output
+              name   = |The first { max_count } Fibonacci Numbers|
+                    ) .
+      ```
+
+2. Activate the class.
+
+    a. Press **Ctrl + F3** to activate the class.
+
+3. Execute your class as a console app.
+
+    a. Press **F9** to execute the class as console app.
