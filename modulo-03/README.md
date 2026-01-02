@@ -1,22 +1,26 @@
-# 🔹Módulo 3: Modelagem de Dados com ABAP Dictionary e CDS
+# 🔹Módulo 3: Introdução à Criação de um Aplicativo SAP Fiori Elements com Base em um Serviço OData V4 RAP
 
-O material foi construído com base no curso ["Data Modelling in ABAP Dictionary and ABAP Core Data Services" da plataforma SAP Learning](https://learning.sap.com/courses/data-modelling-in-abap-dictionary-and-abap-core-data-services) que é uma formação gratuita e intermediária com mais de 20 horas de conteúdo, voltada para profissionais que desejam aprofundar seus conhecimentos em modelagem de dados no ambiente ABAP. Aqui está um resumo dos principais tópicos abordados:
+O material foi construído com base no curso ["Getting Started with Creating an SAP Fiori Elements App Based on an OData V4 RAP Service" da plataforma SAP Learning](https://learning.sap.com/courses/getting-started-with-creating-an-sap-fiori-elements-app-based-on-an-odata-v4-rap-service) que é uma jornada de aprendizado gratuita e introdutória voltada para desenvolvedores, arquitetos e consultores que desejam criar aplicações SAP Fiori utilizando o modelo de programação ABAP RESTful (RAP) com serviços OData V4. Aqui está um resumo do conteúdo:
 
 ## 🎯Objetivo do Curso
-Capacitar os participantes a:
-- Definir tabelas de banco de dados no **ABAP Dictionary**.
-- Criar e gerenciar **views** utilizando **ABAP Core Data Services (CDS)**.
-- Modelar relacionamentos e associações entre objetos.
-- Aplicar lógica SQL e enriquecer views com metadados.
-- Proteger dados contra acessos não autorizados.
-- Estender modelos de dados externos.
+Capacitar os participantes a desenvolver aplicações SAP Fiori Elements com base em serviços OData V4 criados via RAP, utilizando ferramentas modernas como o SAP Business Application Studio e SAP Fiori Tools.
 
-## 📚Conteúdo Programático
-O curso é dividido em 7 unidades principais:
-1. **Explorando a Modelagem de Dados em ABAP** – Introdução ao conceito de modelagem de dados.
-2. **Criando Tabelas de Banco de Dados** – Definição e estruturação de tabelas no ABAP Dictionary.
-3. **Definindo Tipos de Dados Globais** – Criação de tipos de dados reutilizáveis.
-4. **Definindo Views Básicas com CDS** – Introdução às views CDS e sua aplicação.
-5. **Modelando Relacionamentos e Associações** – Como conectar entidades de dados.
-6. **Utilizando Code Pushdown em Views CDS** – Otimização de performance com lógica no banco.
-7. **Definindo Objetos Meta para o Dicionário e Views CDS** – Uso de metadados para enriquecer os modelos[1](https://learning.sap.com/courses/data-modelling-in-abap-dictionary-and-abap-core-data-services).
+## 📚Estrutura do Curso
+O curso tem duração aproximada de **5 horas** e é dividido em **11 unidades**, com **29 exercícios práticos**. A seguir, os principais tópicos abordados:
+
+1. **Visão geral do SAP Fiori Elements para OData V4**
+2. **Introdução ao ABAP RESTful Application Programming Model (RAP)**
+3. **Configuração de anotações ABAP CDS no backend**
+4. **Exploração das ferramentas SAP Fiori Tools**
+5. **Compreensão dos floorplans do SAP Fiori Elements**
+6. **Configuração de relatórios de lista e páginas de objeto**
+7. **Configuração de tabelas**
+8. **Conceito de navegação em apps SAP Fiori Elements**
+9. **Configuração de páginas de objeto**
+10. **Modelo de programação flexível**
+11. **Implantação da aplicação SAP Fiori Elements**
+
+## 🛠️ **Ferramentas Utilizadas**
+- **SAP Business Application Studio**: ambiente de desenvolvimento baseado em nuvem.
+- **SAP Fiori Tools**: conjunto de extensões para facilitar o desenvolvimento com editores gráficos, sugestões inteligentes de código e suporte à implantação.
+- **ABAP Development Tools (ADT)**: para criação e configuração do backend RAP.

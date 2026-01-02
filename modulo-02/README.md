@@ -1,38 +1,22 @@
-# 🔹Módulo 2: Programação ABAP Intermediária
+# 🔹Módulo 2: Modelagem de Dados com ABAP Dictionary e CDS
 
-O material foi construído com base no curso [Intermediate ABAP Programming da plataforma SAP Learning](https://learning.sap.com/courses/intermediate-abap-programming)) que é voltado para desenvolvedores que já possuem conhecimentos básicos em ABAP e desejam aprofundar suas habilidades. Ele tem uma carga horária de aproximadamente **23 horas** e cobre tópicos essenciais para escrever código ABAP mais eficiente, seguro e bem estruturado.
+O material foi construído com base no curso ["Data Modelling in ABAP Dictionary and ABAP Core Data Services" da plataforma SAP Learning](https://learning.sap.com/courses/data-modelling-in-abap-dictionary-and-abap-core-data-services) que é uma formação gratuita e intermediária com mais de 20 horas de conteúdo, voltada para profissionais que desejam aprofundar seus conhecimentos em modelagem de dados no ambiente ABAP. Aqui está um resumo dos principais tópicos abordados:
 
-## 🎯Objetivos do Curso
-- Aprimorar a análise e testes de código ABAP.
-- Melhorar o desempenho e a legibilidade do código.
-- Aplicar boas práticas de programação orientada a objetos.
-- Utilizar recursos avançados como Code Pushdown e testes automatizados.
+## 🎯Objetivo do Curso
+Capacitar os participantes a:
+- Definir tabelas de banco de dados no **ABAP Dictionary**.
+- Criar e gerenciar **views** utilizando **ABAP Core Data Services (CDS)**.
+- Modelar relacionamentos e associações entre objetos.
+- Aplicar lógica SQL e enriquecer views com metadados.
+- Proteger dados contra acessos não autorizados.
+- Estender modelos de dados externos.
 
 ## 📚Conteúdo Programático
-
-1. **Análise e Testes de Código**  
-   Ferramentas para investigar e validar código ABAP, incluindo o uso do ABAP Test Cockpit (ATC) e ABAP Unit[2](https://learning.sap.com/courses/intermediate-abap-programming/implementing-code-tests-with-abap-unit_b23c7a00-c2e8-406d-8969-b00db3f1fd87)[3](https://learning.sap.com/courses/intermediate-abap-programming/improving-code-quality-using-abap-test-cockpit_dd1d868f-a539-49ee-8e49-e57563131058).
-
-2. **Tipos de Dados e Conversões**  
-   Uso correto de tipos de dados e conversões para evitar erros e melhorar a performance.
-
-3. **Manipulação de Campos de Caracteres**  
-   Técnicas para trabalhar com strings e campos de texto de forma eficiente.
-
-4. **Code Pushdown com ABAP SQL**  
-   Estratégias para mover o processamento de dados para o banco de dados usando joins, filtros e agregações[4](https://learning.sap.com/courses/intermediate-abap-programming/implementing-joins_a053e03d-f11e-4bee-8f63-5129b0590029).
-
-5. **Melhoria de Performance com Tabelas Internas**  
-   Otimização do uso de tabelas internas para reduzir tempo de execução e consumo de memória.
-
-6. **Implementação de Verificações de Autorização**  
-   Como aplicar controles de acesso e segurança no código ABAP.
-
-7. **Programação Orientada a Objetos**  
-   Design de código orientado a objetos, incluindo herança e encapsulamento[5](https://learning.sap.com/courses/intermediate-abap-programming/implementing-inheritance_bfdb59f7-0f99-48b9-b019-a7b766830ecc).
-
-8. **Tratamento de Exceções**  
-   Criação e uso de classes de exceção para lidar com erros de forma estruturada.
-
-9. **Documentação de Código ABAP**  
-   Boas práticas para adicionar comentários e documentação útil ao código.
+O curso é dividido em 7 unidades principais:
+1. **Explorando a Modelagem de Dados em ABAP** – Introdução ao conceito de modelagem de dados.
+2. **Criando Tabelas de Banco de Dados** – Definição e estruturação de tabelas no ABAP Dictionary.
+3. **Definindo Tipos de Dados Globais** – Criação de tipos de dados reutilizáveis.
+4. **Definindo Views Básicas com CDS** – Introdução às views CDS e sua aplicação.
+5. **Modelando Relacionamentos e Associações** – Como conectar entidades de dados.
+6. **Utilizando Code Pushdown em Views CDS** – Otimização de performance com lógica no banco.
+7. **Definindo Objetos Meta para o Dicionário e Views CDS** – Uso de metadados para enriquecer os modelos[1](https://learning.sap.com/courses/data-modelling-in-abap-dictionary-and-abap-core-data-services).

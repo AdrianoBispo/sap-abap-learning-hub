@@ -14,22 +14,13 @@ Este material foi construído com base na trilha de aprendizagem ["Acquiring Cor
 - Atualizações via Business Objects com EML
 - Introdução ao modelo de programação RESTful (RAP)
 
-### 🔹Módulo 2: Programação ABAP Intermediária
-- Testes e análise de código com ABAP Test Cockpit (ATC)
-- Criação de testes unitários e uso de ABAP Profiling
-- Tipos de dados e conversões
-- Manipulação de campos de caracteres
-- Otimização de desempenho com Code Pushdown e tabelas internas
-- Verificações de autorização
-- Programação orientada a objetos eficaz
-- Tratamento de exceções e documentação de código
-
-### 🔹Módulo 3: Modelagem de Dados com ABAP Dictionary e CDS
+### 🔹Módulo 2: Modelagem de Dados com ABAP Dictionary e CDS
 - Conceitos fundamentais do ABAP Dictionary
 - Objetos principais de modelagem de dados
 - Introdução ao ABAP Core Data Services (CDS)
 
-### 🔹Módulo 4: Introdução à Criação de um Aplicativo SAP Fiori Elements com Base em um Serviço OData V4 RAP
+
+### 🔹Módulo 3: Introdução à Criação de um Aplicativo SAP Fiori Elements com Base em um Serviço OData V4 RAP
 - Visão geral do SAP Fiori Elements para OData V4
 - Introdução ao ABAP RESTful Application Programming Model (RAP)
 - Configuração de anotações ABAP CDS no backend
@@ -41,6 +32,16 @@ Este material foi construído com base na trilha de aprendizagem ["Acquiring Cor
 - Configuração de páginas de objeto
 - Modelo de programação flexível
 - Implantação da aplicação SAP Fiori Elements
+
+### 🔹Módulo 4: Programação ABAP Intermediária
+- Testes e análise de código com ABAP Test Cockpit (ATC)
+- Criação de testes unitários e uso de ABAP Profiling
+- Tipos de dados e conversões
+- Manipulação de campos de caracteres
+- Otimização de desempenho com Code Pushdown e tabelas internas
+- Verificações de autorização
+- Programação orientada a objetos eficaz
+- Tratamento de exceções e documentação de código
 
 ### 🔹Módulo 5: Praticando a extensibilidade do Clean Core para SAP S/4HANA Cloud
 - Introdução ao SAP S/4HANA Cloud, Extensões e Clean Core
