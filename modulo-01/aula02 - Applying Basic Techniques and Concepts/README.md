@@ -1381,3 +1381,262 @@ Write the result to the console. Then activate and test your class as a console 
 3. Execute your class as a console app.
 
     a. Press **F9** to execute the class as console app.
+
+## Debugging an ABAP Program
+
+### Starting the Debugger
+
+![](https://learning.sap.com/service/media/topic/bdd75ef0-ae08-4b90-b049-976bf699ae81/S4D400_24_en-US_media/S4D400_24_en-US_images/01_-_Enter_debugging_mode_002.png)
+
+To debug an ABAP program, you set a breakpoint then run the program normally. When the program reaches the breakpoint, the system interrupts it and opens the ABAP Debug perspective in ADT. You can then execute each subsequent statement individually to see what effect it has on the program. You can also inspect the contents of all of the variables in the program to see if any of the values are unexpected.
+
+To set or remove a breakpoint, right-click the left margin of the editor and choose Toggle Breakpoint. As an alternative you can double-click the left margin. Note that the program has to be activated before you can set breakpoints.
+
+Breakpoints are user-specific and are persistent - they remain active even after you have logged off from ADT and back on again. To prevent the debugger from starting at a breakpoint you must either delete the breakpoint (using the Toggle Breakpoint function) or deactivate it using the corresponding function in the context menu.
+
+> **NOTE:** Depending on your personalization settings, ADT will ask for confirmation, first, before automatically opening the debug perspective.
+
+### The Debug Perspective in ADT
+
+When you debug an ABAP program using ABAP Development Tools, you use the Debug perspective. This is a customized version of the standard Eclipse Debug perspective, and it contains views and functions that are particularly important for debugging.
+
+Let's look at some important elements of the debugger perspective.
+
+> **Tutorial:** [How To Start The Debugger](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_42BD2588C06F3CA6:demo)
+
+### Control of Code Execution
+
+#### Some Navigation Functions
+
+Once you started debugging, use the navigation functions to control the execution of the code.
+
+Some important navigation functions are as follows:
+
+- **Step Into (`F5`):** Choose _Step Into_ or press **F5** to execute a single step. Use this function for a step-by-step analysis. If, for example, you want to see which code block of a control structure is actually executed.
+
+- **Resume (`F8`):** Choose _Resume_ or press **F8** to execute the program up to the next breakpoint. If the debugger does not hit any more breakpoints, the program is executed to the end and the debugging session terminates.
+
+- **Run to Line (`Shift+F8`):** Choose _Run to Line_ or press **Shift+F8** to execute the program up to the current cursor position. Clicking on a code line and choosing this function is a convenient alternative to setting a breakpoint, choosing Resume and removing the breakpoint again.
+
+- **Jump to Line (`Shift+F12`):** Choose _Jump to Line_ or press **Shift+F12** to skip some lines of code or to jump backwards to some already executed code. This function can be helpful to simulate what would happen if a certain piece of code was removed or to repeat debugging a bit of code you missed analysis the first time. Keep in mind that this is actually jumping, not executing coding. When you jump backwards, changes to data objects are not reverted!
+
+- **Terminate:** Choose _Terminate_ if you are done with debugging and you do not want to execute the remaining program. The debug session terminates immediately.
+
+### Special Breakpoints
+
+![](https://learning.sap.com/service/media/topic/e5e7acf8-ee1d-4414-a64f-6e3bf7c39713/S4D400_24_en-US_media/S4D400_24_en-US_images/02_-_Control_Execution_002.png)
+
+You learned that you can create and manage breakpoints by clicking on the left margin of the ABAP editor view. This also works with the ABAP editor view in the Debug perspective.
+
+In addition, you can switch to the Breakpoints view and manage your breakpoints there.
+
+In the Breakpoints view you can also create special breakpoints:
+
+- **Statement Breakpoint:**
+  A statement breakpoint is not attached to a specific line of code but to a specific ABAP statement. A statement breakpoint on statement CLEAR, for example, causes the program to stop in the debugger whenever a CLEAR statement is executed - no matter where this statement is located.
+
+  To create a statement breakpoint, open the dropdown list from the toolbar of the Breakpoints view and choose _Add Statement Breakpoint …_
+
+- **Exception Breakpoint:**
+  An exception breakpoint is attached to a specific exception. It causes the program to stop in the debugger whenever this particular exception is raised - no matter if this exception is handled by the program or causes a runtime error. To create an exception breakpoint, open the dropdown list from the toolbar of the Breakpoints view and choose Add Exception Breakpoint … .
+
+- **Conditional Breakpoint:**
+  You turn a breakpoint into a conditional breakpoint by adding a condition. If program execution hits a conditional breakpoint, the program only stops in the debugger, if the condition is fulfilled. If, for example, a breakpoint is located between DO and ENDDO it will cause the program to stop in the debugger in every iteration. But if you add a condition sy-index > 20 the debugger will ignore this breakpoint during the first 20 iterations and only stop in the following iterations.
+
+  To add a condition to a breakpoint, choose it in the list of breakpoints and enter the condition in field Condition. Press Enter to save the breakpoint with the condition.
+
+### Watchpoints
+
+If an unexpected value of a variable is causing you problems, you can track its value during the course of the program using a watchpoint.
+
+> **Tutorial:** [How To Control The Execution Of Code](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_645B252C3E912386:demo)
+
+## Analysis of Data Objects
+
+### Display Content of Data Objects
+
+Watch this video to learn how to display the content of data objects in the debugger.
+
+### Display Content of Internal Tables
+
+Watch this video to learn how to display the content of internal tables.
+
+### Changing the Values of Variable
+
+Depending on your authorizations, you can change the value of variables during debugging.
+
+For simple variables, locate the variable in the Variables view, right-click on it and choose Change Value ….
+
+To change the content of an internal table, we have to distinguish between changing the value of an existing row and adding or deleting of a rows.
+
+As shown in the figure, the following functions are available when you right-click in the ABAP internal table view:
+
+Change Value …
+
+Choose Change Value …. to change the content of an existing row.
+
+Insert Row …
+
+Choose Insert Row …. to add a new row. You can decide whether you want to append the new row or insert it at the chose position.
+
+Delete Selected Rows …
+
+Choose Delete Selected Rows … to remove the rows you selected before you right-clicked. To select a row, left-click it. To select more than one row, hold down the Ctrl key or the Shift key when you left-click additional rows.
+
+Delete Rows …
+
+Choose Delete Rows …to remove a larger range of rows, or even all rows. You are asked for the number of the start row and the end row you want to delete.
+
+## How To Analyze The Contents Of Data Objects
+
+## Debug ABAP Code
+
+In this exercise, you analyze ABAP code using the ABAP debugger.
+
+#### Template:
+
+-   /LRN/CL\_S4D400\_BTT\_DEBUG (global Class)
+
+#### Solution:
+
+-   None, the class remains unchanged.
+
+### Task 1: Preparation
+
+Copy the class that you want to debug.
+
+#### Steps
+
+1.  Open the source code of global class /LRN/CL\_S4D400\_BTT\_DEBUG in the ABAP editor.
+    
+    1.  In the _Eclipse_ toolbar, choose _Open ABAP Development Object_. Alternatively, press **Ctrl + Shift + A**.
+        
+    2.  Enter **/LRN/CL\_S4D400\_BTT** as search string.
+        
+    3.  From the list of development objects choose _/LRN/CL\_S4D400\_BTT\_DEBUG_, then choose _Ok_.
+        
+2.  Link the _Project Explorer_ view with the editor.
+    
+    1.  In the _Project Explorer_ toolbar, find the _Link with Editor_ button. If it is not yet pressed, choose it. As a result, the development object, that is open in the editor, should be highlighted in the _Project Explorer_.
+        
+3.  Copy class /LRN/CL\_S4D400\_BTT\_DEBUG to a class in your own package (suggested name: ZCL\_##\_DEBUG, where ## stands for your group number).
+    
+    1.  In the _Project Explorer_ view, right-click class /LRN/CL\_S4D400\_BTT\_DEBUG to open the content menu.
+        
+    2.  From the context menu, choose _Duplicate ..._.
+        
+    3.  Enter the name of your package (**ZS4D400\_##**, where ## stands for your group number) and the name for the new class (**ZCL\_##\_DEBUG**), then choose _Next_.
+        
+    4.  Confirm the transport request and choose _Finish_.
+        
+4.  Activate and test the class.
+    
+    1.  Press **Ctrl + F3** to activate the class.
+        
+    2.  Press **F9** to run the class.
+        
+5.  Check the output in the _Console_ view.
+    
+    1.  Check the _Console_ view that should have opened as a new tab below the editor view.
+        
+    2.  If the _Console_ view is not visible, open it by choosing _Window_→_Show view_→_Other_. Double-click _Console_ in the hit list.
+        
+
+### Task 2: Analyze the Starting Values
+
+Enter the debugger at the first executable statement in method **if\_oo\_adt\_classrun~main( )** and analyze the values of some variable and constant data objects.
+
+#### Steps
+
+1.  Set a breakpoint at the first statement that does not define a type or declare a data object.
+    
+    1.  Double-click the left-hand margin of the editor next to the line  loan\_remaining = loan\_total.to set a break point.
+        
+2.  Run the class as a console app and enter the debugger.
+    
+    1.  Press **F9** to run the class.
+        
+    2.  If you are asked whether you want to switch to the Debug perspective, mark _Remember my decision_ and choose _OK_.
+        
+3.  Display the value of data object **loan\_remaining** and **loan\_total** in the _Variables_ view.
+    
+    1.  In the current code line (the one with a green background) double-click loan\_remaining.
+        
+    2.  In the same code line, double-click **loan\_total**.
+        
+
+### Task 3: Control Program Execution
+
+Set break points and watch points. Execute single steps or resume execution until the next break point or watch point is reached. Supervise the value changes of the data objects.
+
+#### Steps
+
+1.  Execute a single step to debug the value assignment in the current line.
+    
+    1.  In the toolbar, choose _Step Into (F5)_ or press **F5**.
+        
+    2.  Check that the value of **loan\_remaining** changed from **0..00** to **5000.00**.
+        
+2.  Display the content of data object **spec\_repay\_mode**. Then execute another single step to see which WHEN branch of the CASE - control structure is executed.
+    
+    1.  In the next code line, double-click **spec\_repay\_mode**.
+        
+    2.  Press **F5** to see that the program jumps to code line WHEN 'Q'..
+        
+3.  Set a watch point for variable **loan\_remaining** and resume program execution. Where does the program execution stop again?
+    
+    1.  In the _Variables_ view, right-click on _LOAN\_REMAINING_ and choose _Set Watchpoint_.
+        
+    2.  In the toolbar, choose _Resume (F8)_ or press **F8**.
+        
+    3.  Program execution stops immediately after code line loan\_remaining = loan\_remaining - repayment\_month., also to be precise, in the next code line with executable code.
+        
+4.  Display the content of data object **repayment\_plan**. Then execute another single step to see how it is filled with the APPEND statement.
+    
+    1.  Double-click on **repayment\_plan** at the end of the APPEND statement.
+        
+    2.  Press **F5** to see how **repayment\_plan** is filled with a first row.
+        
+5.  Inspect the string template in the APPEND statement and relate it to the resulting first row in internal table **repayment\_plan**. Display the content of the data objects that appear in the embedded expressions.
+    
+    1.  Double-click the data objects that appear between the curly brackets to display their contents.
+        
+6.  Set another watch point for variable **repayment\_plan** and resume program execution for a few times. Whenever execution reaches one of the watch points, analyze the value of **loan\_remaining** and new rows are added to **repayment\_plan**.
+    
+    1.  In the _Variables_ view, right-click on _REPAYMENT\_PLAN_ and choose _Set Watchpoint_.
+        
+    2.  Press **F8** to resume program execution.
+        
+    3.  Analyze the data objects in the _Variables_ view and the _ABAP Internal Table (Debugger)_ view.
+        
+7.  After a while, set a statement break point for all EXIT statements and delete the two watch points.
+    
+    1.  Navigate to the _Breakpoints_ view.
+        
+    2.  In the toolbar of the _Breakpoints_ view, expand the dropdown button on the very left and choose _Add Statement Breakpoint ..._.
+        
+    3.  On the dialog window that appears, enter **EXIT** as search string, click on the value _EXIT_ in the hitlist, and choose _OK_.
+        
+    4.  In the _Breakpoints_ view, right-click the watch point _LOAN\_REMAINING_ and choose _Remove_.
+        
+    5.  In the _Breakpoints_ view, right-click the watch point _REPAYMENT\_PLAN_ and choose _Remove_.
+        
+8.  Resume program execution until you reach the first EXIT statement. Deactivate the statement breakpoint for the **EXIT** statement. Then execute single steps until you reach the output part of the program.
+    
+    1.  Press **F8** to resume program execution.
+        
+    2.  Switch to the _Breakpoints_ view and deselect the line that says **EXIT \[Statement\]**.
+        
+    3.  Press **F5** until you reach the first code line that starts with out->write(.
+        
+9.  Open the _Console_ view. Execute the remaining program and pursue the output on the _console_ view.
+    
+    Do not press **F5** to debug the output. Use **F6** instead.
+    
+    1.  Press **F6** several times until you reach the end of the application.
+        
+    2.  Analyze the addition output on the _Console_ view and compare it to the string template in the previous code line.
+        
+10.  When the application is terminated, do not forget to switch back to the _ABAP perspective_.
+    
+    1.  Choose _ABAP_ on the very right of the Eclipse toolbar.
