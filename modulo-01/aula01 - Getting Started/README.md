@@ -273,13 +273,11 @@ In your package, create an new ABAP class. Let the class implement interface **I
 
       a. In the editor, enter the following coding between ``METHOD if_oo_adt_classrun~main`` and ``ENDMETHOD.``:
 
-          ```abap
-
-          1
-          2 out->write( 'Hello World' ).
-          3
-
-          ```
+      ```abap
+      1
+      2 out->write( 'Hello World' ).
+      3
+      ```
 
 3. Activate and test your class.
 
