@@ -1045,3 +1045,394 @@ Use code completion to call the method **set_attributes** and handle the excepti
     a. Press **Ctrl + F3** to activate the class.
           
     b. Press **F9** to run the class.
+
+## Using Encapsulation to Ensure Consistency
+
+### Data Encapsulation
+
+![](https://learning.sap.com/service/media/topic/c3b6ae51-c7d6-43c0-8f49-8fdd96e86af5/S4D400_24_en-US_media/S4D400_24_en-US_images/01_-_Explain_encapsulation_001.png)
+
+In object-oriented programming, an object corresponds to a real-life object such as an employee, a vehicle, or, in our case, a flight connection. It has attributes that describe it, in the case of a flight connection, those are the carrier id and the flight number.
+
+Now let us consider what happens when a program that is using this object wants to provide values for these attributes. It is obvious that only those combinations of carrier id and flight number should be accepted that correspond to a flight connection in the real world.
+
+In object orientation, the client program should not be able to change the attribute values directly. Instead, it should need to call a method to perform this task. The method, which comes with the object, can then check whether the combination of carrier id and flight number is valid and, if this is not the case - reject the change.
+
+As developers of class lcl_connection, we can ensure the use of method set_attributes( ) by making attributes carrier_id and connection_id private, or at least read only.
+
+This concept is called data encapsulation; The information about the flight connection is managed by the connection object itself and cannot be manipulated by anyone else. This ensures that no other point in the program can bypass the check of the consistency - either knowingly or unknowingly. This is one of the major advantages of object-orientation.
+
+In object oriented programming, it is recommended to use data encapsulation as much as possible!
+
+![](https://learning.sap.com/service/media/topic/c3b6ae51-c7d6-43c0-8f49-8fdd96e86af5/S4D400_24_en-US_media/S4D400_24_en-US_images/01_-_Explain_encapsulation_002.png)
+
+With the public attributes we defined by now, it was possible to read and change the values of the attributes anywhere inside and outside the class.
+
+In order to restrict access to the attributes you have two options:
+
+1. Keep the DATA statement or CLASS-DATA statement in the public section and add addition READ-ONLY. In doing so, write access to the attribute is forbidden outside of the class, but read access is still possible.
+    
+    > **NOTE:** Addition READ-ONLY is only allowed in the public section of a class.
+    
+2. Move the DATA statement or CLASS-DATA statement from the public section to one of the other visibility sections, for example the private section. In doing so, read access and write access to the attribute is forbidden outside of the class.
+    
+    > **Hint:** ADT offers a quick fix to change the visibility of an attribute. To use it place the cursor in the attribute name, press **Ctrl + 1**, and choose Make <attribute> private.
+
+> **Tutorial:** [How To Use Private Attributes](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_2EF94ED3881D7EAE:demo)
+
+### Instance Constructor
+
+![](https://learning.sap.com/service/media/topic/c08b4b1a-506c-4bba-81a3-081f242bec39/S4D400_24_en-US_media/S4D400_24_en-US_images/02-_Use_Constructors_001.png)
+
+By making your attributes private - or read-only, at least - you can ensure that the client program uses the available set_attributes( ) method to set the values for attributes carrier_id and connection_id.
+
+But there is still potential for inconsistencies:
+
+- You cannot force the program to call set_attributes( ) for each new instance. As a result, there can be instances with initial values for carrier_id and connection_id.
+- The client program can call set_attributes( ) several times for the same instance. This should also not be possible.
+
+What you need is a technique to enforce non-initial values during instantiation and to prevent later changes.
+
+To solve these problems, object-oriented programming languages use constructor methods.
+
+![](https://learning.sap.com/service/media/topic/c08b4b1a-506c-4bba-81a3-081f242bec39/S4D400_24_en-US_media/S4D400_24_en-US_images/02-_Use_Constructors_002.png)
+
+The runtime system calls the constructor automatically when you create a new instance of the class, but you may not call it explicitly. Thus the constructor is guaranteed to run once and once only for each instance that you create.
+
+From a syntax perspective a constructor method has following properties:
+
+- a public instance method with the reserved name constructor
+- may have importing parameters, for example to obtain starting values for the attributes of the new instance
+- may raise exceptions
+
+> **NOTE:** In ABAP, it is not possible to define more than one constructor method in the same class.
+
+> **Hint:** In ADT, you can use a quick fix to generate a constructor method. To use this quick fix proceed as follows:
+>   1.  Either in the definition or implementation part, place the cursor in the class name and press ``Ctrl + 1``.
+>   2. From the list of available quick fixes, choose Generate constructor.
+>   3. On the dialog window that appears, select the attributes you want to initialize with the constructor and choose Finish
+> Once you generated the constructor you can adjust its definition and implementation to your needs.
+
+![](https://learning.sap.com/service/media/topic/c08b4b1a-506c-4bba-81a3-081f242bec39/S4D400_24_en-US_media/S4D400_24_en-US_images/02-_Use_Constructors_003.png)
+
+The example shows the constructor of class lcl_connection. The generated definition contains an importing parameter for each of the attributes carrier_id and connection_id. The generated parameters have the same names as the related attributes.
+
+The generated part of the implementation contains a value assignment for each of the attributes with the related importing parameter on the right. Self-reference me-> is needed to distinguish the attributes from the parameters of identical name.
+
+![](https://learning.sap.com/service/media/topic/c08b4b1a-506c-4bba-81a3-081f242bec39/S4D400_24_en-US_media/S4D400_24_en-US_images/02-_Use_Constructors_005.png)
+
+The example shows some manual additions to the generated constructor of class lcl_connection.
+
+In order to reject the creation of instances with initial values, a consistency check was added to the implementation and a RAISING clause to the definition of the constructor.
+
+Because the constructor is executed once and only once for each new instance of class lcl_connection, the constructor implementation is the perfect place to increment static attribute conn_counter.
+
+![](https://learning.sap.com/service/media/topic/c08b4b1a-506c-4bba-81a3-081f242bec39/S4D400_24_en-US_media/S4D400_24_en-US_images/02-_Use_Constructors_006.png)
+
+When you instantiate a class that has a constructor, the system calls the constructor method automatically. If the constructor has importing parameters, you pass them in the NEW expression exactly as you would pass parameters to a normal method.
+
+> **NOTE:** A constructor can have only importing parameters. Keyword EXPORTING is neither needed nor allowed in the NEW expression.
+
+If the constructor has exceptions, you must ensure that you catch them by enclosing the instantiation in a ``TRY… CATCH...ENDTRY`` block. If an constructor raises an exception, control returns immediately to the program containing the NEW expression. In this case, you do not receive a new instance of the class.
+
+> **Tutorial:** [How To Define An Instance Constructor](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_AA201DE9A603868E:demo)
+
+### Static Constructor
+
+![](https://learning.sap.com/service/media/topic/a501c233-9223-4d46-a49f-20633f540550/S4D400_24_en-US_media/S4D400_24_en-US_images/02-_Use_Constructors_007.png)
+
+While the instance constructor is called once when each instance of a class is created, you will sometimes need to perform actions once only for the entire class. For this purpose ABAP allows you to define a static constructor, also known as class constructor.
+
+The runtime system calls the static constructor once only when the class is addressed for the first time during the execution of a program.
+
+The first addressing of a class could be one of the following:
+
+- First instantiation of the class
+- First call of a static method
+- First access to a public static attribute
+
+> **NOTE:** This list is not complete. There are other actions (related to inheritance) that can cause a class to be addressed for the first time.
+
+A typical use case for the static constructor is the dynamic initialization of static attributes with non-initial values. Therefore it is important that the runtime calls the static constructor before creating the instance, calling the static method, or addressing the static attribute.
+
+From a syntax perspective a constructor method has following properties:
+
+- A public static method with the reserved name class_constructor
+- Without parameters or exceptions
+
+> **NOTE:** A static constructor must not have a signature because it is impossible to tell exactly when a class will be addressed for the first time.
+
+> **Hint:** In ADT, you can use a quick fix to generate a class constructor method. To use this quick fix proceed as follows:
+> 
+>   1.  Either in the definition or implementation part, place the cursor in the class name and press **Ctrl + 1**.
+>   2.  From the list of available quick fixes, choose Generate class constructor
+
+> **Tutorial:** [How To Debug The Execution Of Constructors](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_5189FB6B111ACAAE:demo)
+
+## Exercise - Use Private Attributes and a Constructor
+
+In this exercise, you make the the static attribute of your class read-only and the instance attributes private. You use a constructor to set their values.
+
+- **Template:** ``/LRN/CL_S4D400_CLS_METHODS`` (global Class)
+
+- **Solution:** ``/LRN/CL_S4D400_CLS_CONSTRUCTOR`` (global Class)
+
+### Task 1: Copy Template (Optional)
+
+Copy the template class. If you finished the previous exercise, you can skip this task and continue editing your class (``ZCL_##_METHODS``, **ZCL_##_LOCAL_CLASS** or **ZCL_##_INSTANCES**).
+
+#### Steps
+
+1. Copy class **/LRN/CL_S4D400_CLS_METHODS** to a class in your own package (suggested name: **ZCL_##_CONSTRUCTOR**, where ## stands for your group number).
+    
+    a. Open the source code of the global class **/LRN/CL_S4D400_CLS_METHODS**.
+          
+    b. Link the _Project Explorer_ view with the editor.
+          
+    c. In the _Project Explorer_ view, right-click the class **/LRN/CL_S4D400_CLS_METHODS** to open the context menu.
+          
+    d. From the context menu, choose _Duplicate ..._.
+          
+    e. Enter the name of your package in the _Package_ field. In the _Name_ field, enter the name **ZCL_##_CONSTRUCTOR**, where ## stands for your group number.
+          
+    f. Adjust the description and choose _Next_.
+          
+    g. Confirm the transport request and choose _Finish_.
+
+### Task 2: Make Attributes Private
+
+Change the visibility of the attributes **carrier_id** and **connection_id** to enforce the use of the methods **set_attributes( )** and **get_output( )**.
+
+#### Steps
+
+1. Set the visibility of the attribute **carrier_id** to private using a quick fix.
+    
+    a. Switch to the _Local Types_ tab.
+          
+    b. Go to the declaration of the attribute **carrier_id** in local class **lcl_connection**.
+          
+    c. Place the cursor on **carrier_id** and press **Ctrl + 1**.
+          
+    d. Double-click the suggestion *Make carrier_id private*.
+          
+    e. Check that the declaration of the attribute **carrier_id** has moved to the private section.
+    
+2. Set the visibility of the attribute **connection_id** to private using a quick fix.
+    
+    a.  Go to the declaration of the attribute **connection_id** in the local class **lcl_connection**.
+          
+    b.  Place the cursor on **connection_id** and press **Ctrl + 1**.
+          
+    c.  Double-click the suggestion *Make connection_id private*.
+          
+    d.  Check that the declaration of attribute **connection_id** has moved to the private section.
+
+### Task 3: Create Instance Constructor
+
+Replace the public method **set_attributes** with an instance constructor to ensure that the attributes are set during the creation of a new instance and that they are not changed afterward.
+
+#### Steps
+
+1. Comment out the definition and implementation of the method **set_attributes**.
+    
+    a. Select all lines that belong to the METHODS set_attributes statement, including the line with the period sign (.).
+          
+    b. Press **Ctrl + <** to add a star sign (*) in front of each selected line.
+          
+    c. Select all lines that belong to the implementation of the method **set_attributes** including the corresponding ENDMETHOD. statement and press **Ctrl + <** again.
+
+2. Add an instance constructor to the local class **lcl_connection** using a quick fix. Ensure that the constructor has importing parameters corresponding to attributes **carrier_id** and **connection_id**.
+    
+    a. Place the cursor on the name of the class and press **Ctrl + 1**.
+          
+    b. Double-click on _Generate constructor_.
+          
+    c. In the dialog box, ensure that **carrier_id** and **connection_id** are selected and choose _Finish_.
+
+3. Extend the generated constructor definition. Add exception **CX_ABAP_INVALID_VALUE** to the definition of the method **constructor**.
+    
+    a.  Navigate to the generated definition of the method **constructor**.
+          
+    b.  Adjust the code as follows:
+      ``` ABAP
+      METHODS constructor
+            IMPORTING
+              i_connection_id TYPE /dmo/connection_id
+              i_carrier_id    TYPE /dmo/carrier_id
+            RAISING
+              cx_ABAP_INVALID_VALUE.
+      ```
+    
+4. Extend the generated constructor implementation. If either of the importing parameters is initial, raise exception **CX_ABAP_INVALID_VALUE**.
+
+    a. Navigate from the definition to the implementation of the method **constructor**, for example, by placing the cursor on **constructor** and pressing **F3**.
+
+    b. Adjust the code as follows:
+
+      ``` ABAP
+      METHOD constructor.
+           
+          IF i_carrier_id IS INITIAL OR i_connection_id IS INITIAL.
+            RAISE EXCEPTION TYPE cx_abap_invalid_value.
+          ENDIF.
+          
+          me->connection_id = i_connection_id.
+          me->carrier_id    = i_carrier_id.
+          
+      ENDMETHOD. 
+      ```
+
+5. In the constructor implementation, add a statement to increase the value of the static attribute **conn_counter** by one. Make sure the statement is only executed if no exception was raised.
+
+    a. Adjust the code as follows:
+
+      ``` ABAP
+          me->connection_id = i_connection_id.
+          me->carrier_id    = i_carrier_id.
+             
+          conn_counter = conn_counter + 1.
+          
+      ENDMETHOD.
+      ```
+
+6. Make sure that it is not possible to change the value of **conn_counter** from outside the class.
+
+    a. Add READ-ONLY to the declaration of the static attribute **conn_counter**.
+
+    b. Adjust the code as follows:
+
+      ``` ABAP
+          CLASS-DATA conn_counter TYPE i READ-ONLY.
+      ```
+
+### Task 4: Use the Constructor
+
+Adjust the instantiation of class **lcl_connection** to supply the parameters of the instance constructor and handle the exception.
+
+#### Steps
+
+1. In method **if_oo_adt_classrun~main**, go to the NEW #( ) expression for the first instance of **lcl_connection**.
+    
+    a. Switch to the _Global Class_ tab.
+          
+    b. Find the first line with connection = NEW #( )..
+    
+2. In the NEW expression, supply the import parameters of **constructor**.
+    
+    > **Hint:** You can copy the parameter passing from the call of method **set_attributes** for this instance.
+    
+    a. Adjust the NEW expression as follows:
+    
+      ``` ABAP
+
+          connection = NEW #( 
+                              i_carrier_id    = 'LH'
+                              i_connection_id = '0400' 
+                            ).
+
+      ```
+
+3. Remove or comment out all calls of the method **set_attributes**.
+    
+    a. Select all lines that belong to the connection->set_attributes( ... ). statement, including the line with the closing bracket and the period sign (.).
+          
+    b. Press **Ctrl + <** to add a star sign (*) in front of each selected line.
+
+4. Move the instance creation into the TRY block of the exception handling.
+    
+    a. Move the TRY. statement up, to before the instance creation.
+          
+    b. Your first instance creation should now look like this:
+
+      ``` ABAP
+
+      TRY.
+          connection = NEW #( 
+                              i_carrier_id    = 'LH'
+                              i_connection_id = '0400'
+                            ).
+             
+      *         connection->set_attributes(
+      *           EXPORTING
+      *             i_carrier_id    = 'LH'
+      *             i_connection_id = '0400'
+      *         ).
+          
+          APPEND connection TO connections.
+          
+        CATCH cx_abap_invalid_value.
+          out->write( `Method call failed` ).
+      ENDTRY.
+
+      ```
+
+5. Repeat the previous steps for the other instances of your local class.
+
+    a. After this step, the implementation of the method **if_oo_adt_classrun~main** should look similar to this:
+      ``` ABAP
+
+      METHOD if_oo_adt_classrun~main.
+          
+          DATA connection TYPE REF TO lcl_connection.
+          DATA connections TYPE TABLE OF REF TO lcl_connection.
+          
+      * First Instance
+      *********************************************************************
+          TRY.
+            connection = NEW #( 
+                                i_carrier_id    = 'LH'
+                                i_connection_id = '0400'
+                              ).
+             
+      *         connection->set_attributes(
+      *           EXPORTING
+      *             i_carrier_id    = 'LH'
+      *             i_connection_id = '0400'
+      *         ).
+          
+              APPEND connection TO connections.
+          
+            CATCH cx_abap_invalid_value.
+              out->write( `Method call failed` ).
+          ENDTRY.
+          
+      * Second instance
+      *********************************************************************
+          TRY.
+            connection = NEW #(  
+                                i_carrier_id    = 'AA'
+                                i_connection_id = '0017'
+                              ).
+                  APPEND connection TO connections.
+          
+            CATCH cx_abap_invalid_value.
+              out->write( `Method call failed` ).
+          ENDTRY.
+          
+      * Third instance
+      *********************************************************************
+          TRY.
+            connection = NEW #(  
+                                i_carrier_id    = 'SQ'
+                                i_connection_id = '0001'
+                              ).
+                APPEND connection TO connections.
+          
+            CATCH cx_abap_invalid_value.
+              out->write( `Method call failed` ).
+          ENDTRY.
+          
+      * Output
+      *********************************************************************
+          LOOP AT connections INTO connection.
+            out->write( connection->get_output( ) ).
+          ENDLOOP.
+      ENDMETHOD.
+
+      ```
+    
+6. Activate the class. Execute it and debug the instantiation.
+    
+    a. Press **Ctrl + F3** to activate the class.
+          
+    b. Press **F9** to run the class.
