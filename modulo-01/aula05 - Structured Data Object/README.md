@@ -359,154 +359,139 @@ The first join is a left outer join of tables /dmo/connection and /dmo/airport, 
 
 The FIELDS clause, lists the airport names from both data sources, introducing aliases airport_from_name and airport_to_name to distinguish them from each other.
 
-Hint
-
-The brackets around the first join are optional. If they are omitted, the joins in the from clause are evaluated from left to right.
+> **Hint:** The brackets around the first join are optional. If they are omitted, the joins in the from clause are evaluated from left to right.
 
 ## Try It Out: Structured Data Objects in ABAP SQL
 
-1.  Like in the first exercise of this course, create a new global class that implements interface _IF\_OO\_ADT\_CLASSRUN_.
-2.  Copy the following code snippet to the implementation part of method _if\_oo\_adt\_classrun~main( )_:
+1. Like in the first exercise of this course, create a new global class that implements interface ``IF_OO_ADT_CLASSRUN``.
+2. Copy the following code snippet to the implementation part of method ``if_oo_adt_classrun~main( )``:
+
+  ``` ABAP
+
+      TYPES: BEGIN OF st_connection,
+                airport_from_id TYPE /dmo/airport_from_id,
+                airport_to_id   TYPE /dmo/airport_to_id,
+                carrier_name    TYPE /dmo/carrier_name,
+             END OF st_connection.
     
-    Code Snippet
-    
-    Copy codeSwitch to dark mode
-    
-    ```
-    
-    
-    123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113
-    
-        TYPES: BEGIN OF st_connection,
-                 airport_from_id TYPE /dmo/airport_from_id,
-                 airport_to_id   TYPE /dmo/airport_to_id,
-                 carrier_name    TYPE /dmo/carrier_name,
-               END OF st_connection.
-    
-        TYPES: BEGIN OF st_connection_short,
-                 DepartureAirport   TYPE /dmo/airport_from_id,
-                 DestinationAirport TYPE /dmo/airport_to_id,
-               END OF st_connection_short.
+      TYPES: BEGIN OF st_connection_short,
+                DepartureAirport   TYPE /dmo/airport_from_id,
+                DestinationAirport TYPE /dmo/airport_to_id,
+             END OF st_connection_short.
     
     
-        DATA connection TYPE st_connection.
+      DATA connection TYPE st_connection.
     
-        DATA connection_short TYPE st_connection_short.
+      DATA connection_short TYPE st_connection_short.
     
-        DATA connection_full TYPE /DMO/I_Connection.
+      DATA connection_full TYPE /DMO/I_Connection.
     
-    31. Example 1: Correspondence between FIELDS and INTO
-    32.*********************************************************************
+  * Example 1: Correspondence between FIELDS and INTO
+  *********************************************************************
     
-        SELECT SINGLE
-           FROM /DMO/I_Connection
-         FIELDS DepartureAirport, DestinationAirport, \_Airline-Name
+      SELECT SINGLE
+          FROM /DMO/I_Connection
+        FIELDS DepartureAirport, DestinationAirport, \_Airline-Name
           WHERE AirlineID = 'LH'
             AND ConnectionID = '0400'
            INTO @connection.
     
-        out->write(  `------------------------------` ).
-        out->write(  `Example 1: Field List and INTO` ).
-        out->write( connection ).
+      out->write(  `------------------------------` ).
+      out->write(  `Example 1: Field List and INTO` ).
+      out->write( connection ).
     
-    45. Example 2: FIELDS *
-    46.*********************************************************************
+  * Example 2: FIELDS *
+  *********************************************************************
     
-        SELECT SINGLE
+      SELECT SINGLE
           FROM /DMO/I_Connection
         FIELDS *
-         WHERE AirlineID = 'LH'
-           AND ConnectionID = '0400'
-          INTO @connection_full.
+          WHERE AirlineID = 'LH'
+            AND ConnectionID = '0400'
+           INTO @connection_full.
     
-        out->write(  `----------------------------` ).
-        out->write(  `Example 2: FIELDS * and INTO` ).
-        out->write( connection_full ).
+      out->write(  `----------------------------` ).
+      out->write(  `Example 2: FIELDS * and INTO` ).
+      out->write( connection_full ).
     
-    59. Example 3: INTO CORRESPONDING FIELDS
-    60.*********************************************************************
+  * Example 3: INTO CORRESPONDING FIELDS
+  *********************************************************************
     
-        SELECT SINGLE
+      SELECT SINGLE
           FROM /DMO/I_Connection
-        FIELDS *
-         WHERE AirlineID    = 'LH'
-           AND ConnectionID = '0400'
-          INTO CORRESPONDING FIELDS OF @connection_short.
+      FIELDS *
+        WHERE AirlineID    = 'LH'
+          AND ConnectionID = '0400'
+         INTO CORRESPONDING FIELDS OF @connection_short.
     
-        out->write(  `----------------------------------------------------` ).
-        out->write(  `Example 3: FIELDS * and INTO CORRESPONDING FIELDS OF` ).
-        out->write( connection_short ).
+      out->write(  `----------------------------------------------------` ).
+      out->write(  `Example 3: FIELDS * and INTO CORRESPONDING FIELDS OF` ).
+      out->write( connection_short ).
     
-    73. Example 4: Alias Names for Fields
-    74.*********************************************************************
+  * Example 4: Alias Names for Fields
+  *********************************************************************
     
-        CLEAR connection.
+      CLEAR connection.
     
-        SELECT SINGLE
+      SELECT SINGLE
           FROM /DMO/I_Connection
-        FIELDS DepartureAirport AS airport_from_id,
-               \_Airline-Name   AS carrier_name
-         WHERE AirlineID    = 'LH'
-           AND ConnectionID = '0400'
-          INTO CORRESPONDING FIELDS OF @connection.
+      FIELDS DepartureAirport AS airport_from_id,
+             \_Airline-Name   AS carrier_name
+        WHERE AirlineID    = 'LH'
+          AND ConnectionID = '0400'
+         INTO CORRESPONDING FIELDS OF @connection.
     
-        out->write(  `---------------------------------------------------` ).
-        out->write(  `Example 4: Aliases and INTO CORRESPONDING FIELDS OF` ).
-        out->write( connection ).
+      out->write(  `---------------------------------------------------` ).
+      out->write(  `Example 4: Aliases and INTO CORRESPONDING FIELDS OF` ).
+      out->write( connection ).
     
-    90. Example 5: Inline Declaration
-    91.*********************************************************************
+  * Example 5: Inline Declaration
+  *********************************************************************
     
-        SELECT SINGLE
+      SELECT SINGLE
           FROM /DMO/I_Connection
         FIELDS DepartureAirport,
                DestinationAirport AS ArrivalAirport,
                \_Airline-Name     AS carrier_name
-         WHERE AirlineID    = 'LH'
-           AND ConnectionID = '0400'
-          INTO @DATA(connection_inline).
+        WHERE AirlineID    = 'LH'
+          AND ConnectionID = '0400'
+         INTO @DATA(connection_inline).
     
-        out->write(  `-----------------------------------------` ).
-        out->write(  `Example 5: Aliases and Inline Declaration` ).
-        out->write( connection_inline ).
+      out->write(  `-----------------------------------------` ).
+      out->write(  `Example 5: Aliases and Inline Declaration` ).
+      out->write( connection_inline ).
     
-    106. Example 6: Joins
-    107.*********************************************************************
+  * Example 6: Joins
+  *********************************************************************
     
-        SELECT SINGLE
-          FROM (  /dmo/connection AS c
-          LEFT OUTER JOIN /dmo/airport AS f
-            ON c~airport_from_id = f~airport_id )
-          LEFT OUTER JOIN /dmo/airport AS t
-            ON c~airport_to_id = t~airport_id
-        FIELDS c~airport_from_id, c~airport_to_id,
-               f~name AS airport_from_name, t~name AS airport_to_name
-         WHERE c~carrier_id    = 'LH'
-           AND c~connection_id = '0400'
-          INTO @DATA(connection_join).
+      SELECT SINGLE
+        FROM (  /dmo/connection AS c
+        LEFT OUTER JOIN /dmo/airport AS f
+          ON c~airport_from_id = f~airport_id )
+        LEFT OUTER JOIN /dmo/airport AS t
+          ON c~airport_to_id = t~airport_id
+      FIELDS c~airport_from_id, c~airport_to_id,
+             f~name AS airport_from_name, t~name AS airport_to_name
+       WHERE c~carrier_id    = 'LH'
+        AND c~connection_id = '0400'
+       INTO @DATA(connection_join).
     
-        out->write(  `------------------------------------------` ).
-        out->write(  `Example 6: Join of Connection and Airports` ).
-        out->write( connection_join ).
-    
-    
-    
-    ```
-    
-3.  Press CTRL + F3 to activate the class and F9 to execute the console app.
-4.  Analyze the console output. Debug the program, play around with the source code to get familiar with the concepts.
+      out->write(  `------------------------------------------` ).
+      out->write(  `Example 6: Join of Connection and Airports` ).
+      out->write( connection_join ).
+
+  ```
+
+3. Press ``CTRL + F3`` to activate the class and ``F9`` to execute the console app.
+4. Analyze the console output. Debug the program, play around with the source code to get familiar with the concepts.
 
 ## Use a Structured Data Object
 
 In this exercise, you declare a structured attribute, fill it using a SELECT statement and access the structure components.
 
-#### Template:
+- **Template:** ``/LRN/CL_S4D400_DBS_CDS`` (global Class)
 
--   /LRN/CL\_S4D400\_DBS\_CDS (global Class)
-
-#### Solution:
-
--   /LRN/CL\_S4D400\_STS\_STRUCTURE (global Class)
+- **Solution:** ``/LRN/CL_S4D400_STS_STRUCTURE`` (global Class)
 
 ### Task 1: Copy Template
 
@@ -514,135 +499,103 @@ Copy the template class. Alternatively, copy your solution of the previous exerc
 
 #### Steps
 
-1.  Copy the class **/LRN/CL\_S4D400\_DBS\_CDS** to a class in your own package (suggested name: **ZCL\_##\_STRUCTURE**, where ## stands for your group number).
+1. Copy the class **/LRN/CL_S4D400_DBS_CDS** to a class in your own package (suggested name: **ZCL_##_STRUCTURE**, where ## stands for your group number).
     
-      1.  Open the source code of the global class **/LRN/CL\_S4D400\_DBS\_CDS**.
+    a. Open the source code of the global class **/LRN/CL_S4D400_DBS_CDS**.
           
-      2.  Link the _Project Explorer_ view with the editor.
+    b. Link the _Project Explorer_ view with the editor.
           
-      3.  In the _Project Explorer_ view, right-click the class **/LRN/CL\_S4D400\_DBS\_CDS** to open the context menu.
+    c. In the _Project Explorer_ view, right-click the class **/LRN/CL_S4D400_DBS_CDS** to open the context menu.
           
-      4.  From the context menu, choose _Duplicate ..._.
+    d. From the context menu, choose _Duplicate ..._.
           
-      5.  Enter the name of your package in the _Package_ field. In the _Name_ field, enter the name **ZCL\_##\_STRUCTURE**, where ## stands for your group number.
+    e. Enter the name of your package in the _Package_ field. In the _Name_ field, enter the name **ZCL_##_STRUCTURE**, where ## stands for your group number.
           
-      6.  Adjust the description and choose _Next_.
+    f. Adjust the description and choose _Next_.
           
-      7.  Confirm the transport request and choose _Finish_.
+    g. Confirm the transport request and choose _Finish_.
 
 ### Task 2: Declare a Structured Data Object
 
-In the local class, declare a structured attribute **details** to replace the scalar attributes **airport\_from\_id**, **airport\_to\_id**, and **carrier\_name**. Begin by defining a private structure type **st\_details** inside the local class.
+In the local class, declare a structured attribute **details** to replace the scalar attributes **airport_from_id**, **airport_to_id**, and **carrier_name**. Begin by defining a private structure type **st_details** inside the local class.
 
 #### Steps
 
-1.  Switch to the local class **lcl\_connection**.
+1. Switch to the local class **lcl_connection**.
     
-      1.  In the global class, choose _Local Types_.
+    a. In the global class, choose _Local Types_.
     
-2.  Define a **private** structure type **st\_details** with the following components:
+2. Define a **private** structure type **st_details** with the following components:
     
-    #### Components of structure type **st\_details**:
-    
-     Component Name | Data Type |
+    | Component Name | Data Type |
     | --- | --- |
-     11.*DepartureAirport** | **/dmo/airport\_from\_id** |
-     12.*DestinationAirport** | **/dmo/airport\_to\_id** |
-     13.*AirlineName** | **/dmo/carrier\_name** |
+    | **DepartureAirport** | ``/dmo/airport_from_id`` |
+    | **DestinationAirport** | ``/dmo/airport_to_id`` |
+    | **AirlineName** | ``/dmo/carrier_name`` |
     
-      1.  After line PRIVATE SECTION., add the following code:
+    a. After line ``PRIVATE SECTION.``, add the following code:
           
-          Code Snippet
-          
-          Copy codeSwitch to dark mode
-          
-          ```
-          
-          
-          12345678
-          
-              TYPES: 
-                BEGIN OF st_details,
+      ``` ABAP
+
+          TYPES: 
+            BEGIN OF st_details,
                   DepartureAirport   TYPE /dmo/airport_from_id,
                   DestinationAirport TYPE   /dmo/airport_to_id,
                   AirlineName        TYPE   /dmo/carrier_name,
-                END OF st_details.
-          
-          
-          
-          ```
+            END OF st_details.
+
+      ```
+
+3. Comment or remove the declaration of attributes **airport_from_id**, **airport_to_id**, and **carrier_name**.
     
-3.  Comment or remove the declaration of attributes **airport\_from\_id**, **airport\_to\_id**, and **carrier\_name**.
+    a. Select the lines with the three DATA statements.
+          
+    b. Press **Ctrl + <** to add a star sign (*) in front of each selected line.
     
-      1.  Select the lines with the three DATA statements.
-          
-      2.  Press **Ctrl + <** to add a star sign (\*) in front of each selected line.
+4. Declare a new private instance attribute **details** and type it with structure type **st\_details.**.
     
-4.  Declare a new private instance attribute **details** and type it with structure type **st\_details.**.
-    
-      1.  Adjust the code as follows:
+    a. Adjust the code as follows:
+
+      ``` ABAP
+
+      *    DATA airport_from_id TYPE /dmo/airport_from_id.
+      *    DATA airport_to_id   TYPE /dmo/airport_to_id.
+      *
+      *    DATA carrier_name    TYPE /dmo/carrier_name.
           
-          Code Snippet
-          
-          Copy codeSwitch to dark mode
-          
-          ```
-          
-          
-          123456789
-          
-          12.    DATA airport_from_id TYPE /dmo/airport_from_id.
-          13.    DATA airport_to_id   TYPE /dmo/airport_to_id.
-          14.
-          15.    DATA carrier_name    TYPE /dmo/carrier_name.
-          
-              DATA details TYPE st_details.
-          
-          
-          
-          
-          ```
+          DATA details TYPE st_details.
+  
+      ```
 
 ### Task 3: Access Structure Components
 
-Use the components of the structured attribute **details** in the method **get\_output**.
+Use the components of the structured attribute **details** in the method **get_output**.
 
 #### Steps
 
-1.  Adjust the implementation of the method **get\_output**. Replace any access to the attributes **airport\_from\_id**, **airport\_to\_id**, and **carrier\_name** with the corresponding component of attribute **details**.
+1. Adjust the implementation of the method **get_output**. Replace any access to the attributes **airport_from_id**, **airport_to_id**, and **carrier_name** with the corresponding component of attribute **details**.
     
-    Hint
+    > **Hint:** Do not type in the component names manually! After typing the structure component selector (-), press **Ctrl + Space** to get a list of all components.
     
-    Do not type in the component names manually! After typing the structure component selector (-), press **Ctrl + Space** to get a list of all components.
-    
-      1.  Navigate to the implementation of the method **get\_output**.
+    a. Navigate to the implementation of the method **get_output**.
           
-      2.  Adjust the APPEND statements as follows:
+    b. Adjust the APPEND statements as follows:
           
-          Code Snippet
+      ``` ABAP
+
+      *     APPEND |--------------------------------|             TO r_output.
+      *     APPEND |Carrier:     { carrier_id } { carrier_name }| TO r_output.
+      *     APPEND |Connection:  { connection_id   }|             TO r_output.
+      *     APPEND |Departure:   { airport_from_id }|             TO r_output.
+      *     APPEND |Destination: { airport_to_id   }|             TO r_output.
           
-          Copy codeSwitch to dark mode
-          
-          ```
-          
-          
-          12345678910111213
-          
-          14.    APPEND |--------------------------------|             TO r_output.
-          15.    APPEND |Carrier:     { carrier_id } { carrier_name }| TO r_output.
-          16.    APPEND |Connection:  { connection_id   }|             TO r_output.
-          17.    APPEND |Departure:   { airport_from_id }|             TO r_output.
-          18.    APPEND |Destination: { airport_to_id   }|             TO r_output.
-          
-              APPEND |--------------------------------|                    TO r_output.
-              APPEND |Carrier:     { carrier_id } { details-airlinename }| TO r_output.
-              APPEND |Connection:  { connection_id   }|                    TO r_output.
-              APPEND |Departure:   { details-departureairport     }|       TO r_output.
-              APPEND |Destination: { details-destinationairport   }|       TO r_output.
-          
-          
-          
-          ```
+          APPEND |--------------------------------|                    TO r_output.
+          APPEND |Carrier:     { carrier_id } { details-airlinename }| TO r_output.
+          APPEND |Connection:  { connection_id   }|                    TO r_output.
+          APPEND |Departure:   { details-departureairport     }|       TO r_output.
+          APPEND |Destination: { details-destinationairport   }|       TO r_output.
+
+      ```
 
 ### Task 4: Fill the Structured Attribute in the SELECT Statement
 
@@ -650,78 +603,53 @@ Use the structured attribute as the target of the SELECT statement in the **cons
 
 #### Steps
 
-1.  Adjust the SELECT statement in the implementation of the **constructor** method. Replace the list of data objects in the INTO clause with the structured attribute **details**.
+1. Adjust the SELECT statement in the implementation of the **constructor** method. Replace the list of data objects in the INTO clause with the structured attribute **details**.
     
-      1.  Navigate to the implementation of method **constructor**.
+    a. Navigate to the implementation of method **constructor**.
           
-      2.  Adjust the SELECT statement as follows:
-          
-          Code Snippet
-          
-          Copy codeSwitch to dark mode
-          
-          ```
-          
-          
-          123456789
-          
-          SELECT SINGLE
-                FROM /DMO/I_Connection
-              FIELDS DepartureAirport, DestinationAirport, \_Airline-Name 
-               WHERE AirlineID    = @i_carrier_id
-                 AND ConnectionID = @i_connection_id
-          19.       INTO ( @airport_from_id, @airport_to_id, @carrier_name  ).
-                INTO @details.
-          
-          
-          
-          ```
+    b. Adjust the SELECT statement as follows:
+
+      ``` ABAP
+
+      SELECT SINGLE
+            FROM /DMO/I_Connection
+          FIELDS DepartureAirport, DestinationAirport, \_Airline-Name 
+            WHERE AirlineID    = @i_carrier_id
+              AND ConnectionID = @i_connection_id
+      *        INTO ( @airport_from_id, @airport_to_id, @carrier_name  ).
+             INTO @details.
+
+      ```
+
+2. Optional: Use syntax variant ``INTO CORRESPONDING FIELDS OF @details.``.
     
-2.  Optional: Use syntax variant INTO CORRESPONDING FIELDS OF @details..
-    
-      1.  In the SELECT statement, replace INTO @details.with the following code:
+    a. In the SELECT statement, replace ``INTO @details.`` with the following code:
           
-          Code Snippet
+      ``` ABAP
+
+          INTO CORRESPONDING FIELDS OF @details.
+
+      ```
           
-          Copy codeSwitch to dark mode
+    b. Add alias name **AirlineName** for the path expression.
           
-          ```
-          
-          
-          123
-          
-            INTO CORRESPONDING FIELDS OF @details.
-          
-          
-          
-          ```
-          
-      2.  Add alias name **AirlineName** for the path expression.
-          
-      3.  The SELECT statement should now look like this:
-          
-          Code Snippet
-          
-          Copy codeSwitch to dark mode
-          
-          ```
-          
-          
-          12345678
-          
-          SELECT SINGLE
-                FROM /DMO/I_Connection
-              FIELDS DepartureAirport, DestinationAirport, \_Airline-Name as AirlineName
-               WHERE AirlineID    = @i_carrier_id
-                 AND ConnectionID = @i_connection_id
-                INTO CORRESPONDING FIELDS OF @details.
-          
-          
-          
-          ```
-    
-3.  Activate the class. Execute it and analyze the console output. Check that the output displays data for all attributes.
-    
-      1.  Press **Ctrl + F3** to activate the class.
-          
-      2.  Press **F9** to run the class.
+    c. The SELECT statement should now look like this:
+
+      ``` ABAP
+
+      SELECT SINGLE
+            FROM /DMO/I_Connection
+          FIELDS DepartureAirport, DestinationAirport, \_Airline-Name as AirlineName
+            WHERE AirlineID    = @i_carrier_id
+              AND ConnectionID = @i_connection_id
+             INTO CORRESPONDING FIELDS OF @details.
+ 
+      ```
+
+3. Activate the class. Execute it and analyze the console output. Check that the output displays data for all attributes.
+
+      1. Press **Ctrl + F3** to activate the class.
+
+      2. Press **F9** to run the class.
+
+ 
