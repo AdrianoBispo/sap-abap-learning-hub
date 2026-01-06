@@ -139,3 +139,203 @@ Analyze the behavior implementation of the business object ``/DMO/R_AGENCYTP``.
     
     a.  Go to the tab _Local Types_. Alternatively, expand root node ``/DMO/BP_R_AGENCYTP`` in the _Outline_ view and choose ``LHC_AGENCY``.
 
+## Entity Manipulation Language (EML)
+
+![](https://learning.sap.com/service/media/topic/e8f44333-1046-4cc6-9baf-a494a9b2358c/S4D400_24_en-US_media/S4D400_24_en-US_images/22_Using_EML_001.png)
+
+*EML* consists of statements that you can use to manipulate the data of a business object. You use the ``READ ENTITIES`` statement to read data; for all other operations, you use the ``MODIFY ENTITIES`` statement with the corresponding addition ``UPDATE``, ``CREATE``, or ``DELETE``.
+
+> **NOTE:** You can only use the ``CREATE``, ``UPDATE``, and ``DELETE`` operations if the behavior definition of the business object interface contains the corresponding ``use create``, ``use update``, or ``use delete`` directive. Trying to use a prohibited operation causes a syntax error.
+
+![](https://learning.sap.com/service/media/topic/e8f44333-1046-4cc6-9baf-a494a9b2358c/S4D400_24_en-US_media/S4D400_24_en-US_images/22_Using_EML_002.png)
+
+To read data from a business object, you use the ``READ ENTITIES`` statement. The statement has two important parameters: one internal table containing the keys of the data that you want to read and another containing the results of the query.
+
+These internal tables have special data types called derived behavior definition types. The system creates them automatically when a developer creates a behavior definition and they contain some or all of the fields of the business object along with further fields that control how the system processes a particular request. You declare the internal tables using the new addition ``TYPE TABLE FOR <operation>`` in the ``DATA``statement.
+
+![](https://learning.sap.com/service/media/topic/e8f44333-1046-4cc6-9baf-a494a9b2358c/S4D400_24_en-US_media/S4D400_24_en-US_images/22_Using_EML_003.png)
+
+The type ``TABLE FOR READ IMPORT`` contains the key field or fields of the business object. The _%control_ structure is a generated structure that indicates which fields of the business object are actually used in the current operation. In our example, the system fills the structure automatically and you do not have to worry about it.
+
+The type ``TABLE FOR READ RESULT`` contains all of the fields of the business object. This table contains the result set after the read statement has been executed.
+
+![](https://learning.sap.com/service/media/topic/e8f44333-1046-4cc6-9baf-a494a9b2358c/S4D400_24_en-US_media/S4D400_24_en-US_images/22_Using_EML_004.png)
+
+The read import table contains a column for each key field of the business object, in this case, _agencyID_. To read a particular agency, you add a row to the internal table containing its key. As well as the key field or fields, the table contains the columns *%is_draft* and _%control_. With *%is_draft* you can specify whether you want to read draft data or active data. The _%control_ structure is used to specify which fields are to be read.
+
+> **NOTE:** In our example, we only read active data and the _%control_ structure is filled by the framework, based on the field list after addition FIELDS.
+
+![](https://learning.sap.com/service/media/topic/e8f44333-1046-4cc6-9baf-a494a9b2358c/S4D400_24_en-US_media/S4D400_24_en-US_images/22_Using_EML_005.png)
+
+When you process a business object, using the ``READ ENTITIES OF`` or ``MODIFY ENTITIES OF`` statement, you must first specify the name of the behavior definition. This is followed by keyword ENTITY and the name of the entity with which you want to work. If the entity has an alias name, you should use it, here.
+
+> **NOTE:** You cannot use the alias name after addition OF. This is because technically speaking, you specify the name of the behavior definition at this point, not the name of the entity.
+
+![](https://learning.sap.com/service/media/topic/e8f44333-1046-4cc6-9baf-a494a9b2358c/S4D400_24_en-US_media/S4D400_24_en-US_images/22_Using_EML_006.png)
+
+The ``READ ENTITIES`` statement reads business object data according to the keys that you pass in the ``WITH`` addition. It returns the result in the internal table in the ``RESULT`` addition. In the statement, you can also specify which fields of the business object you need. In this example, we have used the ``ALL FIELDS`` addition to return all of the fields. However, if you only require a subset of the fields, you can use the variant ``FIELDS`` ( _field1, field2_ … ) to restrict the amount of data that is read.
+
+> **NOTE:** Unlike in a SELECT statement, the field list is not comma-separated.
+
+![](https://learning.sap.com/service/media/topic/e8f44333-1046-4cc6-9baf-a494a9b2358c/S4D400_24_en-US_media/S4D400_24_en-US_images/22_Using_EML_007.png)
+
+The result table contains all of the fields of the business object, along with the control field *%is_draft*. If your ``READ ENTITIES`` statement contains the ``ALL FIELDS`` variant, the system provides the values of all of the fields. If you use the FIELDS ( _f1_ … _fn_ ) variant, only the fields that you requested will be filled.
+
+> **NOTE:** Key fields are always filled, even if they are not specified in the FIELDS ( _f1_ … _fn_ ) variant.
+
+![](https://learning.sap.com/service/media/topic/e8f44333-1046-4cc6-9baf-a494a9b2358c/S4D400_24_en-US_media/S4D400_24_en-US_images/22_Using_EML_008.png)
+
+If you want to update data, you declare an internal table with ``TYPE TABLE FOR UPDATE``. This contains all of the fields of the business object and also the _%control_ structure. In our variant of the ``MODIFY ENTITIES`` statement, the system fills the _%control_ structure automatically.
+
+![](https://learning.sap.com/service/media/topic/e8f44333-1046-4cc6-9baf-a494a9b2358c/S4D400_24_en-US_media/S4D400_24_en-US_images/22_Using_EML_009.png)
+
+![](https://learning.sap.com/service/media/topic/e8f44333-1046-4cc6-9baf-a494a9b2358c/S4D400_24_en-US_media/S4D400_24_en-US_images/22_Using_EML_010.png)
+
+The ``MODIFY ENTITIES`` statement updates data in the transactional buffer. In the ``FIELDS`` addition, you specify which fields should be changed. In the ``WITH`` addition, you pass the internal table containing the data that you want to update.
+
+When you use *EML* outside the business object, you must use the ``COMMIT ENTITIES`` statement to trigger the save sequence and persist the data in the database.
+
+> NOTE: Later in this course we will use *EML* inside the behavior implementation of the business object. Inside the behavior implementation it is neither necessary nor allowed to trigger the commit with ``COMMIT ENTITIES``.
+
+[How to Implement an EML Statement](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_3AD00A7871CEE7A8:demo)
+
+## Exercise - Modify Data Using EML
+
+In this exercise, you use *EML* to perform the standard operation _update_ for the root entity of the business object **/DMO/R_AGENCYTP**. To avoid later inconsistencies, you do not access the business object directly but via its released stable interface **/DMO/_I_AGENCYTP.**
+
+- **Template:** *none*
+- **Solution:** ``/LRN/CL_S4D400_BOS_EML`` (global Class)
+
+### Task 1: Analyze Current Data
+
+Use the _Data Preview_ tool to check the current name of the travel agency with ID "0700##", where ## stands for your group number.)
+
+#### Steps
+
+1. Open the definition of the CDS view entity **/DMO/I_AgencyTP**.
+    
+    a. If you still have the data definition **/DMO/I_AGENCYTP** open from the previous exercise, switch to the corresponding tab. Otherwise, press **Ctrl + Shift + A** to open the ABAP development object.
+    
+2. Open the _Data Preview_ tool.
+    
+    a. Right-click anywhere in the source code to open the context menu.
+          
+    b. From the context menu, choose _Open With_→_Data Preview_.
+    
+3. Check the current name of the travel agency with ``ID "0700##"``, where ## stands for your group number.
+    
+    a. Scroll down to the entry with the value "0700##" in the column **AgencyID** and take a note of the value in the column **Name**.
+
+### Task 2: Create a Global Class
+
+In your own package, create a new ABAP class.
+
+#### Steps
+
+1. Create a new ABAP class called **ZCL_##_EML**, where **##** stands for your group number. Ensure that the class implements the interface **IF_OO_ADT_CLASSRUN**.
+    
+    a. Choose _File_→_New_→_ABAP Class_.
+          
+    b. Enter the name of your package in the _Package_ field. In the _Name_ field, enter the name **ZCL_##_EML**, where **##** is your group number. Enter a description.
+          
+    c. In the _Interfaces_ group box, choose _Add_.
+          
+    d. Enter **IF_OO_ADT_CLASSRUN**. When the interface appears in the hit list, double-click it to add it to the class definition.
+          
+    e. Choose _Next_.
+          
+    f. Select your transport request and choose _Finish_.
+
+### Task 3: Update Data
+
+Implement an *EML* statement to change the name of the travel agency with ``ID "0700##"``. ( **##** stands for your group number.)
+
+#### Steps
+
+1. In the method **IF_OO_ADT_CLASSRUN~MAIN**, declare an internal table with the correct derived type for an *EML* update of entity **/DMO/I_AgencyTP** (suggested name: **agencies_upd)**.
+    
+    a.  Add the following code:
+          
+      ``` ABAP
+      DATA agencies_upd TYPE TABLE FOR UPDATE /DMO/I_AgencyTP.
+      ```
+    
+2. Fill the internal table with a single line containing **"0700##"** as the value for the column **AGENCYID** (where **##** stands for your group number) and any new value for the column **NAME**.
+    
+    a. After the data declaration, add some code similar to the following code:
+
+      ``` ABAP
+      agencies_upd = VALUE #( ( agencyid = '0700##' name = 'Some fancy new name' ) ).
+      ```
+    
+3. Implement an *EML* statement ``MODIFY ENTITIES`` for the business object interface **/DMO/I_AgencyTP**. Update the data of the root entity, ensuring that only the field **NAME** is changed.
+    
+    > **Hint:** Remember that the interface behavior defines alias name **/DMO/Agency** for the root entity **/DMO/I_AgencyTP**.
+    
+    a. At the end of the method, add the following code:
+
+      ``` ABAP
+
+          MODIFY ENTITIES OF /dmo/i_agencytp
+            ENTITY /dmo/agency
+            UPDATE FIELDS ( name )
+              WITH agencies_upd.
+
+      ```
+    
+4. In order to get some visible result from the application, write a text literal to the console using the method **out->write**.
+    
+    a. After the ``MODIFY ENTITIES`` statement, add the following code:
+
+      ``` ABAP
+        out->write( `Method execution finished!`  ).
+      ```
+    
+5. Activate and test the class.
+    
+    a. Press **Ctrl + F3** to activate the class.
+          
+    b. Press **F9** to run the class.
+    
+6. Check whether the new name has been written to the database.
+    
+    a. Return to the data preview for CDS view entity **/DMO/I_AgencyTP**.
+          
+    b. From the toolbar of the _Data Preview_ tab, choose _Refresh_.
+    
+7. Add the ``COMMIT ENTITIES`` statement to your code to commit the changes.
+    
+    a. Return to the method **IF_OO_ADT_CLASSRUN~MAIN** in your global class **ZCL_##_EML**.
+          
+    b. Adjust the code as follows:
+
+      ``` ABAP
+
+      METHOD if_oo_adt_classrun~main.
+          
+        DATA agencies_upd TYPE TABLE FOR UPDATE /dmo/i_agencytp.
+          
+        agencies_upd = VALUE #( ( agencyid = '0700##' name = 'Some fancy new name' ) ).
+          
+        MODIFY ENTITIES OF /dmo/i_agencytp
+          ENTITY /dmo/agency
+          UPDATE FIELDS ( name )
+            WITH agencies_upd.
+          
+        COMMIT ENTITIES.
+          
+        out->write( `Method execution finished!`  ).
+          
+      ENDMETHOD.
+
+      ```
+    
+8. Activate and test the class again. Confirm that the changes are now in the database.
+    
+    a.  Press **Ctrl + F3** to activate the class.
+          
+    b.  Press **F9** to run the class.
+          
+    c.  Return to the data preview for the CDS view entity **/DMO/I_AgencyTP**.
+          
+    d.  From the toolbar of the _Data Preview_ tab, choose _Refresh_.

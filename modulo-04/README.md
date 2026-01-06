@@ -1,6 +1,6 @@
 # 🔹Módulo 4: Programação ABAP Intermediária
 
-O material foi construído com base no curso [Intermediate ABAP Programming da plataforma SAP Learning](https://learning.sap.com/courses/intermediate-abap-programming)) que é voltado para desenvolvedores que já possuem conhecimentos básicos em ABAP e desejam aprofundar suas habilidades. Ele tem uma carga horária de aproximadamente **23 horas** e cobre tópicos essenciais para escrever código ABAP mais eficiente, seguro e bem estruturado.
+O material foi construído com base no curso ["Deepening Your ABAP Programming Knowledge" da plataforma SAP Learning](https://learning.sap.com/courses/deepening-your-abap-programming-knowledge) que é voltado para desenvolvedores que já possuem conhecimentos básicos em ABAP e desejam aprofundar suas habilidades. Ele tem uma carga horária de aproximadamente **23 horas** e cobre tópicos essenciais para escrever código ABAP mais eficiente, seguro e bem estruturado.
 
 ## 🎯Objetivos do Curso
 - Aprimorar a análise e testes de código ABAP.
