@@ -12,22 +12,22 @@ Ao final desta aula, o estudante deverá ser capaz de:
 4. Utilizar a sintaxe moderna de instanciação com o operador NEW, incluindo a passagem de parâmetros para o construtor.  
 5. Entender a diferença entre membros de **Instância** e membros **Estáticos**.
 
-### **1\. Classes Globais vs. Classes Locais: Onde codificar?**
+### **1. Classes Globais vs. Classes Locais: Onde codificar?**
 
 No ecossistema ABAP, a Orientação a Objetos (OO) é a espinha dorsal do desenvolvimento moderno (RAP). Embora a sintaxe seja idêntica, o escopo de uso difere:
 
-* **Classes Globais (Global Classes \- Prefixo ZCL\_):**  
+* **Classes Globais (Global Classes - Prefixo ZCL_):**  
   * **Definição:** Criadas através do ABAP Development Tools (ADT/Eclipse) ou SE24. São objetos de repositório independentes.  
   * **Visibilidade:** Visíveis por todo o sistema SAP. Qualquer programa, função ou outra classe pode instanciá-las.  
   * **Uso:** Lógica de negócio reutilizável, APIs públicas, Entidades de Negócio.  
-* **Classes Locais (Local Classes \- Prefixo LCL\_):**  
+* **Classes Locais (Local Classes - Prefixo LCL_):**  
   * **Definição:** Definidas *dentro* de um artefato maior (como um Programa Executável, uma Function Group ou, o mais comum, dentro da aba "Local Types" de uma Classe Global).  
-  * **Visibilidade:** Restrita. Elas só existem dentro do artefato que as contém. Uma classe local definida dentro da classe ZCL\_A não pode ser vista pela classe ZCL\_B.  
+  * **Visibilidade:** Restrita. Elas só existem dentro do artefato que as contém. Uma classe local definida dentro da classe ZCL_A não pode ser vista pela classe ZCL_B.  
   * **Uso:**  
     * **Classes Auxiliares (Helpers):** Para quebrar uma lógica complexa interna sem poluir o repositório global com classes que só servem para uma tarefa específica.  
     * **Testes Unitários (ABAP Unit):** Este é o uso mais crítico. Todos os testes unitários são escritos como classes locais (FOR TESTING) que simulam o comportamento da classe principal.
 
-### **2\. A Anatomia de uma Classe: Contrato vs. Ação**
+### **2. A Anatomia de uma Classe: Contrato vs. Ação**
 
 Uma classe ABAP não é um bloco monolítico. Ela é dividida em duas partes obrigatórias que funcionam como uma promessa e seu cumprimento.
 
@@ -35,12 +35,12 @@ Uma classe ABAP não é um bloco monolítico. Ela é dividida em duas partes obr
 
 Aqui descrevemos a "interface" da classe. Definimos os tipos de dados, as constantes e as assinaturas dos métodos (parâmetros de entrada e saída). Nenhuma linha de lógica executável (como IF, LOOP) entra aqui.
 
-CLASS lcl\_exemplo DEFINITION.  
+CLASS lcl_exemplo DEFINITION.  
   PUBLIC SECTION.  
-    DATA: mv\_nome TYPE string.      " Atributo de Instância  
-    CLASS-DATA: gv\_contador TYPE i. " Atributo Estático (Compartilhado)  
+    DATA: mv_nome TYPE string.      " Atributo de Instância  
+    CLASS-DATA: gv_contador TYPE i. " Atributo Estático (Compartilhado)  
       
-    METHODS: constructor IMPORTING iv\_nome TYPE string. " Método Especial  
+    METHODS: constructor IMPORTING iv_nome TYPE string. " Método Especial  
     METHODS: executar.  
 ENDCLASS.
 
@@ -48,10 +48,10 @@ ENDCLASS.
 
 Aqui escrevemos o código ABAP real. Cada método declarado na DEFINITION deve ter sua correspondente implementação aqui.
 
-CLASS lcl\_exemplo IMPLEMENTATION.  
+CLASS lcl_exemplo IMPLEMENTATION.  
   METHOD constructor.  
-    mv\_nome \= iv\_nome.  
-    gv\_contador \= gv\_contador \+ 1\. " Incrementa contador global da classe  
+    mv_nome = iv_nome.  
+    gv_contador = gv_contador + 1. " Incrementa contador global da classe  
   ENDMETHOD.
 
   METHOD executar.  
@@ -67,24 +67,24 @@ O encapsulamento é vital para manutenção. Se tudo for público, qualquer dese
 2. **PROTECTED SECTION:** A área da família. Acessível pela própria classe e por suas classes filhas (herança). Usado para permitir que subclasses reutilizem lógica interna sem expô-la ao mundo.  
 3. **PRIVATE SECTION:** O cofre. Acessível *apenas* pela própria classe. É onde escondemos a complexidade. Se você mudar a lógica de um método privado, tem a garantia de que nenhum código externo quebrará, pois ninguém de fora consegue chamá-lo.
 
-### **3\. Instanciação Moderna: O Operador NEW**
+### **3. Instanciação Moderna: O Operador NEW**
 
 A criação de objetos evoluiu para tornar o código mais fluído e legível.
 
 #### **Sintaxe Antiga vs. Moderna**
 
 * **Antigo (CREATE OBJECT):** Exigia a declaração prévia da variável com o tipo exato, ocupando várias linhas.  
-  DATA: lo\_cliente TYPE REF TO lcl\_cliente.  
-  CREATE OBJECT lo\_cliente  
+  DATA: lo_cliente TYPE REF TO lcl_cliente.  
+  CREATE OBJECT lo_cliente  
     EXPORTING  
-      iv\_id \= '100'.
+      iv_id = '100'.
 
-* **Moderno (NEW):** Permite instanciação inline. O tipo é inferido (\#) ou explícito.  
+* **Moderno (NEW):** Permite instanciação inline. O tipo é inferido (#) ou explícito.  
   " Inferência de tipo (se o lado esquerdo já estiver tipado ou for claro)  
-  DATA(lo\_cliente) \= NEW lcl\_cliente( iv\_id \= '100' ).
+  DATA(lo_cliente) = NEW lcl_cliente( iv_id = '100' ).
 
-  " Uso direto em chamadas de método (sem variável auxiliar\!)  
-  lo\_fatura-\>processar( io\_cliente \= NEW lcl\_cliente( '100' ) ).
+  " Uso direto em chamadas de método (sem variável auxiliar!)  
+  lo_fatura->processar( io_cliente = NEW lcl_cliente( '100' ) ).
 
 #### **O Método CONSTRUCTOR**
 
@@ -93,123 +93,123 @@ Ao usar NEW, o método especial constructor da classe é chamado automaticamente
 * Ele é usado para **inicializar** o objeto (ex: carregar dados obrigatórios).  
 * Se o construtor tiver parâmetros IMPORTING, eles devem ser passados dentro dos parênteses do NEW ... ( ).
 
-### **4\. Exemplo Prático Expandido: Calculadora de IMC com Estado**
+### **4. Exemplo Prático Expandido: Calculadora de IMC com Estado**
 
 Neste exemplo avançado, criamos uma classe local que possui um **Construtor** para configurar a unidade de medida (Métrica ou Imperial) e mantemos o estado interno.
 
-" \-----------------------------------------------------------------------  
-" 1\. DEFINIÇÃO DA CLASSE LOCAL  
-" \-----------------------------------------------------------------------  
-CLASS lcl\_bmi\_service DEFINITION.  
+" -----------------------------------------------------------------------  
+" 1. DEFINIÇÃO DA CLASSE LOCAL  
+" -----------------------------------------------------------------------  
+CLASS lcl_bmi_service DEFINITION.  
   PUBLIC SECTION.  
     " Enumeração simples para tipos de unidade  
     CONSTANTS:  
-      BEGIN OF co\_unit,  
+      BEGIN OF co_unit,  
         metric   TYPE char1 VALUE 'M', " Metros/Kg  
         imperial TYPE char1 VALUE 'I', " Polegadas/Libras  
-      END OF co\_unit.
+      END OF co_unit.
 
-    TYPES: ty\_bmi TYPE p LENGTH 8 DECIMALS 2\.
+    TYPES: ty_bmi TYPE p LENGTH 8 DECIMALS 2.
 
     " O Construtor define o estado inicial do objeto  
     METHODS: constructor  
-      IMPORTING iv\_unit\_type TYPE char1 DEFAULT co\_unit-metric.
+      IMPORTING iv_unit_type TYPE char1 DEFAULT co_unit-metric.
 
-    METHODS: calculate\_bmi  
+    METHODS: calculate_bmi  
       IMPORTING  
-        iv\_weight     TYPE p  
-        iv\_height     TYPE p  
+        iv_weight     TYPE p  
+        iv_height     TYPE p  
       RETURNING  
-        VALUE(rv\_bmi) TYPE ty\_bmi.
+        VALUE(rv_bmi) TYPE ty_bmi.
 
   PRIVATE SECTION.  
     " Atributo privado para guardar a configuração da unidade  
-    DATA: mv\_unit\_type TYPE char1.
+    DATA: mv_unit_type TYPE char1.
 
     " Método auxiliar privado (Encapsulamento)  
-    METHODS: convert\_to\_metric  
-      IMPORTING iv\_val        TYPE p  
-                iv\_type       TYPE char1  
-      RETURNING VALUE(rv\_val) TYPE p.  
+    METHODS: convert_to_metric  
+      IMPORTING iv_val        TYPE p  
+                iv_type       TYPE char1  
+      RETURNING VALUE(rv_val) TYPE p.  
 ENDCLASS.
 
-" \-----------------------------------------------------------------------  
-" 2\. IMPLEMENTAÇÃO DA CLASSE LOCAL  
-" \-----------------------------------------------------------------------  
-CLASS lcl\_bmi\_service IMPLEMENTATION.
+" -----------------------------------------------------------------------  
+" 2. IMPLEMENTAÇÃO DA CLASSE LOCAL  
+" -----------------------------------------------------------------------  
+CLASS lcl_bmi_service IMPLEMENTATION.
 
   METHOD constructor.  
     " Guarda a preferência de unidade na instância  
-    mv\_unit\_type \= iv\_unit\_type.  
+    mv_unit_type = iv_unit_type.  
   ENDMETHOD.
 
-  METHOD calculate\_bmi.  
-    DATA: lv\_weight\_kg TYPE p DECIMALS 2,  
-          lv\_height\_m  TYPE p DECIMALS 2\.
+  METHOD calculate_bmi.  
+    DATA: lv_weight_kg TYPE p DECIMALS 2,  
+          lv_height_m  TYPE p DECIMALS 2.
 
     " Normaliza os dados baseando-se na configuração do objeto  
-    IF mv\_unit\_type \= co\_unit-metric.  
-      lv\_weight\_kg \= iv\_weight.  
-      lv\_height\_m  \= iv\_height.  
+    IF mv_unit_type = co_unit-metric.  
+      lv_weight_kg = iv_weight.  
+      lv_height_m  = iv_height.  
     ELSE.  
       " Conversão simplificada para Imperial  
-      lv\_weight\_kg \= iv\_weight \* '0.453'. " Libras para Kg  
-      lv\_height\_m  \= iv\_height \* '0.025'. " Polegadas para Metros  
+      lv_weight_kg = iv_weight * '0.453'. " Libras para Kg  
+      lv_height_m  = iv_height * '0.025'. " Polegadas para Metros  
     ENDIF.
 
     " Proteção contra divisão por zero  
-    IF lv\_height\_m \<= 0\.  
-      rv\_bmi \= 0\.  
+    IF lv_height_m <= 0.  
+      rv_bmi = 0.  
       RETURN.  
     ENDIF.
 
     " Cálculo final (Sempre em métrico internamente)  
-    rv\_bmi \= lv\_weight\_kg / ( lv\_height\_m \* lv\_height\_m ).  
+    rv_bmi = lv_weight_kg / ( lv_height_m * lv_height_m ).  
   ENDMETHOD.
 
-  METHOD convert\_to\_metric.  
+  METHOD convert_to_metric.  
     " Implementação futura se necessário...  
-    rv\_val \= iv\_val.  
+    rv_val = iv_val.  
   ENDMETHOD.
 
 ENDCLASS.
 
-" \-----------------------------------------------------------------------  
-" 3\. CLASSE GLOBAL (Consumidor)  
-" \-----------------------------------------------------------------------  
-CLASS zcl\_health\_app DEFINITION  
+" -----------------------------------------------------------------------  
+" 3. CLASSE GLOBAL (Consumidor)  
+" -----------------------------------------------------------------------  
+CLASS zcl_health_app DEFINITION  
   PUBLIC  
   FINAL  
   CREATE PUBLIC .
 
   PUBLIC SECTION.  
-    INTERFACES if\_oo\_adt\_classrun .  
+    INTERFACES if_oo_adt_classrun .  
 ENDCLASS.
 
-CLASS zcl\_health\_app IMPLEMENTATION.
+CLASS zcl_health_app IMPLEMENTATION.
 
-  METHOD if\_oo\_adt\_classrun\~main.  
+  METHOD if_oo_adt_classrun~main.  
       
     " A. Instanciando configurado para sistema MÉTRICO (Padrão)  
-    DATA(lo\_metric\_calc) \= NEW lcl\_bmi\_service( ).   
+    DATA(lo_metric_calc) = NEW lcl_bmi_service( ).   
       
-    DATA(lv\_bmi\_br) \= lo\_metric\_calc-\>calculate\_bmi(   
-        iv\_weight \= 80     " 80kg  
-        iv\_height \= '1.80' " 1.80m  
+    DATA(lv_bmi_br) = lo_metric_calc->calculate_bmi(   
+        iv_weight = 80     " 80kg  
+        iv_height = '1.80' " 1.80m  
     ).  
-    out-\>write( |IMC (Brasil): { lv\_bmi\_br }| ).
+    out->write( |IMC (Brasil): { lv_bmi_br }| ).
 
     " B. Instanciando configurado para sistema IMPERIAL  
     " Passamos o parâmetro para o CONSTRUTOR aqui  
-    DATA(lo\_usa\_calc) \= NEW lcl\_bmi\_service(   
-        iv\_unit\_type \= lcl\_bmi\_service=\>co\_unit-imperial   
+    DATA(lo_usa_calc) = NEW lcl_bmi_service(   
+        iv_unit_type = lcl_bmi_service=>co_unit-imperial   
     ).
 
-    DATA(lv\_bmi\_us) \= lo\_usa\_calc-\>calculate\_bmi(   
-        iv\_weight \= 176  " \~80kg em libras  
-        iv\_height \= 70   " \~1.78m em polegadas  
+    DATA(lv_bmi_us) = lo_usa_calc->calculate_bmi(   
+        iv_weight = 176  " ~80kg em libras  
+        iv_height = 70   " ~1.78m em polegadas  
     ).  
-    out-\>write( |IMC (USA): { lv\_bmi\_us }| ).
+    out->write( |IMC (USA): { lv_bmi_us }| ).
 
   ENDMETHOD.
 

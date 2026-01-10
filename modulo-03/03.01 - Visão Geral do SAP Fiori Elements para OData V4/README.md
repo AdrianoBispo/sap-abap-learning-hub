@@ -11,7 +11,7 @@ Ao final desta aula, o estudante deverá ser capaz de:
 3. Identificar e descrever a estrutura dos principais **Floorplans** (Modelos de Página): List Report e Object Page, compreendendo a jornada do usuário entre eles.  
 4. Reconhecer as vantagens estratégicas da abordagem **Metadata-Driven**, incluindo a redução do custo de manutenção (TCO) e a garantia de conformidade com o SAP Fiori Design Guidelines.
 
-### **1\. O Que é SAP Fiori Elements?**
+### **1. O Que é SAP Fiori Elements?**
 
 No desenvolvimento web tradicional (e no início do SAPUI5), o programador era um "artesão". Para criar uma tela de cadastro, ele desenhava cada botão, tabela e campo de entrada manualmente usando HTML, JavaScript e CSS. Embora flexível, esse método ("Freestyle") é custoso, propenso a erros visuais e difícil de manter. Se a SAP mudasse o design dos botões, você teria que reescrever código em centenas de aplicativos.
 
@@ -20,7 +20,7 @@ O **SAP Fiori Elements** é uma biblioteca de **modelos de interface (templates)
 * **Como funciona (A Analogia do Lego):** Em vez de moldar argila (Freestyle), você recebe blocos prontos (Elements). Você não codifica "Crie um botão azul aqui". Você anota no backend: "Esta entidade é editável". O Fiori Elements lê essa intenção e desenha automaticamente a tela correta, com os botões de Salvar/Cancelar nos lugares padronizados, validações de erro e comportamento responsivo.  
 * **O Resultado:** Apps padronizados que oferecem uma experiência de usuário consistente. Um usuário que aprende a usar um app de "Vendas" saberá intuitivamente usar um app de "RH", pois ambos se comportam exatamente da mesma maneira.
 
-### **2\. Por que OData V4?**
+### **2. Por que OData V4?**
 
 O **ABAP RESTful Application Programming Model (RAP)** utiliza nativamente a versão mais recente do protocolo OData: **OData V4**. Embora o V2 ainda seja muito usado em sistemas legados, o V4 é o padrão para o futuro (S/4HANA).
 
@@ -31,20 +31,20 @@ O **ABAP RESTful Application Programming Model (RAP)** utiliza nativamente a ver
 * **Agrupamento de Requisições ($batch):** O gerenciamento de chamadas em lote é mais eficiente, permitindo que a UI agrupe múltiplas alterações em um único "pacote" HTTP, garantindo atomicidade da transação.  
 * **Padrão Futuro:** Todas as novas funcionalidades do Fiori Elements (como o Flexible Programming Model) são desenvolvidas primariamente para V4.
 
-### **3\. Desenvolvimento Guiado por Metadados (Metadata-Driven)**
+### **3. Desenvolvimento Guiado por Metadados (Metadata-Driven)**
 
 A "mágica" do Fiori Elements reside na dissociação entre a lógica de apresentação e a renderização. A interface não é desenhada no JavaScript; ela é **projetada** no Backend.
 
 **O Fluxo da Informação:**
 
 1. **Backend (A Intenção):** Na sua CDS View ou Metadata Extension, você aplica uma anotação semântica.  
-   * *Exemplo:* @UI.lineItem: \[{ position: 10 }\] no campo SalesOrder.  
+   * *Exemplo:* @UI.lineItem: [{ position: 10 }] no campo SalesOrder.  
 2. **Serviço OData (O Transporte):** O SAP Gateway traduz essa anotação CDS para o vocabulário padrão do OData (XML de Metadados). O navegador recebe não apenas os dados ("Pedido 100"), mas também a instrução de como mostrá-los ("Este campo é a primeira coluna da tabela").  
 3. **Frontend (A Renderização):** O componente Fiori Elements lê o documento de metadados ($metadata). Ao encontrar a anotação de LineItem, ele instancia dinamicamente uma SmartTable e insere a coluna. Se você mudar a anotação no backend, a tela muda sozinha no próximo refresh.
 
 **Resumo:** "Você define a *semântica* (o quê é o dado e como ele se comporta) no Backend, e o Fiori Elements define a *renderização* (como desenhar o HTML) no Frontend."
 
-### **4\. Os Floorplans (Modelos) Principais**
+### **4. Os Floorplans (Modelos) Principais**
 
 O Fiori Elements oferece vários modelos (Overview Page, Analytical List Page), mas a espinha dorsal de 90% das aplicações transacionais RAP é o par **List Report & Object Page**.
 
@@ -64,7 +64,7 @@ O Fiori Elements oferece vários modelos (Overview Page, Analytical List Page), 
 * **Sections (Seções):** O corpo da página é dividido em abas ou seções de rolagem (Anchor Navigation). Cada seção agrupa campos relacionados (ex: "Dados Gerais", "Participantes").  
 * **Função:** Visualizar todos os detalhes, editar dados (com rascunho automático), e navegar para sub-itens (ex: ver a lista de Voos dentro de uma Viagem).
 
-### **5\. Vantagens do Fiori Elements no RAP**
+### **5. Vantagens do Fiori Elements no RAP**
 
 Por que escolher Fiori Elements em vez de contratar um desenvolvedor Frontend para fazer uma tela customizada?
 
@@ -88,9 +88,9 @@ Por que escolher Fiori Elements em vez de contratar um desenvolvedor Frontend pa
 
 #### **Fluxo de Renderização**
 
-1. **CDS View (Backend):** Define Dados \+ Anotações (@UI).  
-2. **OData Service (Gateway):** Publica Dados \+ Metadados (Vocabulário UI).  
-3. **Fiori Elements App (Frontend):** Consome o Serviço \-\> Interpreta Metadados \-\> Gera a Tela HTML.
+1. **CDS View (Backend):** Define Dados + Anotações (@UI).  
+2. **OData Service (Gateway):** Publica Dados + Metadados (Vocabulário UI).  
+3. **Fiori Elements App (Frontend):** Consome o Serviço -> Interpreta Metadados -> Gera a Tela HTML.
 
 ### **📝 Quiz de Fixação**
 

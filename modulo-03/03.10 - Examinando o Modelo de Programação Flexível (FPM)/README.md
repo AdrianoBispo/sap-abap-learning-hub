@@ -11,7 +11,7 @@ Ao final desta aula, o estudante deverá ser capaz de:
 3. Utilizar **Extension Points** estrategicamente para inserir seções, colunas ou ações customizadas (JavaScript/XML) sem quebrar o suporte a upgrades do aplicativo padrão.  
 4. Reconhecer o papel das **Controller Extensions** para injetar lógica de negócio customizada, manipulando o ciclo de vida da página e interagindo com a ExtensionAPI.
 
-### **1\. O Dilema: Padrão vs. Flexível**
+### **1. O Dilema: Padrão vs. Flexível**
 
 Historicamente, o desenvolvimento de interfaces SAP Fiori apresentava uma dicotomia frustrante para arquitetos e desenvolvedores:
 
@@ -21,7 +21,7 @@ Historicamente, o desenvolvimento de interfaces SAP Fiori apresentava uma dicoto
 A Solução (FPM):  
 O Flexible Programming Model (FPM), introduzido com o OData V4, permite o melhor dos dois mundos. Ele permite que você mantenha 90% da página como Fiori Elements padrão (barato/rápido/estável) e injete código customizado apenas nos 10% que realmente precisam de algo especial. Você não "quebra" o Fiori Elements para customizar; você o "estende" de forma suportada.
 
-### **2\. Building Blocks (O "Lego" da SAP)**
+### **2. Building Blocks (O "Lego" da SAP)**
 
 A grande inovação técnica do FPM são os Building Blocks.  
 Imagine que você decidiu criar uma Seção Customizada (uma View XML própria) para desenhar um layout de dashboard complexo que o padrão não suporta. Porém, dentro desse dashboard, você quer mostrar uma lista de materiais.  
@@ -31,18 +31,18 @@ Com o FPM, você usa **Building Blocks** (namespace sap.fe.macros). São "tags m
 
 **Exemplo de Poder:**
 
-\<\!-- Dentro da sua View XML Customizada \--\>  
-\<macros:Table metaPath="@com.sap.vocabularies.UI.v1.LineItem" id="MySmartTable" /\>
+<!-- Dentro da sua View XML Customizada -->  
+<macros:Table metaPath="@com.sap.vocabularies.UI.v1.LineItem" id="MySmartTable" />
 
 Com apenas essa linha, o sistema renderiza uma tabela Fiori Elements completa, conectada ao serviço OData, com barra de ferramentas, exportação para Excel, variantes e personalização de colunas, tudo lendo as anotações (@UI.lineItem) que você já definiu no Backend (ADT).
 
 **Outros Building Blocks Comuns:**
 
-* \<macros:FilterBar\>: Barra de filtros inteligente.  
-* \<macros:Field\>: Campo de formulário com F4 (Value Help) e validação.  
-* \<macros:Chart\>: Gráficos analíticos baseados em anotações.
+* <macros:FilterBar>: Barra de filtros inteligente.  
+* <macros:Field>: Campo de formulário com F4 (Value Help) e validação.  
+* <macros:Chart>: Gráficos analíticos baseados em anotações.
 
-### **3\. Tipos de Extensão**
+### **3. Tipos de Extensão**
 
 O FPM oferece pontos de inserção precisos onde podemos "injetar" nossa customização na estrutura padrão do aplicativo:
 
@@ -67,7 +67,7 @@ Insere uma coluna na tabela do List Report ou Object Page que contém controles 
 * **Técnica:** Fragmento XML injetado na definição da tabela.  
 * **Uso:** Mostrar um Micro Chart (Sparkline) dentro da linha, um Slider para ajuste rápido de valores, botões de ação inline específicos (ex: "Adicionar ao Carrinho"), ou formatação condicional complexa que anotações não cobrem.
 
-### **4\. Controller Extensions**
+### **4. Controller Extensions**
 
 Quando adicionamos uma View ou Fragmento Customizado, inevitavelmente precisamos de lógica (JavaScript) para manipular eventos (cliques, mudanças de valor). No FPM, não substituímos o controlador padrão da página; nós o estendemos.
 
@@ -87,14 +87,14 @@ Dentro da sua extensão, você tem acesso ao objeto this.base.getExtensionAPI().
 * Navegar para outras páginas.  
 * Gerenciar mensagens de erro.
 
-### **5\. Como Implementar (Fiori Tools)**
+### **5. Como Implementar (Fiori Tools)**
 
 Embora seja tecnicamente possível editar o manifest.json manualmente para registrar extensões, é propenso a erros de sintaxe. A recomendação é usar o **Page Map** (visto na Aula 04).
 
 **Fluxo de Trabalho Visual:**
 
 1. Abra o projeto no VS Code / BAS.  
-2. Clique com botão direito em webapp \> **Show Page Map**.  
+2. Clique com botão direito em webapp > **Show Page Map**.  
 3. Selecione a página desejada (ex: Object Page da entidade Travel).  
 4. Clique no ícone de lápis ou **Add Custom Section**.  
 5. Defina o título da seção (ex: "Geolocalização") e a posição (ex: "After General Information").  
@@ -103,26 +103,26 @@ Embora seja tecnicamente possível editar o manifest.json manualmente para regis
    * O arquivo .js (Controller Extension) para a lógica.  
    * As entradas complexas de configuração no manifest.json.
 
-### **6\. Exemplo Visual**
+### **6. Exemplo Visual**
 
 Visualize como o FPM permite a "mistura" de componentes:
 
-\[ Object Page Standard \- Viagem 100 \]  
-\-------------------------------------------------------  
-| Header (Standard \- RAP)                             |  
-| \[ Título: Viagem para Berlim \] \[ Status: Aprovado \] |  
-\-------------------------------------------------------  
+[ Object Page Standard - Viagem 100 ]  
+-------------------------------------------------------  
+| Header (Standard - RAP)                             |  
+| [ Título: Viagem para Berlim ] [ Status: Aprovado ] |  
+-------------------------------------------------------  
 |                                                     |  
-| \[ Section: Geral (Standard \- RAP) \]                 |  
-|   \- Form: ID, Data, Cliente (Gerado via Anotações)  |  
+| [ Section: Geral (Standard - RAP) ]                 |  
+|   - Form: ID, Data, Cliente (Gerado via Anotações)  |  
 |                                                     |  
-| \[ Section: Geolocalização (CUSTOM \- FPM) \]          | \<--- Sua View XML Injetada  
-|   \- \[ Container HTML: Google Maps API \]             | \<--- Seu JavaScript Customizado  
-|   \- \[ \<macros:Field id="Lat" /\> \]                   | \<--- Building Block (Lê do OData)  
+| [ Section: Geolocalização (CUSTOM - FPM) ]          | <--- Sua View XML Injetada  
+|   - [ Container HTML: Google Maps API ]             | <--- Seu JavaScript Customizado  
+|   - [ <macros:Field id="Lat" /> ]                   | <--- Building Block (Lê do OData)  
 |                                                     |  
-| \[ Section: Itens (Standard \- RAP) \]                 |  
-|   \- Tabela de Voos                                  |  
-\-------------------------------------------------------
+| [ Section: Itens (Standard - RAP) ]                 |  
+|   - Tabela de Voos                                  |  
+-------------------------------------------------------
 
 ### **🧠 Material para Estudo (Flashcards & Resumo)**
 
@@ -139,8 +139,8 @@ Visualize como o FPM permite a "mistura" de componentes:
 | Cenário | Solução Recomendada | Motivo |
 | :---- | :---- | :---- |
 | CRUD simples de tabela | **Fiori Elements Padrão (RAP)** | Mais rápido, zero código JS. |
-| Tabela com uma coluna de botão extra que chama API externa | **Fiori Elements \+ Custom Action** | Mantém a tabela padrão, adiciona só a lógica necessária. |
-| Página com layout exótico (ex: Mapa interativo) | **Fiori Elements \+ Custom Section** | Isola o mapa numa seção, mantém o resto padrão. |
+| Tabela com uma coluna de botão extra que chama API externa | **Fiori Elements + Custom Action** | Mantém a tabela padrão, adiciona só a lógica necessária. |
+| Página com layout exótico (ex: Mapa interativo) | **Fiori Elements + Custom Section** | Isola o mapa numa seção, mantém o resto padrão. |
 | Dashboard analítico complexo com interações não-padrão | **Freestyle UI5** (ou FPM Heavy) | O esforço de adaptar o padrão seria maior que fazer do zero. |
 
 ### **📝 Quiz de Fixação**

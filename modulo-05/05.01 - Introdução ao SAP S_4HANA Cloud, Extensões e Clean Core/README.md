@@ -8,10 +8,10 @@ Ao final desta aula, o estudante deverá ser capaz de:
 
 1. Definir com precisão o conceito de **Clean Core** e articular por que ele é o pilar fundamental para garantir a agilidade de inovação e a segurança nos upgrades do S/4HANA.  
 2. Diferenciar e selecionar a estratégia correta entre as três camadas de extensibilidade: **Key User** (In-App), **On-Stack Developer** (Embedded Steampunk) e **Side-by-Side** (BTP).  
-3. Compreender as restrições técnicas (Language Version 5\) e os benefícios de arquitetura do modelo **ABAP Cloud** em comparação ao ABAP Clássico.  
+3. Compreender as restrições técnicas (Language Version 5) e os benefícios de arquitetura do modelo **ABAP Cloud** em comparação ao ABAP Clássico.  
 4. Identificar as nuances de governança e implementação entre **S/4HANA Cloud Public Edition** (SaaS puro) e **Private Edition** (Flexível), aplicando os princípios de Clean Core em ambos os cenários.
 
-### **1\. O Problema: O "Spaghetti" do Passado e a Dívida Técnica**
+### **1. O Problema: O "Spaghetti" do Passado e a Dívida Técnica**
 
 No mundo do SAP ECC (On-Premise) tradicional, a flexibilidade era uma faca de dois gumes. Os clientes tinham poder total para modificar o sistema, mas isso gerou uma enorme dívida técnica ao longo das décadas.
 
@@ -26,7 +26,7 @@ Projetos de upgrade de versão (ex: EHP7 para EHP8) tornaram-se eventos traumát
 
 * *Resultado:* As empresas paravam de atualizar seus sistemas por medo, ficando presas em versões obsoletas e perdendo inovações. Na era da nuvem, onde atualizações ocorrem trimestralmente, esse modelo é insustentável.
 
-### **2\. A Solução: Estratégia Clean Core**
+### **2. A Solução: Estratégia Clean Core**
 
 O princípio **Clean Core** (Núcleo Limpo) é a resposta da SAP para eliminar esse ciclo vicioso. A ideia central é simples: o código padrão da SAP (o Core) deve permanecer intocado, tratado como uma "Caixa Preta" selada.
 
@@ -36,7 +36,7 @@ O princípio **Clean Core** (Núcleo Limpo) é a resposta da SAP para eliminar e
 2. **Uso Exclusivo de APIs Públicas:** O código customizado só pode interagir com o sistema SAP através de **Released APIs** (Whitelisted). Isso inclui CDS Views liberadas, BAdIs Cloud e Classes utilitárias marcadas como estáveis (Contrato C1). Se a SAP mudar o funcionamento interno, a API pública permanece estável, garantindo que sua extensão não quebre.  
 3. **Separação Física ou Lógica:** As customizações devem estar claramente separadas do código standard, seja rodando em uma plataforma externa (Side-by-Side) ou em um ambiente isolado dentro do stack (ABAP Cloud).
 
-### **3\. O Modelo de Extensibilidade em 3 Camadas**
+### **3. O Modelo de Extensibilidade em 3 Camadas**
 
 Para viabilizar o Clean Core sem perder a capacidade de adaptar o ERP às necessidades específicas do negócio, a SAP definiu três formas oficiais de extensão:
 
@@ -68,19 +68,19 @@ Para viabilizar o Clean Core sem perder a capacidade de adaptar o ERP às necess
   * Integração com sistemas de terceiros.  
 * **Comunicação:** O App no BTP conversa com o S/4HANA exclusivamente via APIs públicas (OData, SOAP) ou Eventos (Event Mesh).
 
-### **4\. ABAP Cloud: O Novo Padrão de Desenvolvimento**
+### **4. ABAP Cloud: O Novo Padrão de Desenvolvimento**
 
-O termo "ABAP Cloud" não se refere a um produto que você compra, mas sim a um **Modelo de Desenvolvimento** e Governança. Ele é o padrão *de facto* para o S/4HANA Public Cloud e a recomendação forte para o Private Cloud/On-Premise a partir da versão 2022\.
+O termo "ABAP Cloud" não se refere a um produto que você compra, mas sim a um **Modelo de Desenvolvimento** e Governança. Ele é o padrão *de facto* para o S/4HANA Public Cloud e a recomendação forte para o Private Cloud/On-Premise a partir da versão 2022.
 
 **Pilares Técnicos do ABAP Cloud:**
 
 1. **Core Data Services (CDS):** O modelo de dados é definido exclusivamente via CDS, abandonando a criação de Views na SE11.  
 2. **RAP (RESTful ABAP Programming):** O modelo transacional único para criar serviços e aplicações Fiori.  
-3. **Released Objects (Whitelisting):** O compilador verifica cada objeto que você usa. Tentar fazer um SELECT \* FROM MARA resultará em erro de sintaxe, pois MARA não é liberada. Você deve usar a interface pública I\_Product.  
+3. **Released Objects (Whitelisting):** O compilador verifica cada objeto que você usa. Tentar fazer um SELECT * FROM MARA resultará em erro de sintaxe, pois MARA não é liberada. Você deve usar a interface pública I_Product.  
 4. **ADT (Eclipse):** A única ferramenta permitida. O SAP GUI é obsoleto para desenvolvimento neste modelo.  
 5. **Language Version 5:** Uma configuração técnica no compilador ABAP que desativa comandos legados (como CALL SCREEN, WRITE, SUBMIT REPORT) e impõe o uso de sintaxe moderna e segura.
 
-### **5\. Public vs. Private Edition: Nuances de Adoção**
+### **5. Public vs. Private Edition: Nuances de Adoção**
 
 * **S/4HANA Cloud Public Edition:** É um SaaS (Software as a Service) puro, multi-tenant.  
   * **Governança:** A infraestrutura é gerenciada pela SAP.  
@@ -88,8 +88,8 @@ O termo "ABAP Cloud" não se refere a um produto que você compra, mas sim a um 
   * **Upgrades:** Automáticos e obrigatórios.  
 * **S/4HANA Cloud Private Edition:** É um ambiente dedicado (single-tenant), oferecendo controle total similar ao On-Premise.  
   * **Governança:** O cliente tem mais controle sobre a janela de upgrades.  
-  * **Flexibilidade:** Você tem acesso técnico ao SAP GUI e ao código legado (Tier 3 \- Classic Extensibility).  
-  * **O Desafio:** A SAP recomenda fortemente seguir o Clean Core (Tier 1 e 2\) para garantir "Cloud Readiness". No entanto, é permitido usar código legado (Tier 3\) para facilitar migrações (Brownfield), com o entendimento de que isso gera dívida técnica para o futuro.
+  * **Flexibilidade:** Você tem acesso técnico ao SAP GUI e ao código legado (Tier 3 - Classic Extensibility).  
+  * **O Desafio:** A SAP recomenda fortemente seguir o Clean Core (Tier 1 e 2) para garantir "Cloud Readiness". No entanto, é permitido usar código legado (Tier 3) para facilitar migrações (Brownfield), com o entendimento de que isso gera dívida técnica para o futuro.
 
 ### **🧠 Material para Estudo (Flashcards & Resumo)**
 
@@ -105,11 +105,11 @@ O termo "ABAP Cloud" não se refere a um produto que você compra, mas sim a um 
 #### **Diagrama de Decisão: Onde desenvolver minha extensão?**
 
 1. **É uma mudança simples de campo, layout ou texto?**  
-   * Sim \-\> **Key User Extensibility (Tier 1\)**. Rápido, barato, sem código.  
+   * Sim -> **Key User Extensibility (Tier 1)**. Rápido, barato, sem código.  
 2. **A lógica exige acesso intensivo a dados do ERP e alta performance (ex: validação complexa de transação)?**  
-   * Sim \-\> **On-Stack ABAP Cloud (Tier 2\)**. Evita latência de rede, mantém os dados no lugar.  
+   * Sim -> **On-Stack ABAP Cloud (Tier 2)**. Evita latência de rede, mantém os dados no lugar.  
 3. **Preciso integrar com serviços de IA, Mobile, ou criar um portal externo para parceiros?**  
-   * Sim \-\> **Side-by-Side BTP (Tier 3\)**. Desacopla o ciclo de vida, usa tecnologias abertas.
+   * Sim -> **Side-by-Side BTP (Tier 3)**. Desacopla o ciclo de vida, usa tecnologias abertas.
 
 ### **📝 Quiz de Fixação**
 
@@ -118,4 +118,4 @@ R: Porque na nuvem os upgrades de software são automáticos e frequentes (trime
 Q2: Um desenvolvedor ABAP experiente precisa criar uma nova tabela Z e uma lógica complexa de validação que acessa múltiplas tabelas do ERP para um relatório crítico. Ele quer manter o Clean Core, mas precisa de performance local. Qual modelo de extensibilidade é o mais indicado?  
 R: Developer Extensibility (On-Stack). Esse modelo permite criar tabelas customizadas e lógica ABAP complexa dentro do S/4HANA, aproveitando a proximidade dos dados para performance, mas utilizando a sintaxe segura do ABAP Cloud e objetos liberados para garantir a compatibilidade futura.  
 Q3: No modelo ABAP Cloud (Tier 2), posso fazer um SELECT direto na tabela KNA1 (Mestre de Clientes) para ler o endereço de um cliente?  
-R: Não (ou não deveria). A tabela física KNA1 não é um objeto liberado (Released Object) no modelo ABAP Cloud e seu uso pode ser bloqueado pelo compilador ou checagens de sintaxe (ATC). A prática correta é selecionar a partir da CDS View pública equivalente (ex: I\_Customer), que é a interface estável garantida pela SAP para acesso a esses dados.
+R: Não (ou não deveria). A tabela física KNA1 não é um objeto liberado (Released Object) no modelo ABAP Cloud e seu uso pode ser bloqueado pelo compilador ou checagens de sintaxe (ATC). A prática correta é selecionar a partir da CDS View pública equivalente (ex: I_Customer), que é a interface estável garantida pela SAP para acesso a esses dados.

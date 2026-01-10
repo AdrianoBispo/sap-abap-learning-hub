@@ -11,7 +11,7 @@ Ao final desta aula, o estudante deverá ser capaz de:
 3. Dominar o conceito de **Virtual Data Model (VDM)**, identificando e aplicando corretamente suas camadas: **Basic** (Interface), **Composite** e **Consumption** (Projection).  
 4. Identificar por que as CDS Views são o alicerce insubstituível do S/4HANA, suportando desde a analítica em tempo real até o modelo transacional RAP.
 
-### **1\. A Evolução: Do Dicionário ao CDS**
+### **1. A Evolução: Do Dicionário ao CDS**
 
 No passado, durante a era do SAP ECC (ERP Central Component), a modelagem de dados acontecia quase inteiramente na transação **SE11 (ABAP Dictionary)**. O processo era focado na estrutura física e relacionamentos simples:
 
@@ -31,20 +31,20 @@ Toda a inteligência residia no servidor de aplicação (ABAP). Para calcular o 
 A Solução (ABAP CDS):  
 Com a chegada do SAP HANA, foi necessário criar uma linguagem que explorasse o poder do banco. O Core Data Services (CDS) é uma infraestrutura de modelagem de dados de "próxima geração" (DDL avançada). Ele permite definir modelos de dados semanticamente ricos diretamente no banco de dados, não apenas no servidor de aplicação. Uma CDS View não é apenas uma "View SQL"; é uma entidade que suporta associações, anotações de metadados, controle de acesso (DCL) e lógica de negócio.
 
-### **2\. O Paradigma "Code-to-Data" (Code Pushdown)**
+### **2. O Paradigma "Code-to-Data" (Code Pushdown)**
 
 A mudança para o SAP HANA inverteu a lógica de desenvolvimento. O banco de dados deixou de ser apenas um "arquivo passivo" para se tornar um "motor de cálculo".
 
 * **Data-to-Code (Antigo):** "Traga os dados até o código".  
-  * *Fluxo:* Banco \-\> Rede \-\> ABAP (Processamento) \-\> Tela.  
+  * *Fluxo:* Banco -> Rede -> ABAP (Processamento) -> Tela.  
   * *Gargalo:* Latência de rede e memória do servidor ABAP.  
 * **Code-to-Data (Novo):** "Empurre a lógica para os dados".  
-  * *Fluxo:* O ABAP envia a instrução complexa \-\> O HANA processa, filtra, agrega e calcula \-\> O HANA devolve apenas o resultado final (pequeno) \-\> ABAP \-\> Tela.  
+  * *Fluxo:* O ABAP envia a instrução complexa -> O HANA processa, filtra, agrega e calcula -> O HANA devolve apenas o resultado final (pequeno) -> ABAP -> Tela.  
   * *Vantagem:* Performance massiva. Operações que levavam horas agora levam segundos.
 
 As **CDS Views** são o veículo principal para realizar o Code Pushdown no ABAP moderno. Elas encapsulam o SQL complexo que roda no HANA, expondo uma interface simples para o ABAP.
 
-### **3\. ABAP Dictionary vs. ABAP CDS: Quem faz o quê?**
+### **3. ABAP Dictionary vs. ABAP CDS: Quem faz o quê?**
 
 Mesmo no ABAP Cloud, o Dicionário de Dados não morreu, mas seu papel mudou drasticamente. Ele voltou a ser responsável apenas pela definição física e tipagem básica.
 
@@ -57,7 +57,7 @@ Mesmo no ABAP Cloud, o Dicionário de Dados não morreu, mas seu papel mudou dra
 
 **Regra Prática:** Use o Dictionary (Code-Based no ADT) para criar a *tabela física*. Use CDS para *todo o resto* (ler, transformar, expor, calcular).
 
-### **4\. O Virtual Data Model (VDM)**
+### **4. O Virtual Data Model (VDM)**
 
 No S/4HANA e no RAP, desencorajamos o acesso direto a tabelas físicas (como VBAK, MARA) nas aplicações. Em vez disso, construímos uma hierarquia de CDS Views chamada **VDM (Virtual Data Model)**. Isso cria uma camada de abstração que protege a aplicação de mudanças físicas no banco.
 
@@ -65,28 +65,28 @@ No S/4HANA e no RAP, desencorajamos o acesso direto a tabelas físicas (como VBA
 
 1. **Basic / Interface Views (Camada de Base):**  
    * **Função:** Espelhar os dados brutos da tabela física, mas com nomes limpos e semânticos. É a "fonte da verdade".  
-   * **Características:** Acessam diretamente a tabela do banco. Normalizam nomes (ex: MATNR vira Material). Não devem ter filtros restritivos (como WHERE Plant \= '1000') para garantir reutilização máxima.  
-   * **Nomenclatura Padrão:** I\_NomeDaEntidade (ex: I\_Product, I\_SalesOrder).  
-   * **Anotação:** @VDM.viewType: \#BASIC  
+   * **Características:** Acessam diretamente a tabela do banco. Normalizam nomes (ex: MATNR vira Material). Não devem ter filtros restritivos (como WHERE Plant = '1000') para garantir reutilização máxima.  
+   * **Nomenclatura Padrão:** I_NomeDaEntidade (ex: I_Product, I_SalesOrder).  
+   * **Anotação:** @VDM.viewType: #BASIC  
 2. **Composite Views (Camada de Composição):**  
    * **Função:** Combinar Interface Views para formar cubos de dados ou visões de negócio mais ricas.  
    * **Características:** Faz Joins e Associações entre Interface Views. Contém a lógica de negócio reutilizável (ex: "Buscar Cliente com Endereço e Dados Bancários"). É a base para a analítica.  
-   * **Nomenclatura Padrão:** I\_NomeComposto (ex: I\_SalesOrderWithCustomer).  
-   * **Anotação:** @VDM.viewType: \#COMPOSITE  
+   * **Nomenclatura Padrão:** I_NomeComposto (ex: I_SalesOrderWithCustomer).  
+   * **Anotação:** @VDM.viewType: #COMPOSITE  
 3. **Consumption / Projection Views (Camada de Consumo):**  
    * **Função:** Atender a uma necessidade específica de uma tela (UI) ou API.  
    * **Características:** É a "ponta do iceberg". Filtra apenas os campos que o App Fiori precisa. Contém anotações de UI (@UI), rótulos específicos e parâmetros de pesquisa.  
-   * **Nomenclatura Padrão:** C\_NomeEspecifico (ex: C\_SalesOrderAnalytics, C\_ApproveTravel).  
-   * **Anotação:** @VDM.viewType: \#CONSUMPTION
+   * **Nomenclatura Padrão:** C_NomeEspecifico (ex: C_SalesOrderAnalytics, C_ApproveTravel).  
+   * **Anotação:** @VDM.viewType: #CONSUMPTION
 
-### **5\. Exemplo Conceitual de VDM (Cenário de Vendas)**
+### **5. Exemplo Conceitual de VDM (Cenário de Vendas)**
 
 Para visualizar como isso se aplica na prática, imagine que estamos construindo um relatório de vendas:
 
-* **Tabela Física:** ZTB\_SALES (Colunas Técnicas: ID, AMT, CUR, CUST\_ID). Dados brutos e incompreensíveis.  
-* **Interface View (I\_Sales):** Lê ZTB\_SALES. Define que AMT é um valor monetário ligado a CUR. Renomeia CUST\_ID para CustomerID. Define associação com a view de cliente.  
-* **Composite View (I\_SalesWithCustomer):** Faz a associação de I\_Sales com I\_Customer. Calcula o total de vendas por região do cliente. Adiciona textos descritivos.  
-* **Consumption View (C\_SalesReport\_App):** Seleciona os dados da Composite. Adiciona anotações para dizer que a "Região" é um filtro e o "Total" é um gráfico de barras. Esta é a view exposta via OData.
+* **Tabela Física:** ZTB_SALES (Colunas Técnicas: ID, AMT, CUR, CUST_ID). Dados brutos e incompreensíveis.  
+* **Interface View (I_Sales):** Lê ZTB_SALES. Define que AMT é um valor monetário ligado a CUR. Renomeia CUST_ID para CustomerID. Define associação com a view de cliente.  
+* **Composite View (I_SalesWithCustomer):** Faz a associação de I_Sales com I_Customer. Calcula o total de vendas por região do cliente. Adiciona textos descritivos.  
+* **Consumption View (C_SalesReport_App):** Seleciona os dados da Composite. Adiciona anotações para dizer que a "Região" é um filtro e o "Total" é um gráfico de barras. Esta é a view exposta via OData.
 
 ### **🧠 Material para Estudo (Flashcards & Resumo)**
 

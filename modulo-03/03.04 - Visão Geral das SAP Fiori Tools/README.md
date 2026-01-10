@@ -12,7 +12,7 @@ Ao final desta aula, o estudante deverá ser capaz de:
 4. Aplicar configurações complexas e snippets de código com auxílio do **Guided Development**, acelerando a implementação de requisitos comuns.  
 5. Diferenciar claramente quando aplicar configurações no **Backend (ADT)** versus configurações locais no **Frontend (Fiori Tools)**, adotando as melhores práticas de arquitetura.
 
-### **1\. O Que são as SAP Fiori Tools?**
+### **1. O Que são as SAP Fiori Tools?**
 
 Até este ponto da jornada, nosso trabalho foi focado exclusivamente no Backend (ADT/Eclipse), definindo modelos de dados e comportamentos. No entanto, para que o aplicativo exista "de verdade" no SAP Fiori Launchpad e seja acessível aos usuários finais, ele precisa ser empacotado como um projeto Web (HTML5/JavaScript).
 
@@ -27,9 +27,9 @@ As **SAP Fiori Tools** não são uma única ferramenta, mas um conjunto poderoso
 * **Visual Studio Code (VS Code):**  
   * *Tipo:* Editor de código local, open-source e extremamente popular.  
   * *Vantagens:* Familiaridade para desenvolvedores web, performance local, funcionamento offline e vasta biblioteca de extensões de terceiros.  
-  * *Requisito:* É necessário instalar manualmente o Node.js e o pacote de extensão "SAP Fiori Tools \- Extension Pack" do marketplace.
+  * *Requisito:* É necessário instalar manualmente o Node.js e o pacote de extensão "SAP Fiori Tools - Extension Pack" do marketplace.
 
-### **2\. Gerando o App (Application Generator)**
+### **2. Gerando o App (Application Generator)**
 
 Esqueça a criação manual de pastas como webapp, controller ou arquivos index.html. O **Application Generator** é um assistente (wizard) que guia você passo a passo na criação do esqueleto de uma aplicação profissional.
 
@@ -41,22 +41,22 @@ Para acessá-lo no VS Code ou BAS, abrimos a paleta de comandos (F1 ou Ctrl+Shif
 2. **Floorplan Selection:** Escolhemos "List Report Object Page". Este é o padrão ouro para aplicações transacionais RAP.  
 3. **Data Source:**  
    * Aqui conectamos ao nosso sistema S/4HANA.  
-   * Selecionamos o **Service Binding** (OData V4 \- UI) que criamos na Aula 02\.  
+   * Selecionamos o **Service Binding** (OData V4 - UI) que criamos na Aula 02.  
    * O gerador lê os metadados do serviço para entender as entidades disponíveis.  
 4. **Entity Selection:**  
    * **Main Entity:** Escolhemos a entidade raiz (ex: Travel). Isso define o que será listado na primeira tela.  
-   * **Navigation Entity:** (Opcional) Define para onde o usuário vai ao clicar na linha (ex: to\_Booking).  
+   * **Navigation Entity:** (Opcional) Define para onde o usuário vai ao clicar na linha (ex: to_Booking).  
 5. **Project Attributes:**  
    * Definimos o nome do projeto, namespace (ex: z.travel), e configurações de deploy.
 
 *Resultado:* O gerador cria toda a estrutura de pastas (webapp, manifest.json, ui5.yaml) e configura o proxy para que você possa rodar o app localmente (npm start) consumindo dados do servidor remoto sem problemas de CORS.
 
-### **3\. O Mapa da Página (Page Map)**
+### **3. O Mapa da Página (Page Map)**
 
 Esta é, sem dúvida, a ferramenta visual mais impactante para quem está começando. Ao clicar com o botão direito no projeto (arquivo webapp) e escolher "Show Page Map", você vê uma representação gráfica do fluxo do seu aplicativo.
 
 Visualização:  
-List Report \--\> Object Page \--\> Sub-Object Page  
+List Report --> Object Page --> Sub-Object Page  
 **Funcionalidades do Page Map:**
 
 * **Configuração de Layout:** Permite adicionar ou remover colunas, seções e campos. Embora a recomendação seja fazer isso no Backend (RAP), o Page Map permite *overrides* locais rápidos via arquivos de anotação XML locais (annotation.xml).  
@@ -66,7 +66,7 @@ List Report \--\> Object Page \--\> Sub-Object Page
   * Adicionar um **Botão na Toolbar** que chama uma função JavaScript específica.  
 * **Navegação:** Configura visualmente como a navegação entre as páginas ocorre, sem precisar editar o roteamento complexo no manifest.json.
 
-### **4\. Guided Development (Desenvolvimento Guiado)**
+### **4. Guided Development (Desenvolvimento Guiado)**
 
 Desenvolver em Fiori Elements às vezes requer configurações de anotações complexas que são difíceis de memorizar. "Como eu adiciono um botão que abre um PDF?", "Como eu faço uma linha da tabela ficar vermelha se o valor for negativo?".
 
@@ -82,7 +82,7 @@ O **Guided Development** é uma biblioteca de "receitas" e tutoriais interativos
 
 Isso reduz drasticamente a necessidade de consultar a documentação oficial da SAP a todo momento e previne erros de sintaxe.
 
-### **5\. Backend vs. Local Annotation: Uma Decisão Arquitetural**
+### **5. Backend vs. Local Annotation: Uma Decisão Arquitetural**
 
 Uma dúvida comum de todo desenvolvedor Fiori Elements é: *"Se eu posso configurar a tela (colunas, labels) no Page Map (Local), por que aprendemos a fazer no ADT (Backend) nos módulos anteriores?"*
 

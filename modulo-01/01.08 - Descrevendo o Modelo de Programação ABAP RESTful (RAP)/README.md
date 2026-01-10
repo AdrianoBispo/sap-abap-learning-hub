@@ -11,19 +11,19 @@ Ao final desta aula, o estudante deverá ser capaz de:
 3. Dominar o fluxo de desenvolvimento ponta a ponta (End-to-End): da definição da Tabela de Banco de Dados até a pré-visualização da UI no navegador.  
 4. Identificar e manipular os artefatos de projeção e exposição de serviços: **Service Definition** e **Service Binding**, compreendendo suas configurações de protocolo (OData V2/V4).
 
-### **1\. O que é o RAP? A Evolução do Desenvolvimento SAP**
+### **1. O que é o RAP? A Evolução do Desenvolvimento SAP**
 
 O **ABAP RESTful Application Programming Model (RAP)** não é apenas uma "nova ferramenta"; é a culminação de décadas de evolução no desenvolvimento SAP. Ele substitui modelos anteriores fragmentados (como o modelo clássico de Dynpro, o Web Dynpro ABAP e o modelo de programação BOPF/Gateway híbrido) por uma arquitetura unificada e opinativa.
 
-O RAP é a arquitetura padrão para construir aplicações **SAP S/4HANA** modernas, sejam elas On-Premise (a partir da versão 1909\) ou na Nuvem (**ABAP Cloud**). Ele foi desenhado nativamente para o banco de dados SAP HANA, permitindo o desenvolvimento de serviços OData (APIs Web) prontos para empresas, otimizados e intrinsecamente seguros.
+O RAP é a arquitetura padrão para construir aplicações **SAP S/4HANA** modernas, sejam elas On-Premise (a partir da versão 1909) ou na Nuvem (**ABAP Cloud**). Ele foi desenhado nativamente para o banco de dados SAP HANA, permitindo o desenvolvimento de serviços OData (APIs Web) prontos para empresas, otimizados e intrinsecamente seguros.
 
 **Principais Benefícios:**
 
-* **Padronização:** Define uma maneira única e clara de implementar operações transacionais (CUD \- Create, Update, Delete).  
+* **Padronização:** Define uma maneira única e clara de implementar operações transacionais (CUD - Create, Update, Delete).  
 * **Agnosticismo de Protocolo:** Embora focado em OData, a lógica de negócio é desacoplada do protocolo HTTP, facilitando testes e reutilização.  
 * **Fiori Nativo:** As aplicações RAP nascem com suporte nativo a anotações de UI que alimentam o SAP Fiori Elements.
 
-### **2\. A Arquitetura em Três Camadas**
+### **2. A Arquitetura em Três Camadas**
 
 O RAP é estruturado como um "bolo" de três camadas principais, onde cada camada tem uma responsabilidade estrita. O desenvolvimento sempre acontece de baixo para cima (Bottom-Up), garantindo que a base de dados suporte a lógica, que por sua vez suporta a interface.
 
@@ -52,7 +52,7 @@ Quem usa o serviço final. O RAP é agnóstico quanto ao consumidor, mas brilha 
 * **SAP Fiori Elements:** Framework que lê os metadados e anotações do CDS para gerar interfaces de usuário (List Reports, Object Pages) dinamicamente, sem código JavaScript manual.  
 * **Web APIs:** Consumo por sistemas externos (integrações A2A/B2B) ou por interfaces customizadas (Freestyle SAPUI5, React, Angular).
 
-### **3\. Managed vs. Unmanaged: A Grande Decisão**
+### **3. Managed vs. Unmanaged: A Grande Decisão**
 
 Ao criar um comportamento (Behavior Definition), o desenvolvedor deve escolher o "cenário de implementação". Essa decisão define quem é responsável pelo ciclo de vida da transação.
 
@@ -65,7 +65,7 @@ Ao criar um comportamento (Behavior Definition), o desenvolvedor deve escolher o
   * **Papel do Desenvolvedor:** Você deve escrever o código que chama BAPIs existentes, funções de atualização ou métodos de classes legadas para salvar os dados. Você também gerencia o buffer transacional.  
   * **Uso Ideal:** **Sistemas Legados (Brownfield)**. Essencial quando você precisa construir um App Fiori moderno sobre uma lógica de negócio existente (ex: BAPI de Criação de Ordem de Venda) que é complexa demais para ser reescrita do zero.
 
-### **4\. O Ciclo de Vida do Desenvolvimento (Workflow Detalhado)**
+### **4. O Ciclo de Vida do Desenvolvimento (Workflow Detalhado)**
 
 Para criar um App Fiori do zero no ADT (Eclipse), seguimos um fluxo rigoroso:
 
@@ -78,27 +78,27 @@ Para criar um App Fiori do zero no ADT (Eclipse), seguimos um fluxo rigoroso:
 7. **Service Binding:** Publicar o serviço localmente (/sap/opu/odata...). No ambiente Cloud, é necessário "Publicar" explicitamente para ativar o endpoint.  
 8. **Preview:** Utilizar a função de *Preview* do Service Binding para testar a aplicação Fiori Elements instantaneamente no navegador, validando anotações e comportamentos.
 
-### **5\. Diagrama Conceitual (Fluxo de Dados)**
+### **5. Diagrama Conceitual (Fluxo de Dados)**
 
-      \[ Browser / Fiori Launchpad \]  
+      [ Browser / Fiori Launchpad ]  
                   ^  
                   | (HTTPS / OData)  
                   v  
-      \[ SAP Gateway / Service Binding \]  
+      [ SAP Gateway / Service Binding ]  
                   ^  
                   |  
-      \[ Service Definition (Projeção) \]  
+      [ Service Definition (Projeção) ]  
                   ^  
                   |  
-\[ Projection CDS Views \] \<--- \[ Behavior Projection \]  
+[ Projection CDS Views ] <--- [ Behavior Projection ]  
           ^                            ^  
           | (Herança)                  | (Delegação)  
           |                            v  
- \[ Interface CDS Views \] \<--- \[ Behavior Definition (IMPLEMENTAÇÃO) \]  
+ [ Interface CDS Views ] <--- [ Behavior Definition (IMPLEMENTAÇÃO) ]  
           ^                            ^  
           | (SQL)                      | (ABAP EML)  
           v                            v  
- \[ Banco de Dados HANA \]      \[ Lógica de Negócio (Classes BP\_) \]
+ [ Banco de Dados HANA ]      [ Lógica de Negócio (Classes BP_) ]
 
 ### **🧠 Material para Estudo (Flashcards & Resumo)**
 

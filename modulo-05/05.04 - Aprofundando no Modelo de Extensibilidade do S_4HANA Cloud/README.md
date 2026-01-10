@@ -11,7 +11,7 @@ Ao final desta aula, o estudante deverá ser capaz de:
 3. Implementar uma **Enhancement Implementation** completa para cenários de validação ou modificação de dados em processos standard, respeitando os contratos de interface.  
 4. Entender e justificar as **limitações técnicas de lógica** impostas dentro de um BAdI Cloud (como a proibição de COMMIT WORK e acesso a arquivos), relacionando-as com a integridade da LUW (Logical Unit of Work) e a segurança da nuvem.
 
-### **1\. O Fim das "User Exits": Uma Mudança de Paradigma**
+### **1. O Fim das "User Exits": Uma Mudança de Paradigma**
 
 No paradigma legado do SAP ECC, a extensibilidade era frequentemente invasiva. Para validar um campo num pedido de venda, desenvolvedores utilizavam a transação CMOD/SMOD (Customer Exits) ou modificavam diretamente *Includes* de sistema como o famoso MV45AFZZ (User Exits).
 
@@ -28,32 +28,32 @@ A SAP substituiu esses mecanismos pelos Cloud BAdIs (Business Add-Ins). Ao contr
 * **Estabilidade Contratual:** A SAP garante que a assinatura do método do BAdI não mudará em upgrades futuros, protegendo seu investimento.  
 * **Múltiplas Implementações:** O framework suporta múltiplas implementações ativas para o mesmo ponto de extensão, permitindo que diferentes soluções de parceiros coexistam sem conflito de código.
 
-### **2\. Localizando BAdIs Liberados**
+### **2. Localizando BAdIs Liberados**
 
 A era da transação SE18 (Definição de BAdI) e SE19 (Implementação) acabou para o desenvolvedor Cloud. No modelo ABAP Cloud, a descoberta de pontos de extensão acontece exclusivamente no **ADT (Eclipse)**.
 
 **Passo a Passo de Descoberta:**
 
 1. Abra a view **Project Explorer** no Eclipse.  
-2. Navegue pela árvore de objetos: **Released Objects** \> **Enhancements** \> **Business Add-ins**.  
+2. Navegue pela árvore de objetos: **Released Objects** > **Enhancements** > **Business Add-ins**.  
 3. Esta árvore mostra *apenas* os BAdIs que a SAP marcou como seguros para uso na nuvem (Released API). Você pode filtrar por componente de aplicação (ex: SD para Vendas, MM para Materiais) para encontrar o ponto exato que precisa.
 
 *Dica de Produtividade:* Para consultores funcionais ou Key Users, a SAP oferece o aplicativo Fiori **"Custom Logic"**. Ele permite buscar BAdIs de forma mais visual e ler a documentação funcional. Como desenvolvedores, podemos usar o app para descobrir o nome técnico do BAdI e depois implementá-lo no ADT para ter controle total do código.
 
-### **3\. Implementando um BAdI no ADT**
+### **3. Implementando um BAdI no ADT**
 
 A implementação técnica de um BAdI no Eclipse segue um fluxo moderno de criação de artefatos.
 
 1. **Criar o Container (Enhancement Implementation):**  
-   * Clique com o botão direito no seu Pacote (Z\_...) \> **New** \> **ABAP Extension** \> **BAdI Enhancement Implementation**.  
+   * Clique com o botão direito no seu Pacote (Z_...) > **New** > **ABAP Extension** > **BAdI Enhancement Implementation**.  
    * Este objeto atuará como um "container" que agrupa uma ou mais classes de implementação.  
 2. **Escolher a Definição:**  
-   * No assistente, você deve selecionar o **BAdI Definition** standard que deseja estender (ex: SD\_SLS\_CHECK\_HEAD para validações de cabeçalho de vendas).  
+   * No assistente, você deve selecionar o **BAdI Definition** standard que deseja estender (ex: SD_SLS_CHECK_HEAD para validações de cabeçalho de vendas).  
 3. **Implementar a Classe:**  
-   * O ADT solicitará um nome para a **BAdI Implementation** (ex: Z\_IMPL\_CHECK\_PO) e um nome para a **Classe de Implementação** (ex: ZCL\_SD\_CHECK\_PO).  
+   * O ADT solicitará um nome para a **BAdI Implementation** (ex: Z_IMPL_CHECK_PO) e um nome para a **Classe de Implementação** (ex: ZCL_SD_CHECK_PO).  
    * Ao finalizar, o sistema gera automaticamente a classe Z implementando a interface correta. Você só precisa escrever o código dentro dos métodos vazios.
 
-### **4\. Restrições Importantes: Por que não posso dar COMMIT?**
+### **4. Restrições Importantes: Por que não posso dar COMMIT?**
 
 Ao escrever código dentro de um BAdI, você está operando sob as restrições da **Language Version 5** (ABAP Cloud), mas com regras adicionais de negócio.
 
@@ -62,48 +62,48 @@ Ao escrever código dentro de um BAdI, você está operando sob as restrições 
 * **Sem Acesso Direto (Bypass):** Não tente fazer UPDATE direto em tabelas standard (VBAK, MARA). Você deve usar apenas os parâmetros CHANGING fornecidos pela interface do BAdI para modificar dados. O processo standard se encarregará de persistir essas mudanças no momento certo.  
 * **Performance Crítica:** Este código roda de forma síncrona e bloqueante. Se seu BAdI demorar 5 segundos para rodar, a gravação do pedido demorará 5 segundos a mais. Evite SELECTs pesados ou chamadas de API externas síncronas.
 
-### **5\. Exemplo Prático: Validação de Pedido de Venda**
+### **5. Exemplo Prático: Validação de Pedido de Venda**
 
 Neste cenário, precisamos implementar uma regra de governança: impedir a criação de um Pedido de Venda se o campo "Referência do Cliente" (PurchaseOrderByCustomer) não estiver preenchido.
 
-**Definição do BAdI:** SD\_SLS\_CHECK\_HEAD (Exemplo para Vendas).
+**Definição do BAdI:** SD_SLS_CHECK_HEAD (Exemplo para Vendas).
 
 **Código da Classe de Implementação:**
 
-CLASS zcl\_sd\_check\_po DEFINITION  
+CLASS zcl_sd_check_po DEFINITION  
   PUBLIC  
   FINAL  
   CREATE PUBLIC .
 
   PUBLIC SECTION.  
-    " A interface de marcação if\_badi\_interface é padrão  
-    INTERFACES if\_badi\_interface .  
-    " A interface específica do BAdI define os métodos disponíveis (check\_header)  
-    INTERFACES if\_sd\_sls\_check\_head .   
+    " A interface de marcação if_badi_interface é padrão  
+    INTERFACES if_badi_interface .  
+    " A interface específica do BAdI define os métodos disponíveis (check_header)  
+    INTERFACES if_sd_sls_check_head .   
 ENDCLASS.
 
-CLASS zcl\_sd\_check\_po IMPLEMENTATION.
+CLASS zcl_sd_check_po IMPLEMENTATION.
 
-  METHOD if\_sd\_sls\_check\_head\~check\_header.  
-    " O parâmetro sales\_order\_header é uma estrutura de importação fornecida pelo Standard.  
+  METHOD if_sd_sls_check_head~check_header.  
+    " O parâmetro sales_order_header é uma estrutura de importação fornecida pelo Standard.  
     " Ela contém os dados do pedido que está sendo processado.  
       
     " Regra de Negócio: O campo de Referência (PurchaseOrderByCustomer) é obrigatório  
-    IF sales\_order\_header-purchase\_order\_by\_customer IS INITIAL.
+    IF sales_order_header-purchase_order_by_customer IS INITIAL.
 
       " Para rejeitar o processo, não usamos 'MESSAGE ... RAISE'.  
       " O padrão moderno é adicionar uma linha à tabela de mensagens 'messages'.  
         
-      APPEND VALUE \#(   
-        msgid \= 'ZMSG\_SALES'                " Classe de mensagem customizada  
-        msgno \= '001'                       " Número da mensagem  
-        msgty \= 'E'                         " Tipo Erro (Impede gravação)  
-        msgv1 \= 'Campo Referência é obrigatório' " Variável de texto (opcional)  
+      APPEND VALUE #(   
+        msgid = 'ZMSG_SALES'                " Classe de mensagem customizada  
+        msgno = '001'                       " Número da mensagem  
+        msgty = 'E'                         " Tipo Erro (Impede gravação)  
+        msgv1 = 'Campo Referência é obrigatório' " Variável de texto (opcional)  
       ) TO messages.  
         
       " Sinalizamos explicitamente ao framework que a verificação falhou.  
       " Isso instrui o processo standard a abortar a transação de forma limpa.  
-      check\_result \= if\_sd\_sls\_check\_head=\>rejection.  
+      check_result = if_sd_sls_check_head=>rejection.  
         
     ENDIF.
 
@@ -111,14 +111,14 @@ CLASS zcl\_sd\_check\_po IMPLEMENTATION.
 
 ENDCLASS.
 
-### **6\. Filtragem de BAdI: Otimização de Performance**
+### **6. Filtragem de BAdI: Otimização de Performance**
 
-Imagine que você implementou uma regra pesada para a Empresa '1000'. Se você colocar um IF empresa \= '1000' dentro do código ABAP, o sistema terá que carregar sua classe e executar o método para *todos* os pedidos de *todas* as empresas, apenas para descobrir que não deve fazer nada na maioria dos casos.
+Imagine que você implementou uma regra pesada para a Empresa '1000'. Se você colocar um IF empresa = '1000' dentro do código ABAP, o sistema terá que carregar sua classe e executar o método para *todos* os pedidos de *todas* as empresas, apenas para descobrir que não deve fazer nada na maioria dos casos.
 
 Para evitar esse desperdício, usamos **BAdI Filters**.
 
-* **Como funciona:** O BAdI Definition define quais campos podem ser filtrados (ex: SALES\_ORG, DISTRIBUTION\_CHANNEL).  
-* **Configuração:** Na tela de implementação do BAdI no ADT, você adiciona uma condição de filtro: SALES\_ORG \= 1010\.  
+* **Como funciona:** O BAdI Definition define quais campos podem ser filtrados (ex: SALES_ORG, DISTRIBUTION_CHANNEL).  
+* **Configuração:** Na tela de implementação do BAdI no ADT, você adiciona uma condição de filtro: SALES_ORG = 1010.  
 * **O Ganho:** O Kernel do ABAP verifica o filtro *antes* de instanciar sua classe. Se o pedido for da organização 2000, sua classe Z nem sequer é carregada na memória. Isso garante escalabilidade e performance máxima.
 
 ### **🧠 Material para Estudo (Flashcards & Resumo)**
@@ -127,7 +127,7 @@ Para evitar esse desperdício, usamos **BAdI Filters**.
 
 * **Cloud BAdI:** Um ponto de extensão orientado a objetos, explicitamente liberado pela SAP (Released API) para uso na nuvem. Permite a injeção de lógica customizada em processos standard sem modificar o núcleo, garantindo "Upgrade Safety".  
 * **Enhancement Implementation:** O artefato técnico criado no ADT (extensão .badi) que atua como um container para a classe de implementação e define os valores de filtro para um BAdI específico.  
-* **BAdI Interface:** A interface ABAP (ex: IF\_SD\_SLS\_CHECK\_HEAD) que define o contrato do BAdI: quais métodos devem ser implementados e quais dados estão disponíveis (Importing/Changing). Sua classe Z deve implementar esta interface.  
+* **BAdI Interface:** A interface ABAP (ex: IF_SD_SLS_CHECK_HEAD) que define o contrato do BAdI: quais métodos devem ser implementados e quais dados estão disponíveis (Importing/Changing). Sua classe Z deve implementar esta interface.  
 * **Filter Value:** Configuração declarativa na implementação do BAdI que restringe sua execução a critérios específicos (ex: apenas Org. Vendas 1000). Otimiza a performance ao evitar o carregamento desnecessário da classe ABAP.  
 * **LUW (Logical Unit of Work):** Um conceito que define uma sequência de operações de banco de dados que devem ser tratadas como uma unidade atômica (ou tudo é salvo, ou nada é salvo). BAdIs rodam dentro da LUW do processo pai.
 

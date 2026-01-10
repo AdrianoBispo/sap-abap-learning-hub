@@ -11,7 +11,7 @@ Ao final desta aula, o estudante deverá ser capaz de:
 3. Identificar o papel central do **SAP Fiori Launchpad** não apenas como um menu, mas como um "Shell" de serviços integrados (Busca, Notificações, Navegação).  
 4. Justificar economicamente por que a consistência visual reduz o Custo Total de Propriedade (TCO), minimizando a necessidade de treinamento e erros operacionais.
 
-### **1\. Adeus SAP GUI, Olá Experiência de Consumidor**
+### **1. Adeus SAP GUI, Olá Experiência de Consumidor**
 
 Durante décadas, o SAP foi sinônimo de eficiência no processamento de dados, mas também de telas cinzentas, densas e complexas (o famoso SAP GUI). O design era focado na **Funcionalidade**: "Como colocamos todos os campos possíveis em uma única tela para que o usuário não precise trocar de transação?". Isso resultou em transações "monstro" como a VA01 (Criar Ordem de Venda) ou ME21N (Criar Pedido de Compra), que exigiam meses de treinamento para serem dominadas. O usuário precisava memorizar códigos de transação (T-Codes) e navegar por dezenas de abas.
 
@@ -24,50 +24,50 @@ O conceito de Consumer-Grade UX significa elevar o padrão do software corporati
 * **Foco na Tarefa:** Em vez de expor todas as funções, expõe-se apenas o necessário para aquele momento.  
 * **Estética:** O visual agradável reduz a fadiga e aumenta a satisfação no trabalho.
 
-### **2\. Os 5 Princípios do SAP Fiori**
+### **2. Os 5 Princípios do SAP Fiori**
 
 Para garantir que essa qualidade não fosse apenas cosmética, a SAP definiu uma filosofia de design rigorosa. Todo aplicativo S/4HANA (seja padrão ou desenvolvido por você) deve seguir os 5 princípios do Fiori:
 
-#### **1\. Role-Based (Baseado em Papéis)**
+#### **1. Role-Based (Baseado em Papéis)**
 
 O sistema antigo era "Baseado em Funções": todos viam a mesma transação VA01, fosse um Diretor ou um Estagiário. O Fiori decompõe essas transações monolíticas.
 
 * **O Conceito:** O aplicativo é desenhado para *quem* vai usá-lo, não para *o que* ele faz tecnicamente.  
 * **Exemplo:** Em vez de uma tela gigante de "Pedidos", temos apps separados:  
-  * "Aprovar Pedidos" (Para o Gerente \- Simples, rápido).  
-  * "Monitorar Atendimento de Pedidos" (Para o Logístico \- Analítico, detalhado).  
-  * "Criar Pedido de Venda Rápido" (Para o Vendedor de Campo \- Mobile, poucos campos).  
+  * "Aprovar Pedidos" (Para o Gerente - Simples, rápido).  
+  * "Monitorar Atendimento de Pedidos" (Para o Logístico - Analítico, detalhado).  
+  * "Criar Pedido de Venda Rápido" (Para o Vendedor de Campo - Mobile, poucos campos).  
 * **Resultado:** O usuário só vê o que é relevante para o seu trabalho, reduzindo o ruído cognitivo.
 
-#### **2\. Adaptive (Adaptável)**
+#### **2. Adaptive (Adaptável)**
 
 O trabalho moderno não acontece apenas na mesa do escritório. Acontece no chão de fábrica, no cliente, no aeroporto.
 
 * **O Conceito:** O aplicativo deve se adaptar ao dispositivo, não o contrário. Ele deve oferecer uma experiência fluida seja num monitor 4K, num tablet ou num smartphone.  
 * **Técnica:** Uso de layouts responsivos (como o SAPUI5 ou Fiori Elements) que reorganizam colunas, escondem detalhes menos importantes e transformam tabelas em listas conforme a tela diminui ("Mobile First").
 
-#### **3\. Simple (Simples)**
+#### **3. Simple (Simples)**
 
 Simples não significa "básico" ou "sem recursos". Significa "livre de complexidade desnecessária".
 
 * **Regra 1-1-3:** Um usuário, Um caso de uso, Três telas no máximo.  
 * **Foco no Essencial:** Se um campo é usado em apenas 1% dos casos, ele não deve estar na tela principal. Ele deve estar escondido ou em uma aba "Avançado". O Fiori prioriza o "Caminho Feliz" (Happy Path), tornando as tarefas rotineiras extremamente rápidas.
 
-#### **4\. Coherent (Coerente)**
+#### **4. Coherent (Coerente)**
 
 A incoerência é a maior causa de erros de usuário. Se no App A o botão de salvar é verde e fica em cima, e no App B é azul e fica embaixo, o usuário precisa reaprender a usar o sistema a cada tela.
 
 * **O Conceito:** Todos os apps devem falar a mesma língua visual e comportamental.  
 * **Padrões:** O botão de "Ação Principal" (Salvar, Enviar) fica sempre no canto inferior direito. A barra de busca fica sempre no topo. O filtro funciona igual em todos os relatórios. Isso cria **memória muscular** digital.
 
-#### **5\. Delightful (Agradável)**
+#### **5. Delightful (Agradável)**
 
 Software corporativo não precisa ser chato. Um sistema que é prazeroso de usar aumenta a produtividade e a adoção.
 
 * **O Conceito:** Criar uma conexão emocional com o usuário.  
 * **Elementos:** Uso de animações suaves para transição de telas (dando feedback de que o sistema está trabalhando), gráficos bonitos, tipografia clara e feedback instantâneo (mensagens de sucesso amigáveis). O sistema deve fazer o usuário se sentir inteligente e eficiente.
 
-### **3\. O Fiori Launchpad: O Ponto Único de Entrada**
+### **3. O Fiori Launchpad: O Ponto Único de Entrada**
 
 No passado, a área de trabalho de um usuário SAP era fragmentada: ícone do SAP Logon, link do Portal RH, link do CRM Web, link do BI.  
 No S/4HANA, o SAP Fiori Launchpad (FLP) unifica tudo. Ele não é apenas um menu; é um "Shell" inteligente.
@@ -77,13 +77,13 @@ No S/4HANA, o SAP Fiori Launchpad (FLP) unifica tudo. Ele não é apenas um menu
 * **Notificações:** Um centro de notificações centralizado (sino no topo) que avisa sobre tarefas, aprovações ou alertas de sistema, similar a uma rede social.  
 * **Spaces and Pages:** A nova forma de organizar o conteúdo. Em vez de uma página infinita de ícones, o conteúdo é estruturado em "Espaços" (Abas por área de negócio, ex: Vendas, Estoque) e "Páginas" (Layouts curados de apps relevantes).
 
-### **4\. Por que a Consistência Importa para o Desenvolvedor?**
+### **4. Por que a Consistência Importa para o Desenvolvedor?**
 
 Como desenvolvedor ABAP/RAP, você pode pensar: *"Eu sou backend, a UI não é problema meu"*. **Este é um erro estratégico.** No mundo Clean Core, o desenvolvedor é responsável pela entrega da funcionalidade ponta a ponta.
 
 Se você criar um aplicativo customizado (Z) que ignora os padrões do Fiori (ex: usa cores fora da paleta, posiciona botões de forma criativa ou usa terminologia diferente), você quebra a experiência **Coerente**.
 
-**O Custo da Inconsistência (TCO \- Total Cost of Ownership):**
+**O Custo da Inconsistência (TCO - Total Cost of Ownership):**
 
 1. **Custo de Treinamento:** Se seu app funciona diferente do padrão, a empresa precisa criar um manual específico e treinar os usuários só para ele. Se ele segue o padrão Fiori Elements, o usuário já sabe usá-lo intuitivamente.  
 2. **Erros de Usuário:** Mudanças de padrão causam confusão. O usuário clica em "Cancelar" achando que é "Salvar" porque a posição mudou.  

@@ -12,7 +12,7 @@ Ao final desta aula, o estudante deverá ser capaz de:
 4. Combinar resultados de múltiplas seleções heterogêneas usando **UNION** e **UNION ALL**, compreendendo as implicações de performance e requisitos de compatibilidade de tipos.  
 5. Empregar funções de tratamento de nulos como **COALESCE** para garantir a robustez de cálculos matemáticos no banco de dados.
 
-### **1\. ABAP SQL vs. CDS Views: Quando usar qual?**
+### **1. ABAP SQL vs. CDS Views: Quando usar qual?**
 
 Já aprendemos a colocar lógica no banco usando CDS Views. Mas e se a lógica for específica demais para uma única rotina? A escolha entre criar uma View no dicionário ou escrever uma query complexa no código depende da **reutilização**.
 
@@ -21,91 +21,91 @@ Já aprendemos a colocar lógica no banco usando CDS Views. Mas e se a lógica f
 
 O ABAP SQL (a partir do 7.50) herdou quase todos os "superpoderes" do CDS, permitindo que a sintaxe seja praticamente idêntica. Isso facilita a refatoração: você pode prototipar no ABAP SQL e depois mover para uma CDS View se a lógica provar ser reutilizável.
 
-### **2\. Cálculos e Expressões na Query**
+### **2. Cálculos e Expressões na Query**
 
-O padrão antigo de "Selecionar tudo (SELECT \*), jogar na tabela interna e fazer LOOP para calcular" é o maior inimigo da performance em bancos de dados em memória como o SAP HANA. O custo de trazer milhões de células de dados pela rede apenas para somar duas colunas e descartar o resto é proibitivo.
+O padrão antigo de "Selecionar tudo (SELECT *), jogar na tabela interna e fazer LOOP para calcular" é o maior inimigo da performance em bancos de dados em memória como o SAP HANA. O custo de trazer milhões de células de dados pela rede apenas para somar duas colunas e descartar o resto é proibitivo.
 
 #### **Aritmética no SELECT**
 
 Podemos calcular preços, impostos, margens e datas direto na query. O banco de dados é extremamente eficiente em matemática vetorial.
 
-**Atenção aos Nulos:** Em operações SQL, 5 \+ NULL \= NULL. Para evitar que um campo vazio anule seu cálculo, usamos a função COALESCE( campo, 0 ), que retorna o primeiro valor não nulo (neste caso, zero se o campo for nulo).
+**Atenção aos Nulos:** Em operações SQL, 5 + NULL = NULL. Para evitar que um campo vazio anule seu cálculo, usamos a função COALESCE( campo, 0 ), que retorna o primeiro valor não nulo (neste caso, zero se o campo for nulo).
 
-SELECT FROM zrap\_travel  
-  FIELDS travel\_id,  
-         total\_price,  
-         booking\_fee,  
+SELECT FROM zrap_travel  
+  FIELDS travel_id,  
+         total_price,  
+         booking_fee,  
            
          " Cálculo direto no banco: Soma simples  
-         " Se booking\_fee for nulo, o resultado seria nulo sem tratamento  
-         ( total\_price \+ booking\_fee ) AS grand\_total,  
+         " Se booking_fee for nulo, o resultado seria nulo sem tratamento  
+         ( total_price + booking_fee ) AS grand_total,  
            
          " Cálculo com Literais e Casting  
          " Multiplicamos por 0.9 (literal) para dar 10% de desconto  
          " CAST é usado para garantir que o resultado caiba no tipo de destino  
-         CAST( total\_price \* '0.9' AS CURR( 15, 2 ) ) AS discounted\_price,  
+         CAST( total_price * '0.9' AS CURR( 15, 2 ) ) AS discounted_price,  
            
          " Cálculo de Margem (Divisão)  
          " A função DIV faz divisão inteira, / faz divisão com decimais  
-         DIVISION( total\_price, 100, 2 ) AS price\_index
+         DIVISION( total_price, 100, 2 ) AS price_index
 
-  WHERE currency\_code \= 'EUR'  
-  INTO TABLE @DATA(lt\_results).
+  WHERE currency_code = 'EUR'  
+  INTO TABLE @DATA(lt_results).
 
 #### **Strings no SELECT**
 
 Manipulação de texto também pode ser feita no banco, economizando loops ABAP. Além da concatenação, temos funções para caixa alta/baixa, substituição e comprimento.
 
 SELECT FROM /dmo/customer  
-  FIELDS customer\_id,  
+  FIELDS customer_id,  
            
          " Concatenação Simples com operador &&  
-         first\_name && last\_name AS raw\_name,  
+         first_name && last_name AS raw_name,  
            
          " Função dedicada com separador (Mais limpo que && ' ' &&)  
-         concat\_with\_space( first\_name, last\_name, 1 ) AS full\_name,  
+         concat_with_space( first_name, last_name, 1 ) AS full_name,  
            
          " Normalização para busca (Tudo em Maiúsculo)  
-         upper( last\_name ) AS upper\_name,  
+         upper( last_name ) AS upper_name,  
            
          " Extração de parte do texto (Primeiras 3 letras)  
-         substring( last\_name, 1, 3 ) AS short\_name
+         substring( last_name, 1, 3 ) AS short_name
 
-  INTO TABLE @DATA(lt\_names).
+  INTO TABLE @DATA(lt_names).
 
-### **3\. Lógica Condicional (CASE)**
+### **3. Lógica Condicional (CASE)**
 
 O famoso IF/ELSE dentro do loop pode ser eliminado usando CASE no SQL. Isso permite transformar códigos técnicos (ex: 'X', 'A') em textos descritivos ou categorizações diretamente na extração.
 
 Existem duas formas de CASE:
 
 1. **Simple CASE:** Compara um campo contra valores.  
-2. **Complex CASE:** Permite condições lógicas variadas (WHEN a \> b).
+2. **Complex CASE:** Permite condições lógicas variadas (WHEN a > b).
 
-SELECT FROM zrap\_travel  
-  FIELDS travel\_id,  
-         overall\_status,  
-         total\_price,  
+SELECT FROM zrap_travel  
+  FIELDS travel_id,  
+         overall_status,  
+         total_price,  
            
          " Simple CASE: Tradução de Status  
-         CASE overall\_status  
+         CASE overall_status  
            WHEN 'A' THEN 'Aceito'  
            WHEN 'X' THEN 'Rejeitado'  
            WHEN 'O' THEN 'Aberto'  
            ELSE 'Pendente' " Valor padrão se nenhum coincidir  
-         END AS status\_text,  
+         END AS status_text,  
            
          " Complex CASE: Categorização baseada em valores  
          CASE  
-           WHEN total\_price \< 1000 THEN 'Econômica'  
-           WHEN total\_price BETWEEN 1000 AND 5000 THEN 'Executiva'  
-           WHEN total\_price \> 5000 THEN 'Primeira Classe'  
+           WHEN total_price < 1000 THEN 'Econômica'  
+           WHEN total_price BETWEEN 1000 AND 5000 THEN 'Executiva'  
+           WHEN total_price > 5000 THEN 'Primeira Classe'  
            ELSE 'Não Classificado'  
-         END AS price\_category
+         END AS price_category
 
-  INTO TABLE @DATA(lt\_status).
+  INTO TABLE @DATA(lt_status).
 
-### **4\. Agregações e Agrupamento (GROUP BY)**
+### **4. Agregações e Agrupamento (GROUP BY)**
 
 Se você precisa de um relatório de totais, **nunca** traga os dados detalhados para o ABAP para somar (usando COLLECT ou Loop). O banco de dados possui índices e otimizações específicas para agregação que são ordens de magnitude mais rápidas que o servidor de aplicação.
 
@@ -117,32 +117,32 @@ Se você precisa de um relatório de totais, **nunca** traga os dados detalhados
 * WHERE: Filtra os dados **antes** de agrupar (ex: "Considere apenas viagens em Dólar").  
 * HAVING: Filtra os dados **depois** de agrupar (ex: "Mostre apenas clientes que gastaram mais de 1 milhão no total").
 
-SELECT FROM zrap\_travel  
-  FIELDS customer\_id,  
-         currency\_code,  
+SELECT FROM zrap_travel  
+  FIELDS customer_id,  
+         currency_code,  
            
          " Contar quantas viagens existem neste grupo  
-         COUNT( \* ) AS total\_travels,  
+         COUNT( * ) AS total_travels,  
            
          " Somar o valor total das viagens  
-         SUM( total\_price ) AS total\_spent,  
+         SUM( total_price ) AS total_spent,  
            
          " Encontrar o valor da viagem mais cara e mais barata  
-         MAX( total\_price ) AS max\_spent,  
-         MIN( total\_price ) AS min\_spent
+         MAX( total_price ) AS max_spent,  
+         MIN( total_price ) AS min_spent
 
   " Filtra ANTES de somar (apenas viagens de 2023 em diante)  
-  WHERE begin\_date \>= '20230101'  
+  WHERE begin_date >= '20230101'  
     
   " Agrupa por Cliente e Moeda (obrigatório pois estão no FIELDS)  
-  GROUP BY customer\_id, currency\_code  
+  GROUP BY customer_id, currency_code  
     
   " Filtra DEPOIS de somar (apenas "Grandes Clientes")  
-  HAVING SUM( total\_price ) \> 50000   
+  HAVING SUM( total_price ) > 50000   
     
-  INTO TABLE @DATA(lt\_analytics).
+  INTO TABLE @DATA(lt_analytics).
 
-### **5\. Combinando Resultados (UNION)**
+### **5. Combinando Resultados (UNION)**
 
 Às vezes precisamos juntar dados de duas tabelas diferentes que têm estrutura similar, mas que logicamente estão separadas (ex: Tabela de Vendas Atuais e Tabela de Histórico/Arquivo Morto, ou Clientes Nacionais e Internacionais). O ABAP SQL permite fazer isso em uma única ida ao banco.
 
@@ -152,72 +152,72 @@ SELECT FROM zrap\_travel
 
 " Seleciona Voos Ativos  
 SELECT FROM /dmo/connection  
-  FIELDS carrier\_id, connection\_id, distance  
-  WHERE distance \> 2000
+  FIELDS carrier_id, connection_id, distance  
+  WHERE distance > 2000
 
 UNION ALL " Junta com...
 
 " Seleciona Voos de uma tabela de histórico (exemplo hipotético)  
-SELECT FROM /dmo/conn\_hist  
-  FIELDS carrier\_id, connection\_id, distance  
-  WHERE distance \> 2000
+SELECT FROM /dmo/conn_hist  
+  FIELDS carrier_id, connection_id, distance  
+  WHERE distance > 2000
 
-INTO TABLE @DATA(lt\_all\_long\_flights).
+INTO TABLE @DATA(lt_all_long_flights).
 
-### **6\. Exemplo Prático: Relatório Analítico via Código**
+### **6. Exemplo Prático: Relatório Analítico via Código**
 
 Vamos criar uma classe que gera um relatório de gastos por agência, classificando-as como "VIP" ou "Standard", utilizando todo o poder do Code Pushdown: Agregação, CASE, Aritmética e Filtro Pós-Agregação.
 
-CLASS zcl\_sql\_pushdown DEFINITION  
+CLASS zcl_sql_pushdown DEFINITION  
   PUBLIC  
   FINAL  
   CREATE PUBLIC .
 
   PUBLIC SECTION.  
-    INTERFACES if\_oo\_adt\_classrun .  
+    INTERFACES if_oo_adt_classrun .  
   PROTECTED SECTION.  
   PRIVATE SECTION.  
 ENDCLASS.
 
-CLASS zcl\_sql\_pushdown IMPLEMENTATION.
+CLASS zcl_sql_pushdown IMPLEMENTATION.
 
-  METHOD if\_oo\_adt\_classrun\~main.
+  METHOD if_oo_adt_classrun~main.
 
     " Query Analítica Complexa  
     " Objetivo: Analisar performance de agências que operam em grandes volumes  
-    SELECT FROM zrap\_travel  
-      FIELDS agency\_id,  
-             currency\_code,  
+    SELECT FROM zrap_travel  
+      FIELDS agency_id,  
+             currency_code,  
                
-             " 1\. Contagem e Soma (Agregação)  
-             COUNT( \* ) AS number\_of\_travels,  
-             SUM( total\_price ) AS total\_amount,
+             " 1. Contagem e Soma (Agregação)  
+             COUNT( * ) AS number_of_travels,  
+             SUM( total_price ) AS total_amount,
 
-             " 2\. Média de preço por viagem (Ticket Médio)  
+             " 2. Média de preço por viagem (Ticket Médio)  
              " Casting para decimal garante precisão na média  
-             AVG( total\_price AS DEC( 15,2 ) ) AS average\_ticket,
+             AVG( total_price AS DEC( 15,2 ) ) AS average_ticket,
 
-             " 3\. Classificação baseada na soma (Code Pushdown Lógico)  
+             " 3. Classificação baseada na soma (Code Pushdown Lógico)  
              " O CASE avalia o resultado da agregação SUM()  
              CASE   
-               WHEN SUM( total\_price ) \> 100000 THEN 'Platinum Partner'  
-               WHEN SUM( total\_price ) \> 10000  THEN 'Gold Partner'  
+               WHEN SUM( total_price ) > 100000 THEN 'Platinum Partner'  
+               WHEN SUM( total_price ) > 10000  THEN 'Gold Partner'  
                ELSE 'Standard Partner'  
-             END AS partner\_category
+             END AS partner_category
 
       " Agrupamento Obrigatório para campos não agregados (Agency, Currency)  
-      GROUP BY agency\_id, currency\_code  
+      GROUP BY agency_id, currency_code  
         
       " Filtro pós-agregação (HAVING):   
       " Removemos agências pequenas para focar a análise  
-      HAVING SUM( total\_price ) \> 1000  
+      HAVING SUM( total_price ) > 1000  
         
       " Ordenar do maior faturamento para o menor  
-      ORDER BY total\_amount DESCENDING  
-      INTO TABLE @DATA(lt\_report).
+      ORDER BY total_amount DESCENDING  
+      INTO TABLE @DATA(lt_report).
 
     " Exibição no Console  
-    out-\>write( name \= 'Relatório de Agências' data \= lt\_report ).
+    out->write( name = 'Relatório de Agências' data = lt_report ).
 
   ENDMETHOD.
 
@@ -229,7 +229,7 @@ ENDCLASS.
 
 * **Aggregation Function (Função de Agregação):** Funções SQL que operam em um conjunto de linhas para retornar um único valor resumido. Exemplos: SUM (Soma), AVG (Média), MAX (Máximo), MIN (Mínimo).  
 * **GROUP BY:** Cláusula SQL obrigatória quando se mistura colunas normais e funções de agregação. Ela define os "baldes" onde os dados serão agrupados (ex: agrupar vendas "por Cliente").  
-* **HAVING:** Cláusula usada para filtrar resultados *após* a agregação ter sido feita (diferente do WHERE, que filtra *antes*). É usada para condições sobre os valores sumarizados (ex: HAVING SUM(val) \> 100).  
+* **HAVING:** Cláusula usada para filtrar resultados *após* a agregação ter sido feita (diferente do WHERE, que filtra *antes*). É usada para condições sobre os valores sumarizados (ex: HAVING SUM(val) > 100).  
 * **UNION / UNION ALL:** Operadores que combinam o conjunto de resultados de duas ou mais instruções SELECT. UNION remove linhas duplicadas (custoso), enquanto UNION ALL mantém todas (rápido).  
 * **Coalesce:** Função SQL (coalesce( val1, val2, ... )) que retorna o primeiro valor não nulo de uma lista de argumentos. Indispensável para evitar que valores NULL propaguem e anulem cálculos aritméticos inteiros.  
 * **Literals (Literais):** Valores fixos escritos diretamente na query (ex: 'Ativo', 100, 0.1). Podem ser usados em expressões aritméticas, comparações e projeções.
@@ -241,7 +241,7 @@ ENDCLASS.
 | **Soma de Totais** | LOOP, acumular em variável. | SELECT SUM(...) | Menor tráfego de rede, uso de índices de coluna. |
 | **Status Texto** | LOOP, IF/ELSE, modificar tabela. | SELECT CASE ... | Lógica centralizada, retorno já formatado. |
 | **Juntar Tabelas** | Dois SELECTs, LOOP e APPEND. | SELECT ... UNION ... | Uma única ida ao banco (Roundtrip). |
-| **Filtro de Soma** | LOOP, calcular, DELETE se menor que X. | SELECT ... HAVING SUM \> X | O banco só retorna o que interessa. |
+| **Filtro de Soma** | LOOP, calcular, DELETE se menor que X. | SELECT ... HAVING SUM > X | O banco só retorna o que interessa. |
 
 ### **📝 Quiz de Fixação**
 
@@ -249,7 +249,7 @@ Q1: Qual a diferença técnica e de performance entre WHERE e HAVING em uma cons
 R: O WHERE filtra as linhas brutas antes que elas sejam agrupadas e calculadas, reduzindo o volume de dados a ser processado pelo agrupador. O HAVING filtra os resultados já agregados (os grupos) após o cálculo. Para performance, deve-se filtrar o máximo possível no WHERE.  
 Q2: Por que UNION ALL é geralmente mais performático que UNION?  
 R: Porque o UNION padrão executa um passo adicional e custoso de processamento (sort/distinct) para identificar e remover linhas duplicadas entre os conjuntos de resultados. O UNION ALL simplesmente anexa os resultados sequencialmente, sem verificação extra.  
-Q3: Se eu usar a função SUM( price ) na minha lista de campos, o que sou obrigado a fazer com os outros campos (ex: customer\_id) que não estão sendo somados?  
+Q3: Se eu usar a função SUM( price ) na minha lista de campos, o que sou obrigado a fazer com os outros campos (ex: customer_id) que não estão sendo somados?  
 R: Sou obrigado a incluí-los na cláusula GROUP BY. Caso contrário, ocorrerá um erro de sintaxe SQL, pois o banco de dados não sabe como condensar múltiplas linhas de clientes diferentes em uma só linha de soma sem um critério explícito de agrupamento.  
 Q4: Para que serve a função COALESCE e em que cenário ela é indispensável?  
 R: A função COALESCE retorna o primeiro valor não nulo de uma lista. Ela é indispensável em cálculos aritméticos (somas, multiplicações) onde um dos campos pode ser NULL, pois em SQL qualquer operação com NULL resulta em NULL. O COALESCE permite substituir o nulo por zero ou um valor padrão para que o cálculo prossiga.

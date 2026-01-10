@@ -7,11 +7,11 @@
 Ao final desta aula, o estudante deverá ser capaz de:
 
 1. Escrever uma **CDS View Entity** utilizando a sintaxe moderna e estrita, compreendendo as melhorias de performance e arquitetura em relação às views clássicas.  
-2. Aplicar rigorosamente as convenções de nomenclatura do **Virtual Data Model (VDM)**, diferenciando **Interface Views (I\_)** de **Consumption Views (C\_)** e entendendo o propósito de reutilização de cada uma.  
+2. Aplicar rigorosamente as convenções de nomenclatura do **Virtual Data Model (VDM)**, diferenciando **Interface Views (I_)** de **Consumption Views (C_)** e entendendo o propósito de reutilização de cada uma.  
 3. Utilizar **Aliases** estrategicamente para converter nomes técnicos legados (ex: MATNR) para nomes semânticos em **CamelCase** (ex: MaterialID), facilitando o consumo por interfaces web (UI5/Fiori).  
 4. Entender a diferença técnica crítica entre DEFINE VIEW (Obsoleto, gera artefatos SE11) e DEFINE VIEW ENTITY (Novo Padrão, gerenciado pelo Kernel ABAP).
 
-### **1\. A Nova Sintaxe: View Entity vs. CDS View Clássica**
+### **1. A Nova Sintaxe: View Entity vs. CDS View Clássica**
 
 Nos primeiros anos da tecnologia CDS (Core Data Services), utilizávamos o comando DEFINE VIEW. Embora revolucionário, ele carregava um débito técnico: a duplicidade de artefatos.
 
@@ -31,15 +31,15 @@ Desde o ABAP 7.55 (e padrão obrigatório no ABAP Cloud), usamos **DEFINE VIEW E
 * **Verificação Estrita:** O compilador é mais rigoroso. Tipos de dados devem coincidir perfeitamente, e certas ambiguidades do SQL antigo não são toleradas, resultando em código mais limpo e seguro.  
 * **Performance:** A ativação é muito mais rápida, e o plano de execução no banco de dados pode ser otimizado de forma mais eficiente pelo otimizador do HANA.
 
-### **2\. Estrutura de uma CDS View**
+### **2. Estrutura de uma CDS View**
 
-Uma View CDS é um artefato de código fonte (DDL \- Data Definition Language) composto por três partes principais:
+Uma View CDS é um artefato de código fonte (DDL - Data Definition Language) composto por três partes principais:
 
 #### **A. Anotações (Header Annotations)**
 
 Configurações técnicas que precedem a definição. Começam com @.
 
-* @AccessControl.authorizationCheck: Define se a view terá controle de acesso automático (DCL). Para Interface Views básicas, muitas vezes usamos \#NOT\_REQUIRED ou \#CHECK.  
+* @AccessControl.authorizationCheck: Define se a view terá controle de acesso automático (DCL). Para Interface Views básicas, muitas vezes usamos #NOT_REQUIRED ou #CHECK.  
 * @EndUserText.label: A descrição da view. Obrigatória em View Entities.
 
 #### **B. Definição e Fonte de Dados**
@@ -55,65 +55,65 @@ O "miolo" da view, dentro das chaves { }. Aqui selecionamos campos, criamos cál
 
 O VDM organiza as milhares de views do S/4HANA.
 
-* **Interface Views (I\_):** A base da pirâmide. Devem ser agnósticas de UI, reutilizáveis e estáveis. Espelham os dados do negócio. Ex: Z\_I\_Travel.  
-* **Consumption Views (C\_):** O topo da pirâmide. Específicas para um aplicativo ou relatório. Consomem as Interface Views. Ex: Z\_C\_Travel\_Analytics.
+* **Interface Views (I_):** A base da pirâmide. Devem ser agnósticas de UI, reutilizáveis e estáveis. Espelham os dados do negócio. Ex: Z_I_Travel.  
+* **Consumption Views (C_):** O topo da pirâmide. Específicas para um aplicativo ou relatório. Consomem as Interface Views. Ex: Z_C_Travel_Analytics.
 
-### **3\. Exemplo Prático: Criando a Interface de Viagens**
+### **3. Exemplo Prático: Criando a Interface de Viagens**
 
-Vamos criar a view Z\_I\_TRAVEL. O objetivo é ler a tabela física ZRAP\_TRAVEL e transformar seus campos técnicos em uma interface de negócio limpa.
+Vamos criar a view Z_I_TRAVEL. O objetivo é ler a tabela física ZRAP_TRAVEL e transformar seus campos técnicos em uma interface de negócio limpa.
 
-**Atenção ao CamelCase:** Note como usamos as TravelUUID em vez de deixar travel\_uuid. Interfaces modernas (Fiori, React, APIs REST) padronizam o uso de CamelCase. Se mandarmos TRAVEL\_UUID, o frontend JavaScript terá que lidar com nomes fora do padrão. O CDS resolve isso na fonte.
+**Atenção ao CamelCase:** Note como usamos as TravelUUID em vez de deixar travel_uuid. Interfaces modernas (Fiori, React, APIs REST) padronizam o uso de CamelCase. Se mandarmos TRAVEL_UUID, o frontend JavaScript terá que lidar com nomes fora do padrão. O CDS resolve isso na fonte.
 
-@AccessControl.authorizationCheck: \#NOT\_REQUIRED  
+@AccessControl.authorizationCheck: #NOT_REQUIRED  
 @EndUserText.label: 'Interface View para Viagens'  
 @Metadata.ignorePropagatedAnnotations: true 
 
-define view entity Z\_I\_TRAVEL  
-  as select from zrap\_travel as Travel  
+define view entity Z_I_TRAVEL  
+  as select from zrap_travel as Travel  
 {  
-  /\* Chaves: Essenciais para o funcionamento do OData e navegação \*/  
-  key travel\_uuid           as TravelUUID,
+  /* Chaves: Essenciais para o funcionamento do OData e navegação */  
+  key travel_uuid           as TravelUUID,
 
-  /\* Campos de Identificação de Negócio \*/  
-  travel\_id             as TravelID,  
-  agency\_id             as AgencyID,  
-  customer\_id           as CustomerID,  
+  /* Campos de Identificação de Negócio */  
+  travel_id             as TravelID,  
+  agency_id             as AgencyID,  
+  customer_id           as CustomerID,  
     
-  /\* Datas \*/  
-  begin\_date            as BeginDate,  
-  end\_date              as EndDate,  
+  /* Datas */  
+  begin_date            as BeginDate,  
+  end_date              as EndDate,  
     
-  /\* Valores Monetários: A ligação Semântica é feita aqui ou na tabela \*/  
+  /* Valores Monetários: A ligação Semântica é feita aqui ou na tabela */  
   @Semantics.amount.currencyCode: 'CurrencyCode'  
-  booking\_fee           as BookingFee,  
+  booking_fee           as BookingFee,  
     
   @Semantics.amount.currencyCode: 'CurrencyCode'  
-  total\_price           as TotalPrice,  
+  total_price           as TotalPrice,  
     
-  /\* Moeda e Descrições \*/  
-  currency\_code         as CurrencyCode,  
+  /* Moeda e Descrições */  
+  currency_code         as CurrencyCode,  
   description           as Description,  
     
-  /\* Status do Processo \*/  
-  overall\_status        as OverallStatus,
+  /* Status do Processo */  
+  overall_status        as OverallStatus,
 
-  /\* \--- Campos de Auditoria (Admin Data) \--- \*/  
-  /\* Estas anotações permitem que o RAP preencha os dados automaticamente \*/  
+  /* --- Campos de Auditoria (Admin Data) --- */  
+  /* Estas anotações permitem que o RAP preencha os dados automaticamente */  
   @Semantics.user.createdBy: true  
-  created\_by            as CreatedBy,  
+  created_by            as CreatedBy,  
     
   @Semantics.systemDateTime.createdAt: true  
-  created\_at            as CreatedAt,  
+  created_at            as CreatedAt,  
     
   @Semantics.user.lastChangedBy: true  
-  last\_changed\_by       as LastChangedBy,  
+  last_changed_by       as LastChangedBy,  
     
   @Semantics.systemDateTime.lastChangedAt: true  
-  last\_changed\_at       as LastChangedAt
+  last_changed_at       as LastChangedAt
 
 }
 
-### **4\. Anotações Semânticas: O Segredo da Automação**
+### **4. Anotações Semânticas: O Segredo da Automação**
 
 No código acima, as anotações @Semantics não são decorativas; elas alteram o comportamento do sistema.
 
@@ -129,7 +129,7 @@ No código acima, as anotações @Semantics não são decorativas; elas alteram 
   * **O que faz:** Marca o campo como "Usuário de Criação".  
   * **Impacto no Backend:** Em um cenário RAP Managed (que veremos adiante), o framework identifica essa anotação e preenche automaticamente o campo com o usuário logado (sy-uname) no momento do INSERT. O desenvolvedor não precisa escrever uma linha de código para isso.
 
-### **5\. Code Pushdown: Cálculos na View**
+### **5. Code Pushdown: Cálculos na View**
 
 Uma das maiores vantagens do CDS é realizar cálculos linha a linha diretamente no banco de dados, evitando loops no ABAP.
 
@@ -138,8 +138,8 @@ Uma das maiores vantagens do CDS é realizar cálculos linha a linha diretamente
 Categorizar dados na fonte é muito mais eficiente.
 
 case   
-  when total\_price \> 1000 then 'High Value'   
-  when total\_price \> 500  then 'Medium Value'  
+  when total_price > 1000 then 'High Value'   
+  when total_price > 500  then 'Medium Value'  
   else 'Low Value'   
 end as PriceCategory
 
@@ -147,14 +147,14 @@ end as PriceCategory
 
 Funções embutidas permitem tratar dados brutos.
 
-/\* Concatenação \*/  
-concat\_with\_space(first\_name, last\_name, 1\) as FullName
+/* Concatenação */  
+concat_with_space(first_name, last_name, 1) as FullName
 
-/\* Cálculo de Dias \*/  
-dats\_days\_between(begin\_date, end\_date) as DurationDays
+/* Cálculo de Dias */  
+dats_days_between(begin_date, end_date) as DurationDays
 
-/\* Conversão de Tipo (Casting) \*/  
-cast(total\_price as abap.fltp) as PriceFloat
+/* Conversão de Tipo (Casting) */  
+cast(total_price as abap.fltp) as PriceFloat
 
 ### **🧠 Material para Estudo (Flashcards & Resumo)**
 
@@ -179,7 +179,7 @@ cast(total\_price as abap.fltp) as PriceFloat
 
 Q1: Qual é a principal diferença técnica entre usar DEFINE VIEW e DEFINE VIEW ENTITY?  
 R: DEFINE VIEW cria uma View CDS e uma View de Banco de Dados clássica (SE11) duplicada, o que pode causar conflitos de nome e overhead. DEFINE VIEW ENTITY cria apenas a entidade CDS, sendo processada inteiramente pelo runtime do CDS e otimizada para o HANA, sem gerar artefatos desnecessários no dicionário.  
-Q2: Por que renomeamos os campos usando Aliases (ex: travel\_id as TravelID) nas Interface Views?  
+Q2: Por que renomeamos os campos usando Aliases (ex: travel_id as TravelID) nas Interface Views?  
 R: Para padronizar os nomes seguindo a convenção CamelCase. Isso torna o modelo de dados semanticamente mais rico e amigável para o desenvolvimento de interfaces web (UI5/Fiori) e APIs OData, que naturalmente utilizam esse padrão de nomenclatura.  
 Q3: O que acontece se eu esquecer de marcar um campo com a palavra-chave key na CDS View?  
 R: A view funcionará sintaticamente para seleções em massa, mas poderá causar erros graves ao ser consumida por frameworks OData ou Fiori Elements. Esses frameworks precisam saber qual é o identificador único da linha para realizar operações de leitura de detalhe, edição ou navegação.  

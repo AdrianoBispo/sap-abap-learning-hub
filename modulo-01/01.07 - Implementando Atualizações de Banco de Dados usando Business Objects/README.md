@@ -12,7 +12,7 @@ Ao final desta aula, o estudante deverá ser capaz de:
 4. Gerenciar a transacionalidade utilizando **COMMIT ENTITIES**, compreendendo a distinção entre o *Transactional Buffer* e a persistência física no banco de dados.  
 5. Interpretar e manipular as estruturas de retorno padrão **FAILED**, **MAPPED** e **REPORTED** para tratamento robusto de erros.
 
-### **1\. O Fim do SQL Direto (INSERT/UPDATE)**
+### **1. O Fim do SQL Direto (INSERT/UPDATE)**
 
 No paradigma antigo do ABAP Clássico, a persistência de dados era direta e muitas vezes bruta. Se um desenvolvedor precisasse criar um Pedido de Venda, ele frequentemente escrevia um comando INSERT INTO vbap VALUES .... Embora eficiente do ponto de vista puramente técnico (banco de dados), essa abordagem é catastrófica para a integridade do negócio.
 
@@ -27,7 +27,7 @@ Ao inserir diretamente na tabela, você está ignorando ("bypassing") toda a int
 A Solução (RAP):  
 No modelo RAP, aplicamos o princípio de Encapsulamento. A tabela do banco de dados é privada do Business Object. Ninguém de fora pode tocá-la. Para modificar dados, você deve "pedir" ao Business Object. O BO atua como um guardião, garantindo que todas as regras sejam cumpridas antes que qualquer dado seja gravado.
 
-### **2\. O que é EML (Entity Manipulation Language)?**
+### **2. O que é EML (Entity Manipulation Language)?**
 
 O EML não é uma nova linguagem separada, mas uma extensão poderosa da sintaxe ABAP nativa, desenhada especificamente para o modelo RAP. Enquanto o SQL foca em *tabelas*, o EML foca em *entidades* e *comportamentos*.
 
@@ -40,34 +40,34 @@ O EML não é uma nova linguagem separada, mas uma extensão poderosa da sintaxe
 2. **Abstração:** Você não precisa saber em quais tabelas físicas o BO grava (pode ser uma, podem ser dez). O EML abstrai essa complexidade.  
 3. **Buffer Transacional:** O EML trabalha em memória. As alterações não vão para o banco imediatamente; elas ficam num buffer gerenciado pelo framework até o commit.
 
-### **3\. A Sintaxe do MODIFY ENTITIES**
+### **3. A Sintaxe do MODIFY ENTITIES**
 
 O comando MODIFY ENTITIES é o canivete suíço do RAP. Ele permite Criar (CREATE), Alterar (UPDATE), Deletar (DELETE) e Executar Ações (EXECUTE).
 
 #### **Estrutura Geral e Parâmetros de Retorno**
 
-MODIFY ENTITIES OF Nome\_Da\_Definicao\_De\_Comportamento  
-  ENTITY Nome\_Da\_Entidade  
+MODIFY ENTITIES OF Nome_Da_Definicao_De_Comportamento  
+  ENTITY Nome_Da_Entidade  
     
   " Operação 1: Criar novas instâncias  
-  CREATE FROM lt\_novos\_dados   
+  CREATE FROM lt_novos_dados   
     
   " Operação 2: Atualizar instâncias existentes  
-  UPDATE FROM lt\_dados\_alterados  
+  UPDATE FROM lt_dados_alterados  
     
   " Operação 3: Executar uma Ação (Ex: Aprovar)  
-  EXECUTE aceitar\_viagem FROM lt\_chaves\_acao
+  EXECUTE aceitar_viagem FROM lt_chaves_acao
 
-  " Retornos Padronizados (Sempre use\!)  
-  FAILED   DATA(ls\_failed)  
-  REPORTED DATA(ls\_reported)  
-  MAPPED   DATA(ls\_mapped).
+  " Retornos Padronizados (Sempre use!)  
+  FAILED   DATA(ls_failed)  
+  REPORTED DATA(ls_reported)  
+  MAPPED   DATA(ls_mapped).
 
 * **FAILED:** Contém as chaves das linhas que falharam. O framework preenche isso automaticamente se uma validação falhar.  
 * **REPORTED:** Contém as mensagens de erro (T100) associadas às falhas. É aqui que você descobre *por que* falhou (ex: "Cliente inválido").  
 * **MAPPED:** (Usado no CREATE) Contém o mapeamento entre o ID temporário (%cid) e o ID final gerado pelo sistema, vital para numeração tardia (Late Numbering).
 
-### **4\. Transacionalidade: COMMIT ENTITIES**
+### **4. Transacionalidade: COMMIT ENTITIES**
 
 Uma diferença crítica entre o ABAP Clássico e o RAP é o gerenciamento da transação.
 
@@ -84,122 +84,122 @@ COMMIT ENTITIES.
 " Commit com Resposta (Recomendado)  
 " Permite saber se houve erro durante o processo de gravação final  
 COMMIT ENTITIES   
-  RESPONSE OF Nome\_Do\_BDEF   
-  FAILED DATA(ls\_commit\_failed)   
-  REPORTED DATA(ls\_commit\_reported).
+  RESPONSE OF Nome_Do_BDEF   
+  FAILED DATA(ls_commit_failed)   
+  REPORTED DATA(ls_commit_reported).
 
-### **5\. Exemplo Prático: Criando e Atualizando Viagens via EML**
+### **5. Exemplo Prático: Criando e Atualizando Viagens via EML**
 
 Neste exemplo expandido, vamos simular um programa que cria uma viagem e, logo em seguida, tenta atualizar um campo dela, demonstrando a interação completa com o buffer.
 
-CLASS zcl\_eml\_demo DEFINITION  
+CLASS zcl_eml_demo DEFINITION  
   PUBLIC  
   FINAL  
   CREATE PUBLIC .
 
   PUBLIC SECTION.  
-    INTERFACES if\_oo\_adt\_classrun .  
+    INTERFACES if_oo_adt_classrun .  
   PROTECTED SECTION.  
   PRIVATE SECTION.  
 ENDCLASS.
 
-CLASS zcl\_eml\_demo IMPLEMENTATION.
+CLASS zcl_eml_demo IMPLEMENTATION.
 
-  METHOD if\_oo\_adt\_classrun\~main.
+  METHOD if_oo_adt_classrun~main.
 
-    " \---------------------------------------------------------------------  
+    " ---------------------------------------------------------------------  
     " PASSO 1: Preparação dos Dados para CRIAÇÃO  
-    " \---------------------------------------------------------------------  
+    " ---------------------------------------------------------------------  
     " O %cid (Content ID) é um identificador temporário obrigatório (string)  
     " que permite referenciar esta linha antes dela ter um número final.  
     " O %control indica quais campos estamos fornecendo.  
       
-    DATA(lt\_travel\_create) \= VALUE /dmo/t\_travel\_create\_in(  
-      ( %cid \= 'TEMP\_ID\_001'  
-        agency\_id     \= '070001'  
-        customer\_id   \= '000001'  
-        begin\_date    \= cl\_abap\_context\_info=\>get\_system\_date( )  
-        end\_date      \= cl\_abap\_context\_info=\>get\_system\_date( ) \+ 10  
-        booking\_fee   \= '20.00'  
-        currency\_code \= 'EUR'  
-        description   \= 'Viagem criada via EML'  
-        status        \= 'O' " Open  
-        %control-agency\_id     \= if\_abap\_behv=\>mk-on  
-        %control-customer\_id   \= if\_abap\_behv=\>mk-on  
-        %control-begin\_date    \= if\_abap\_behv=\>mk-on  
-        %control-end\_date      \= if\_abap\_behv=\>mk-on  
-        %control-booking\_fee   \= if\_abap\_behv=\>mk-on  
-        %control-currency\_code \= if\_abap\_behv=\>mk-on  
-        %control-description   \= if\_abap\_behv=\>mk-on  
-        %control-status        \= if\_abap\_behv=\>mk-on  
+    DATA(lt_travel_create) = VALUE /dmo/t_travel_create_in(  
+      ( %cid = 'TEMP_ID_001'  
+        agency_id     = '070001'  
+        customer_id   = '000001'  
+        begin_date    = cl_abap_context_info=>get_system_date( )  
+        end_date      = cl_abap_context_info=>get_system_date( ) + 10  
+        booking_fee   = '20.00'  
+        currency_code = 'EUR'  
+        description   = 'Viagem criada via EML'  
+        status        = 'O' " Open  
+        %control-agency_id     = if_abap_behv=>mk-on  
+        %control-customer_id   = if_abap_behv=>mk-on  
+        %control-begin_date    = if_abap_behv=>mk-on  
+        %control-end_date      = if_abap_behv=>mk-on  
+        %control-booking_fee   = if_abap_behv=>mk-on  
+        %control-currency_code = if_abap_behv=>mk-on  
+        %control-description   = if_abap_behv=>mk-on  
+        %control-status        = if_abap_behv=>mk-on  
        )  
     ).
 
-    " \---------------------------------------------------------------------  
+    " ---------------------------------------------------------------------  
     " PASSO 2: Executar o MODIFY (Interaction Phase)  
-    " \---------------------------------------------------------------------  
+    " ---------------------------------------------------------------------  
     " Aqui, o framework executa validações. Se a agência não existir,  
-    " ls\_failed será preenchido.  
+    " ls_failed será preenchido.  
       
-    MODIFY ENTITIES OF /DMO/I\_Travel\_M  
+    MODIFY ENTITIES OF /DMO/I_Travel_M  
       ENTITY Travel  
-      CREATE FROM lt\_travel\_create  
+      CREATE FROM lt_travel_create  
         
       " Captura de retornos  
-      FAILED DATA(ls\_failed)  
-      REPORTED DATA(ls\_reported)  
-      MAPPED DATA(ls\_mapped).
+      FAILED DATA(ls_failed)  
+      REPORTED DATA(ls_reported)  
+      MAPPED DATA(ls_mapped).
 
-    IF ls\_failed IS NOT INITIAL.  
+    IF ls_failed IS NOT INITIAL.  
       " Tratamento de Erro na Criação  
-      " Leríamos ls\_reported para mostrar a mensagem ao usuário.  
-      out-\>write( 'Erro: Falha na criação da viagem (Validação).' ).  
+      " Leríamos ls_reported para mostrar a mensagem ao usuário.  
+      out->write( 'Erro: Falha na criação da viagem (Validação).' ).  
         
       " Exemplo de como ler mensagens de erro do REPORTED  
-      LOOP AT ls\_reported-travel INTO DATA(ls\_msg).  
-         DATA(lv\_text) \= ls\_msg-%msg-\>get\_text( ).  
-         out-\>write( |Detalhe: { lv\_text }| ).  
+      LOOP AT ls_reported-travel INTO DATA(ls_msg).  
+         DATA(lv_text) = ls_msg-%msg->get_text( ).  
+         out->write( |Detalhe: { lv_text }| ).  
       ENDLOOP.  
       RETURN.   
     ENDIF.
 
     " Se chegou aqui, a criação foi bem sucedida NO BUFFER.  
     " Podemos acessar a chave gerada através da estrutura MAPPED.  
-    DATA(lv\_new\_travel\_id) \= ls\_mapped-travel\[ 1 \]-travel\_id.  
-    out-\>write( |Viagem criada no buffer com ID: { lv\_new\_travel\_id }| ).
+    DATA(lv_new_travel_id) = ls_mapped-travel[ 1 ]-travel_id.  
+    out->write( |Viagem criada no buffer com ID: { lv_new_travel_id }| ).
 
-    " \---------------------------------------------------------------------  
+    " ---------------------------------------------------------------------  
     " PASSO 3: Atualização na mesma transação (Chaining)  
-    " \---------------------------------------------------------------------  
+    " ---------------------------------------------------------------------  
     " Vamos aumentar a taxa de reserva para 50.00.  
       
-    MODIFY ENTITIES OF /DMO/I\_Travel\_M  
+    MODIFY ENTITIES OF /DMO/I_Travel_M  
       ENTITY Travel  
-      UPDATE FIELDS ( booking\_fee ) " Só atualiza este campo  
-      WITH VALUE \#( ( travel\_id   \= lv\_new\_travel\_id  
-                      booking\_fee \= '50.00' ) )  
-      FAILED DATA(ls\_update\_failed)  
-      REPORTED DATA(ls\_update\_reported).
+      UPDATE FIELDS ( booking_fee ) " Só atualiza este campo  
+      WITH VALUE #( ( travel_id   = lv_new_travel_id  
+                      booking_fee = '50.00' ) )  
+      FAILED DATA(ls_update_failed)  
+      REPORTED DATA(ls_update_reported).
 
-    IF ls\_update\_failed IS NOT INITIAL.  
-       out-\>write( 'Erro ao atualizar a taxa.' ).  
+    IF ls_update_failed IS NOT INITIAL.  
+       out->write( 'Erro ao atualizar a taxa.' ).  
        RETURN.  
     ENDIF.
 
-    " \---------------------------------------------------------------------  
+    " ---------------------------------------------------------------------  
     " PASSO 4: Persistir (Save Phase)  
-    " \---------------------------------------------------------------------  
+    " ---------------------------------------------------------------------  
     " Até agora, nada está no banco. O COMMIT efetiva a transação.  
       
     COMMIT ENTITIES  
-      RESPONSE OF /DMO/I\_Travel\_M  
-      FAILED DATA(ls\_commit\_failed)  
-      REPORTED DATA(ls\_commit\_reported).
+      RESPONSE OF /DMO/I_Travel_M  
+      FAILED DATA(ls_commit_failed)  
+      REPORTED DATA(ls_commit_reported).
 
-    IF ls\_commit\_failed IS INITIAL.  
-      out-\>write( 'Sucesso Total\! Dados gravados no banco de dados.' ).  
+    IF ls_commit_failed IS INITIAL.  
+      out->write( 'Sucesso Total! Dados gravados no banco de dados.' ).  
     ELSE.  
-      out-\>write( 'Erro durante a fase de salvamento (Save Sequence).' ).  
+      out->write( 'Erro durante a fase de salvamento (Save Sequence).' ).  
     ENDIF.
 
   ENDMETHOD.
@@ -222,10 +222,10 @@ ENDCLASS.
 
 | Operação | ABAP Clássico | ABAP Moderno (RAP) |
 | :---- | :---- | :---- |
-| **Criar Dados** | INSERT ztable FROM ls\_data. (Direto, sem validação BO) | MODIFY ENTITIES ... CREATE. (Passa pelo BO) |
+| **Criar Dados** | INSERT ztable FROM ls_data. (Direto, sem validação BO) | MODIFY ENTITIES ... CREATE. (Passa pelo BO) |
 | **Alterar Dados** | UPDATE ztable SET ... | MODIFY ENTITIES ... UPDATE. |
 | **Persistir** | COMMIT WORK. (Síncrono/Assíncrono direto) | COMMIT ENTITIES. (Dispara Save Sequence) |
-| **Tratamento de Erro** | sy-subrc \<\> 0\. | Parâmetros FAILED e REPORTED. |
+| **Tratamento de Erro** | sy-subrc <> 0. | Parâmetros FAILED e REPORTED. |
 | **Identificação** | Chave da tabela (obrigatória) | %cid (criação) ou Chave (atualização) |
 
 ### **📝 Quiz de Fixação**

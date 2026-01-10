@@ -4,17 +4,11 @@
 
 O material foi construído com base no curso [**"Basic ABAP Programming" da plataforma SAP Learning"**](https://learning.sap.com/courses/basic-abap-programming), ele se trata de uma introdução abrangente à linguagem de programação ABAP, voltada para iniciantes.
 
-> Começe por aqui: [**A Evolução do ABAP: Guia Essencial para o Desenvolvedor Moderno**](./01.00_ABAP_Moderno_Uma_Jornada_Essencial.pdf)
+> **Começe por aqui: [A Evolução do ABAP: Guia Essencial para o Desenvolvedor Moderno](./01.00_ABAP_Moderno_Uma_Jornada_Essencial.pdf)**
 
-## Objetivos de Aprendizagem
-- Compreender os fundamentos da linguagem ABAP.
-- Desenvolver habilidades práticas para criar aplicações simples.
-- Aprender a trabalhar com dados estruturados e tabelas internas.
-- Conhecer o modelo RAP para desenvolvimento moderno em SAP.
+## Conteúdo
 
-## Tópicos
-
-| Tópico | Descrição |
+| Diretórios | Descrição |
 | :--- | :--- |
 | [**Iniciando a Jornada**](./01.01%20-%20Iniciando%20a%20Jornada/README.md) | Introdução ao ambiente de desenvolvimento ABAP e primeiros passos com a linguagem. |
 | [**Aplicando Técnicas e Conceitos Básicos**](./01.02%20-%20Aplicando%20T%C3%A9cnicas%20e%20Conceitos%20B%C3%A1sicos/README.md) | Técnicas básicas de programação, estruturas de controle, variáveis e tipos de dados. |
