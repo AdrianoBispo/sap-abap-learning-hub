@@ -1,72 +1,78 @@
-# **Módulo 02: Modelagem de Dados com ABAP Dictionary e CDS**
+# Usando Code Pushdown em CDS Views (Expressões SQL)
 
-## **Aula 06: Usando Code Pushdown em CDS Views (Expressões SQL)**
+![Infográfico - Usando Code Pushdown em CDS Views (Expressões SQL)](./02.06_Code_Pushdown_com_ABAP_CDS.png)
 
-### **🎯 Objetivos de Aprendizagem**
+> **Começe pelos slides: [O Fim do LOOP: Dominando o Code Pushdown em ABAP CDS com Expressões SQL)](./02.06_O_Fim_do_LOOP_Code_Pushdown_em_ABAP_CDS.pdf)**
 
-Ao final desta aula, o estudante deverá ser capaz de:
+## Objetivos de Aprendizagem
 
-1. Aplicar lógica condicional complexa com **CASE Expressions** diretamente na CDS View, substituindo estruturas de controle ABAP (IF/ELSEIF) por lógica de banco de dados.  
-2. Realizar cálculos aritméticos avançados e manipulação de datas utilizando funções nativas como dats_days_between, dats_add_days e operações matemáticas.  
-3. Converter tipos de dados explicitamente utilizando a instrução **CAST**, garantindo a integridade dos dados em operações de cálculo e uniões.  
-4. Utilizar **Variáveis de Sessão** ($session.system_date, $session.user, $session.system_language) para criar views dinâmicas que respondem ao contexto do usuário logado.
+- Aplicar lógica condicional complexa com **CASE Expressions** diretamente na CDS View, substituindo estruturas de controle ABAP (IF/ELSEIF) por lógica de banco de dados.  
+- Realizar cálculos aritméticos avançados e manipulação de datas utilizando funções nativas como dats_days_between, dats_add_days e operações matemáticas.  
+- Converter tipos de dados explicitamente utilizando a instrução **CAST**, garantindo a integridade dos dados em operações de cálculo e uniões.  
+- Utilizar **Variáveis de Sessão** ($session.system_date, $session.user, $session.system_language) para criar views dinâmicas que respondem ao contexto do usuário logado.
 
-### **1. O Poder das Expressões SQL e o Fim do Loop**
+## 1. O Poder das Expressões SQL e o Fim do Loop
 
 No desenvolvimento ABAP clássico, o banco de dados era visto apenas como um repositório passivo. O padrão era: "Selecionar todos os dados brutos, transferi-los para o servidor de aplicação, armazenar em tabelas internas e então iterar (LOOP) para realizar cálculos linha a linha".
 
-O Problema (Data-to-Code):  
-Essa abordagem gera um tráfego de rede imenso e subutiliza a capacidade de processamento paralelo do banco de dados. Se você precisa calcular o "Valor Total com Imposto" de 1 milhão de registros, trazer tudo para o ABAP consome memória e CPU desnecessariamente.  
-A Solução (Code Pushdown com CDS):  
-Com o Code Pushdown, transferimos essa lógica para a definição da View. O banco de dados (HANA) realiza os cálculos durante a leitura. O ABAP recebe apenas o resultado final processado.
+* **O Problema (Data-to-Code):** Essa abordagem gera um tráfego de rede imenso e subutiliza a capacidade de processamento paralelo do banco de dados. Se você precisa calcular o "Valor Total com Imposto" de 1 milhão de registros, trazer tudo para o ABAP consome memória e CPU desnecessariamente.
 
-* **Vantagem de Performance:** O cálculo ocorre onde os dados residem. O HANA pode paralelizar a operação em múltiplos núcleos.  
+* **A Solução (Code Pushdown com CDS):** Com o Code Pushdown, transferimos essa lógica para a definição da View. O banco de dados (HANA) realiza os cálculos durante a leitura. O ABAP recebe apenas o resultado final processado.
+
+* **Vantagem de Performance:** O cálculo ocorre onde os dados residem. O HANA pode paralelizar a operação em múltiplos núcleos.
+  
 * **Vantagem de Manutenção:** A regra de negócio (ex: como calcular um status) fica centralizada na View, reutilizável por qualquer consumidor (Relatório, App Fiori, API), em vez de estar escondida dentro de um método ABAP específico.
 
-### **2. Lógica Condicional: CASE Expressions**
+## 2. Lógica Condicional: CASE Expressions
 
-O comando CASE é o equivalente SQL para o IF...ELSEIF...ELSE do ABAP. Ele permite criar colunas calculadas cujo valor depende de condições lógicas em outros campos da linha.
+O comando `CASE` é o equivalente SQL para o `IF...ELSEIF...ELSE` do ABAP. Ele permite criar colunas calculadas cujo valor depende de condições lógicas em outros campos da linha.
 
-#### **Sintaxe Básica e Avançada**
+### Sintaxe Básica e Avançada
 
 Podemos usar o CASE simples (comparando um campo) ou o CASE complexo (com múltiplas condições distintas).
 
-**Exemplo: Traduzindo Códigos Técnicos para Textos de Negócio**
+#### Exemplo - Traduzindo Códigos Técnicos para Textos de Negócio
 
+``` ABAP
 case overall_status  
   when 'O' then 'Em Aberto'  
   when 'A' then 'Aceito'  
   when 'X' then 'Cancelado'  
   else 'Desconhecido' -- Fallback para valores inesperados  
 end as StatusText
+```
 
-Exemplo: Criticality (Cores no Fiori)  
-Um uso extremamente comum no RAP é definir a "Criticidade" de uma linha. O Fiori Elements entende valores numéricos (0=Neutro, 1=Negativo, 2=Crítico, 3=Positivo) para colorir textos e ícones.  
+#### Exemplo - Criticality (Cores no Fiori)
+
+Um uso extremamente comum no RAP é definir a "Criticidade" de uma linha. O Fiori Elements entende valores numéricos (0=Neutro, 1=Negativo, 2=Crítico, 3=Positivo) para colorir textos e ícones.
+
 /* Lógica de Negócio para Cores */  
+``` ABAP
 case   
   when overall_status = 'X' then 1  -- Vermelho (Erro)  
   when overall_status = 'O' and dats_days_between(created_at, $session.system_date) > 30 then 2 -- Amarelo (Atrasado)  
   when overall_status = 'A' then 3  -- Verde (Sucesso)  
   else 0                            -- Cinza (Neutro)  
 end as StatusCriticality
+```
 
 *Dica:* Observe como combinamos uma comparação simples (=) com uma função de data (dats_days_between) dentro da condição WHEN. O CDS permite essa flexibilidade.
 
-### **3. Funções de Data, Aritmética e String**
+## 3. Funções de Data, Aritmética e String
 
 O ABAP CDS oferece uma biblioteca rica de funções integradas que eliminam a necessidade de processamento posterior no ABAP.
 
-#### **Aritmética**
+### Aritmética
 
-Podemos realizar as quatro operações básicas e usar funções matemáticas. O CDS lida automaticamente com nulos (se um operando for NULL, o resultado é NULL).
+Podemos realizar as quatro operações básicas e usar funções matemáticas. O CDS lida automaticamente com nulos (se um operando for `NULL`, o resultado é `NULL`).
 
-* **Operadores:** +, -, *, / (Divisão exata, retorna Floating Point).  
-* **Funções:** div(a, b) (Divisão inteira), mod(a, b) (Resto), abs(x) (Valor absoluto), ceil(x) (Arredondar para cima), floor(x) (Arredondar para baixo).
+* **Operadores:** `+`, `-`, `*`, / (Divisão exata, retorna Floating Point).  
+* **Funções:** `div(a, b)` (Divisão inteira), `mod(a, b)` (Resto), `abs(x)` (Valor absoluto), `ceil(x)` (Arredondar para cima), `floor(x)` (Arredondar para baixo).
 
 /* Exemplo: Calcular valor com margem de segurança */  
 ceil( ( total_price * 1.1 ) ) as PriceWithMargin
 
-#### **Datas e Timestamps**
+### Datas e Timestamps
 
 Manipular datas no banco é essencial para relatórios de envelhecimento (Aging) ou duração.
 
@@ -74,59 +80,73 @@ Manipular datas no banco é essencial para relatórios de envelhecimento (Aging)
 * **dats_add_days( data, dias ):** Adiciona (ou subtrai) dias a uma data.  
 * **tstmp_current_utctimestamp():** Retorna o timestamp atual (Data+Hora) em UTC.
 
+``` cds
 /* Calcular Data de Vencimento (30 dias após criação) */  
 dats_add_days( begin_date, 30 ) as DueDate
+```
 
-#### **Variáveis de Sessão ($session)**
+### Variáveis de Sessão (`$session`)
 
-No ABAP SQL clássico, usávamos sy-datum ou sy-uname. No DDL (definição da view), não podemos acessar variáveis do programa ABAP diretamente. Usamos as variáveis de sessão providas pelo banco de dados:
+No ABAP SQL clássico, usávamos `sy-datum` ou `sy-uname`. No DDL (definição da view), não podemos acessar variáveis do programa ABAP diretamente. Usamos as variáveis de sessão providas pelo banco de dados:
 
-* **$session.user:** O ID do usuário logado. Útil para filtros "Meus Documentos".  
-* **$session.client:** O mandante atual (MANDT). Geralmente tratado automaticamente.  
-* **$session.system_language:** O idioma de logon. Usado para selecionar textos.  
-* **$session.system_date:** A data atual do servidor.
+* **`$session.user`:** O ID do usuário logado. Útil para filtros "Meus Documentos".  
+* **`$session.client`:** O mandante atual (MANDT). Geralmente tratado automaticamente.  
+* **`$session.system_language`:** O idioma de logon. Usado para selecionar textos.  
+* **`$session.system_date`:** A data atual do servidor.
 
-/* Flag: É minha viagem? */  
+``` CDS
+/* Flag: É minha viagem? */
 case   
   when created_by = $session.user then 'X'   
   else ''   
 end as IsMyTravel
+```
 
-### **4. Conversão de Tipos: CAST**
+## 4. Conversão de Tipos: `CAST`
 
-O comando CAST é vital quando precisamos alinhar tipos de dados. O ABAP e o SQL são estritos quanto à tipagem (Type Safety).
+O comando `CAST` é vital quando precisamos alinhar tipos de dados. O ABAP e o SQL são estritos quanto à tipagem (Type Safety).
 
-**Cenários Comuns:**
+### Cenários Comuns:
 
-1. **Cálculos Aritméticos:** Às vezes, multiplicar um Inteiro por um Decimal pode exigir conversão explícita para evitar overflow ou perda de precisão.  
-2. **Concatenação:** Não é possível concatenar um número com uma string diretamente. É preciso converter o número para char/string primeiro.  
-3. **Uniões (UNION):** Ao unir duas tabelas, as colunas correspondentes devem ter tipos compatíveis.
+- **Cálculos Aritméticos:** Às vezes, multiplicar um Inteiro por um Decimal pode exigir conversão explícita para evitar overflow ou perda de precisão.
 
-**Sintaxe:** cast( expressão as TipoDestino )
+- **Concatenação:** Não é possível concatenar um número com uma string diretamente. É preciso converter o número para char/string primeiro.
+  
+- **Uniões (UNION):** Ao unir duas tabelas, as colunas correspondentes devem ter tipos compatíveis.
 
-Tipos de destino comuns no CDS:
+- **Sintaxe:** cast( expressão as TipoDestino )
 
-* abap.char(len)  
-* abap.numc(len)  
-* abap.int4  
-* abap.dec(len, decimals)  
-* abap.fltp (Floating Point - recomendado para cálculos complexos)
+  - Tipos de destino comuns no CDS:
+    ``` CDS
+      * abap.char(len)  
+      * abap.numc(len)  
+      * abap.int4  
+      * abap.dec(len, decimals)  
+      * abap.fltp (Floating Point - recomendado para cálculos complexos)
+    ```
 
-/* Convertendo Preço para Float para cálculo preciso */  
+#### Exemplos:
+
+``` CDS
+/* Convertendo Preço para Float para cálculo preciso */
 cast( total_price as abap.fltp ) as PriceFloat
 
-/* Convertendo para Char para uso em string */  
+/* Convertendo para Char para uso em string */
 cast( travel_id as abap.char(8) ) as TravelIdChar
+```
 
-### **5. Exemplo Prático: Enriquecendo a View de Viagens**
+## 5. Exemplo Prático: Enriquecendo a View de Viagens
 
-Vamos aplicar todos esses conceitos na nossa Interface View Z_I_TRAVEL_COMPUTED. Imagine que precisamos de campos calculados para suportar uma interface Fiori rica em informações visuais.
+Vamos aplicar todos esses conceitos na nossa *Interface View `Z_I_TRAVEL_COMPUTED`*. Imagine que precisamos de campos calculados para suportar uma interface Fiori rica em informações visuais.
 
+``` CDS
 @AccessControl.authorizationCheck: #NOT_REQUIRED  
 @EndUserText.label: 'Viagens com Cálculos Avançados'  
 define view entity Z_I_TRAVEL_COMPUTED  
   as select from zrap_travel  
+
 {  
+
   key travel_uuid,  
       travel_id,  
       begin_date,  
@@ -171,22 +191,23 @@ define view entity Z_I_TRAVEL_COMPUTED
         when created_by = $session.user then 'X'  
         else ''  
       end as IsCreatedByMe
-
 }
+```
 
-### **6. Agregações (SUM, MAX, MIN)**
+## 6. Agregações (`SUM`, `MAX`, `MIN`)
 
-Embora as Interface Views (como a acima) geralmente retornem uma linha para cada registro da tabela (granularidade 1:1), o CDS também é poderoso para criar views analíticas (OLAP).
+Embora as _Interface Views_ (como a acima) geralmente retornem uma linha para cada registro da tabela (granularidade 1:1), o CDS também é poderoso para criar views analíticas (OLAP). Para isso, usamos funções de agregação e a cláusula `GROUP BY`.
 
-Para isso, usamos funções de agregação e a cláusula GROUP BY.
+* **Regra do `GROUP BY`:** Se você usar uma função de agregação (`SUM`, `COUNT`, `AVG`, `MIN`, `MAX`) em qualquer campo da lista de seleção, **todos** os outros campos que não são agregados devem obrigatoriamente constar na cláusula `GROUP BY`.
 
-* **Regra do GROUP BY:** Se você usar uma função de agregação (SUM, COUNT, AVG, MIN, MAX) em qualquer campo da lista de seleção, **todos** os outros campos que não são agregados devem obrigatoriamente constar na cláusula GROUP BY.
-
+``` CDS
 @EndUserText.label: 'Estatísticas de Viagem por Cliente'  
 define view entity Z_I_TRAVEL_STATS  
   as select from zrap_travel  
+
 {  
   /* Chave do Agrupamento */  
+
   key customer_id,  
         
       /* Agregações */  
@@ -199,23 +220,15 @@ define view entity Z_I_TRAVEL_STATS
         
       /* Campo de Controle para Semântica */  
       currency_code as CurrencyCode  
-}  
+}
+
 /* Agrupamento Obrigatório */  
 group by customer_id, currency_code
+```
 
 *Nota:* Neste exemplo, se um cliente tiver viagens em EUR e USD, ele aparecerá em duas linhas diferentes (uma para cada moeda), pois currency_code faz parte do grupo.
 
-### **🧠 Material para Estudo (Flashcards & Resumo)**
-
-#### **Glossário Técnico**
-
-* **Expression (Expressão SQL):** Qualquer comando que gera um valor novo em tempo de execução, em vez de apenas ler um valor armazenado. Inclui cálculos, concatenações e lógica condicional.  
-* **CAST (Type Casting):** Função SQL usada para converter explicitamente um valor de um tipo de dados para outro (ex: NUMC para INT). Essencial para evitar erros de tipo em cálculos aritméticos e uniões.  
-* **Session Variable ($session):** Variáveis globais de contexto acessíveis dentro da CDS View que contêm informações do ambiente de execução atual do banco de dados/sessão ABAP. Exemplos: $session.system_date (Data atual), $session.user (Usuário logado).  
-* **Aggregations (Agregações):** Funções que condensam múltiplos registros em um único resultado resumo, como SUM (Soma), MIN (Mínimo), MAX (Máximo), AVG (Média) e COUNT (Contagem). Exigem o uso da cláusula GROUP BY.  
-* **Criticality (Criticidade):** Conceito de UI do SAP Fiori onde valores numéricos (0-3) são mapeados para cores semânticas (Cinza, Vermelho, Amarelo, Verde) para indicar status ou severidade de forma visual.
-
-#### **Code Pushdown na Prática: Comparativo**
+## Code Pushdown na Prática: Comparativo
 
 | Tarefa | ABAP Clássico (Lento / Data-to-Code) | ABAP CDS (Rápido / Code-to-Data) |
 | ----- | ----- | ----- |
@@ -225,13 +238,24 @@ group by customer_id, currency_code
 | Data Atual | Variável sy-datum no programa. | Variável $session.system_date na View. |
 | Filtro Usuário | SELECT ... WHERE user = sy-uname. | WHERE user = $session.user na View. |
 
-### **📝 Quiz de Fixação**
+## Glossário Técnico
 
-Q1: Qual é a variável de sessão correta para filtrar ou comparar dados com a data atual do sistema dentro de uma CDS View, e por que não podemos usar sy-datum?  
-R: A variável correta é $session.system_date. Não podemos usar sy-datum porque CDS Views são objetos de dicionário de dados (DDL) que residem no banco de dados, enquanto sy-datum é uma variável de memória do tempo de execução ABAP. O banco de dados não tem acesso à memória do servidor de aplicação.  
-Q2: Para que serve a função dats_days_between e qual o tipo de dado que ela retorna?  
-R: Ela calcula a diferença exata em dias entre duas datas fornecidas. Retorna um valor inteiro (Integer). É a forma padrão e performática de calcular durações, idades ou atrasos diretamente no banco de dados.  
-Q3: Se eu precisar transformar um código de status ('A', 'X') em uma cor para o Fiori (3, 1), qual comando devo usar e qual o benefício disso?  
-R: Deve-se usar a expressão CASE. O benefício é que a lógica de apresentação ("Se A então Verde") fica centralizada na View. A interface de usuário (Fiori) apenas lê o valor numérico resultante e aplica a cor, sem precisar repetir a regra de negócio no JavaScript do frontend.  
-Q4: O que acontece se eu tentar usar a função SUM( price ) em uma CDS View sem adicionar uma cláusula GROUP BY?  
-R: Ocorrerá um erro de sintaxe. Funções de agregação condensam linhas. Se houver outros campos na seleção que não estão sendo agregados (como ID do Cliente), o banco de dados precisa saber como agrupar esses campos para calcular a soma correta para cada grupo.
+* **Expression (Expressão SQL):** Qualquer comando que gera um valor novo em tempo de execução, em vez de apenas ler um valor armazenado. Inclui cálculos, concatenações e lógica condicional.  
+* **CAST (Type Casting):** Função SQL usada para converter explicitamente um valor de um tipo de dados para outro (ex: NUMC para INT). Essencial para evitar erros de tipo em cálculos aritméticos e uniões.  
+* **Session Variable ($session):** Variáveis globais de contexto acessíveis dentro da CDS View que contêm informações do ambiente de execução atual do banco de dados/sessão ABAP. Exemplos: $session.system_date (Data atual), $session.user (Usuário logado).  
+* **Aggregations (Agregações):** Funções que condensam múltiplos registros em um único resultado resumo, como SUM (Soma), MIN (Mínimo), MAX (Máximo), AVG (Média) e COUNT (Contagem). Exigem o uso da cláusula GROUP BY.  
+* **Criticality (Criticidade):** Conceito de UI do SAP Fiori onde valores numéricos (0-3) são mapeados para cores semânticas (Cinza, Vermelho, Amarelo, Verde) para indicar status ou severidade de forma visual.
+
+## Quiz de Fixação
+
+1. Qual é a variável de sessão correta para filtrar ou comparar dados com a data atual do sistema dentro de uma CDS View, e por que não podemos usar sy-datum?  
+  R: A variável correta é $session.system_date. Não podemos usar sy-datum porque CDS Views são objetos de dicionário de dados (DDL) que residem no banco de dados, enquanto sy-datum é uma variável de memória do tempo de execução ABAP. O banco de dados não tem acesso à memória do servidor de aplicação.
+
+2. Para que serve a função dats_days_between e qual o tipo de dado que ela retorna?  
+  R: Ela calcula a diferença exata em dias entre duas datas fornecidas. Retorna um valor inteiro (Integer). É a forma padrão e performática de calcular durações, idades ou atrasos diretamente no banco de dados.
+
+3. Se eu precisar transformar um código de status ('A', 'X') em uma cor para o Fiori (3, 1), qual comando devo usar e qual o benefício disso?  
+  R: Deve-se usar a expressão CASE. O benefício é que a lógica de apresentação ("Se A então Verde") fica centralizada na View. A interface de usuário (Fiori) apenas lê o valor numérico resultante e aplica a cor, sem precisar repetir a regra de negócio no JavaScript do frontend.
+
+4. O que acontece se eu tentar usar a função SUM( price ) em uma CDS View sem adicionar uma cláusula GROUP BY?  
+  R: Ocorrerá um erro de sintaxe. Funções de agregação condensam linhas. Se houver outros campos na seleção que não estão sendo agregados (como ID do Cliente), o banco de dados precisa saber como agrupar esses campos para calcular a soma correta para cada grupo.
