@@ -1,17 +1,15 @@
-# **Módulo 01: Programação ABAP Básica**
+# Trabalhando com Objetos de Dados Estruturados
 
-## **Aula 05: Trabalhando com Objetos de Dados Estruturados**
+![Infográfico - Estruturas de Dados no ABAP Moderno](./01.05_Estruturas_de_Dados_ABAP.png)
 
-### **🎯 Objetivos de Aprendizagem**
+## Objetivos de Aprendizagem
 
-Ao final desta aula, o estudante deverá ser capaz de:
+- Diferenciar com clareza **Tipos Elementares** de **Tipos Estruturados**, e compreender a distinção entre **Estruturas Planas (Flat)** e **Estruturas Profundas (Deep)**.  
+- Definir e declarar estruturas localmente utilizando TYPES e DATA, bem como reutilizar tipos globais do Dicionário de Dados (SE11).  
+- Acessar e manipular componentes individuais de uma estrutura utilizando a sintaxe do hífen (-).  
+- Dominar o operador construtor **CORRESPONDING**, incluindo suas variações avançadas (MAPPING, EXCEPT, BASE), essencial para a transferência de dados entre camadas no modelo RAP.
 
-1. Diferenciar com clareza **Tipos Elementares** de **Tipos Estruturados**, e compreender a distinção entre **Estruturas Planas (Flat)** e **Estruturas Profundas (Deep)**.  
-2. Definir e declarar estruturas localmente utilizando TYPES e DATA, bem como reutilizar tipos globais do Dicionário de Dados (SE11).  
-3. Acessar e manipular componentes individuais de uma estrutura utilizando a sintaxe do hífen (-).  
-4. Dominar o operador construtor **CORRESPONDING**, incluindo suas variações avançadas (MAPPING, EXCEPT, BASE), essencial para a transferência de dados entre camadas no modelo RAP.
-
-### **1. O que é uma Estrutura?**
+## 1. O que é uma Estrutura?
 
 Até este ponto do curso, manipulamos variáveis que armazenam um único valor por vez (tipos elementares), como um número inteiro (i) ou uma string de texto (string). No entanto, no mundo real dos negócios, os dados raramente andam sozinhos. Um "Cliente" não é apenas um ID; ele é um conjunto composto por Nome, Endereço, Telefone e Limite de Crédito.
 
@@ -20,16 +18,17 @@ Uma **Estrutura** é a representação técnica desse agrupamento lógico. É um
 * **Analogia:** Se uma variável elementar é uma "célula" de Excel, uma estrutura é uma "linha" inteira dessa planilha.  
 * **Importância no RAP:** No desenvolvimento ABAP moderno, estruturas são a base para a definição de Interfaces de BAdIs, assinaturas de métodos e, principalmente, para representar as entidades de negócio (Business Objects) antes de serem persistidas no banco.
 
-### **2. Definindo e Declarando Estruturas**
+## 2. Definindo e Declarando Estruturas
 
 A criação de estruturas segue o princípio de separar a "Definição do Molde" (Type) da "Criação do Objeto" (Data).
 
-#### **Definindo o "Molde" (TYPES)**
+### Definindo o "Molde" (TYPES)
 
-Usamos o bloco BEGIN OF ... END OF para desenhar o layout da estrutura. Isso não aloca memória no sistema; apenas ensina ao compilador como os dados devem ser organizados.
+Usamos o bloco `BEGIN OF ... END OF ...` para desenhar o layout da estrutura. Isso não aloca memória no sistema; apenas ensina ao compilador como os dados devem ser organizados.
 
 Podemos definir estruturas baseadas em tipos elementares, tipos de dados globais (Data Elements) ou até misturar ambos.
 
+``` ABAP
 " Definição Local (Válida apenas neste programa/classe)  
 TYPES: BEGIN OF ty_flight_info,  
          airline_code TYPE /dmo/carrier_id,    " Elemento de Dados Global  
@@ -40,11 +39,13 @@ TYPES: BEGIN OF ty_flight_info,
          " Campos técnicos podem ser adicionados livremente  
          _timestamp   TYPE timestampl,  
        END OF ty_flight_info.
+```
 
-#### **Criando a "Instância" (DATA)**
+### Criando a "Instância" (DATA)
 
 Com o molde definido, usamos o comando DATA para alocar espaço na memória RAM para guardar os valores.
 
+``` ABAP
 " Criação da variável baseada no tipo local definido acima  
 DATA: ls_flight TYPE ty_flight_info.
 
@@ -57,30 +58,32 @@ ls_flight-airline_code = 'AA'.
 ls_flight-flight_num   = '0017'.  
 ls_flight-price        = '500.00'.  
 ls_flight-is_cancelled = abap_false.
+```
 
 *Dica de Nomenclatura:* É uma convenção forte no ABAP usar o prefixo ls_ (*Local Structure*) ou wa_ (*Work Area*) para variáveis de estrutura, e ty_ para definições de tipos. Isso ajuda a identificar rapidamente se estamos lidando com dados ou definições.
 
-### **3. O Operador CORRESPONDING (Fundamental para RAP)**
+## 3. O Operador CORRESPONDING (Fundamental para RAP)
 
 No desenvolvimento RAP, estamos constantemente movendo dados entre camadas: da camada de banco de dados para a camada de comportamento (BDEF), e desta para a projeção de consumo (CDS Projection). Essas camadas frequentemente têm estruturas muito parecidas, mas não idênticas.
 
 Copiar campo por campo (ls_b-campo1 = ls_a-campo1) é trabalhoso e propenso a erros. O operador CORRESPONDING resolve isso inteligentemente.
 
-#### **Sintaxe Básica e Evolução**
+### Sintaxe Básica e Evolução
 
 * Move-Corresponding (Antigo/Legado):  
-  MOVE-CORRESPONDING ls_a TO ls_b.  
+  `MOVE-CORRESPONDING ls_a TO ls_b`.  
   Limitação: Não limpa os campos de ls_b que não existem em ls_a, e não permite regras complexas.  
 * Corresponding Operator (Moderno - 7.40+):  
-  ls_b = CORRESPONDING #( ls_a ).  
+  `ls_b = CORRESPONDING #( ls_a )`.  
   Comportamento: Cria uma nova estrutura. Campos com nomes idênticos são copiados. Campos em ls_b que não existem em ls_a são inicializados (limpos), a menos que se use BASE.
 
-#### **Recursos Avançados do CORRESPONDING**
+### Recursos Avançados do `CORRESPONDING`
 
 1. **MAPPING (De/Para):** Usado quando os nomes dos campos são diferentes (ex: kunnr no banco vs customer_id na UI).  
 2. **EXCEPT (Exclusão):** Usado para proteger campos sensíveis ou técnicos de serem sobrescritos (ex: não queremos copiar o ID da chave primária numa operação de atualização).  
 3. **BASE (Preservação):** Essencial para atualizações (UPDATE). Ele pega a estrutura existente como base e aplica as mudanças por cima, preservando os campos que não foram tocados.
 
+``` ABAP
 " Exemplo Teórico:  
 ls_destino = CORRESPONDING #(   
     BASE ( ls_destino )  " Mantém os valores atuais de ls_destino  
@@ -88,8 +91,9 @@ ls_destino = CORRESPONDING #(
     MAPPING novonome = nomeantigo   
     EXCEPT campo_proibido   
 ).
+```
 
-### **4. Tipos de Estruturas: Planas vs. Profundas**
+## 4. Tipos de Estruturas: Planas vs. Profundas
 
 É crucial entender a "profundidade" da sua estrutura, pois isso afeta como ela é copiada e processada.
 
@@ -98,6 +102,7 @@ ls_destino = CORRESPONDING #(
   * *Exemplo:* Uma estrutura de "Pedido de Venda" que contém um campo "Itens", onde "Itens" é uma tabela interna com lista de produtos.  
   * *Atenção:* Operações com estruturas profundas exigem cuidado extra, pois envolvem ponteiros de memória. O CORRESPONDING simples faz cópia rasa (shallow copy) das referências, a menos que se use a variante DEEP.
 
+``` ABAP
 TYPES: BEGIN OF ty_passenger,  
          name    TYPE string,       " String torna a estrutura profunda (Deep)  
          address TYPE ty_address,   " Outra estrutura (Nested)  
@@ -105,14 +110,17 @@ TYPES: BEGIN OF ty_passenger,
        END OF ty_passenger.
 
 " Acesso aninhado:  
-ls_passenger-address-city = 'New York'.  
+ls_passenger-address-city = 'New York'.
+  
 " Acesso a tabela interna dentro da estrutura:  
 ls_passenger-flights[ 1 ]-price = '200.00'.
+```
 
-### **5. Exemplo Prático: Manipulação, Mapeamento e BASE**
+## 5. Exemplo Prático: Manipulação, Mapeamento e BASE
 
 Neste exemplo expandido, simulamos um cenário comum no RAP: ler dados do banco, preparar para a UI, e depois simular uma atualização parcial vinda da UI preservando dados originais.
 
+``` ABAP
 CLASS zcl_structures_demo DEFINITION  
   PUBLIC  
   FINAL  
@@ -216,20 +224,9 @@ CLASS zcl_structures_demo IMPLEMENTATION.
   ENDMETHOD.
 
 ENDCLASS.
+```
 
-### **🧠 Material para Estudo (Flashcards & Resumo)**
-
-#### **Glossário Técnico**
-
-* **Structure (Estrutura):** Um objeto de dados complexo que contém uma sequência de componentes (campos) de qualquer tipo. É a representação em memória de uma linha de tabela ou entidade de negócio.  
-* **Flat Structure (Estrutura Plana):** Estrutura que contém apenas tipos elementares de comprimento fixo. Não contém strings, tabelas internas ou referências. Essencial para chaves de tabelas e operações de banco de dados simples.  
-* **Deep Structure (Estrutura Profunda):** Estrutura que contém referências (strings, tabelas internas, objetos). Exige gerenciamento de memória mais complexo pelo sistema.  
-* **Nested Structure (Estrutura Aninhada):** Uma estrutura que contém outra subestrutura como um dos seus componentes. Permite modelar dados hierárquicos (ex: Cabeçalho -> Endereço).  
-* **CORRESPONDING Operator:** Poderoso operador construtor que projeta dados de uma estrutura para outra baseando-se na correspondência de nomes ou regras de mapeamento explícito.  
-* **BASE Addition:** Cláusula do operador CORRESPONDING (e outros construtores) que permite definir um valor inicial para a estrutura de destino antes de aplicar a cópia dos novos valores, essencial para operações de *Merge* ou *Update*.  
-* **TYPES vs DATA:** TYPES define o "molde" ou a "planta" da estrutura (tempo de compilação). DATA aloca a memória e cria a "instância" utilizável (tempo de execução).
-
-#### **Pontos de Atenção (Sintaxe Legada vs. Moderna)**
+## Pontos de Atenção (Sintaxe Legada vs. Moderna)
 
 | Conceito | ABAP Legado (Evitar) | ABAP Moderno (Recomendado) |
 | :---- | :---- | :---- |
@@ -239,13 +236,26 @@ ENDCLASS.
 | Tipos Locais | TYPES: BEGIN OF ... (igual) | Uso intensivo de tipos inline em Classes |
 | Definição de Work Area | DATA: wa LIKE ztabela. | DATA: wa TYPE ztabela. |
 
-### **📝 Quiz de Fixação**
+## Glossário Técnico
 
-Q1: Qual é o símbolo utilizado para acessar um componente dentro de uma estrutura ABAP?  
-R: O hífen (-). Exemplo: ls_usuario-nome. Isso difere da maioria das linguagens C-like que usam o ponto (.), que no ABAP é o terminador de instrução.  
-Q2: Se eu usar CORRESPONDING entre duas estruturas que têm campos com nomes totalmente diferentes, o que acontece?  
-R: Por padrão, nada será copiado e os campos da estrutura de destino ficarão vazios (inicializados), pois o operador busca nomes idênticos. Para que a cópia ocorra, é necessário usar a cláusula MAPPING (ex: MAPPING destino = origem) para ensinar ao sistema como ligar os campos.  
-Q3: Qual a diferença crucial entre ls_b = CORRESPONDING #( ls_a ) e ls_b = CORRESPONDING #( BASE ( ls_b ) ls_a )?  
-R: A primeira instrução limpa completamente ls_b antes de copiar os dados correspondentes de ls_a (os campos sem par em ls_a ficarão vazios). A segunda instrução mantém os valores originais de ls_b e apenas atualiza (sobrescreve) os campos que coincidirem com ls_a, agindo como um "Merge" de dados.  
-Q4: O que caracteriza uma "Estrutura Profunda" (Deep Structure) e por que devemos ter cuidado com elas?  
-R: Uma estrutura profunda contém campos de tamanho dinâmico ou referências, como STRING, TABLE ou REF TO. Devemos ter cuidado porque operações simples de cópia podem envolver apenas a referência (endereço de memória) e não o valor real, além de não poderem ser usadas em certos contextos de banco de dados ou chaves de tabelas simples.
+* **Structure (Estrutura):** Um objeto de dados complexo que contém uma sequência de componentes (campos) de qualquer tipo. É a representação em memória de uma linha de tabela ou entidade de negócio.  
+* **Flat Structure (Estrutura Plana):** Estrutura que contém apenas tipos elementares de comprimento fixo. Não contém strings, tabelas internas ou referências. Essencial para chaves de tabelas e operações de banco de dados simples.  
+* **Deep Structure (Estrutura Profunda):** Estrutura que contém referências (strings, tabelas internas, objetos). Exige gerenciamento de memória mais complexo pelo sistema.  
+* **Nested Structure (Estrutura Aninhada):** Uma estrutura que contém outra subestrutura como um dos seus componentes. Permite modelar dados hierárquicos (ex: Cabeçalho -> Endereço).  
+* **CORRESPONDING Operator:** Poderoso operador construtor que projeta dados de uma estrutura para outra baseando-se na correspondência de nomes ou regras de mapeamento explícito.  
+* **BASE Addition:** Cláusula do operador CORRESPONDING (e outros construtores) que permite definir um valor inicial para a estrutura de destino antes de aplicar a cópia dos novos valores, essencial para operações de *Merge* ou *Update*.  
+* **TYPES vs DATA:** TYPES define o "molde" ou a "planta" da estrutura (tempo de compilação). DATA aloca a memória e cria a "instância" utilizável (tempo de execução).
+
+## Quiz de Fixação
+
+1. Qual é o símbolo utilizado para acessar um componente dentro de uma estrutura ABAP?  
+  R: O hífen (-). Exemplo: ls_usuario-nome. Isso difere da maioria das linguagens C-like que usam o ponto (.), que no ABAP é o terminador de instrução.
+
+2. Se eu usar CORRESPONDING entre duas estruturas que têm campos com nomes totalmente diferentes, o que acontece?  
+  R: Por padrão, nada será copiado e os campos da estrutura de destino ficarão vazios (inicializados), pois o operador busca nomes idênticos. Para que a cópia ocorra, é necessário usar a cláusula MAPPING (ex: MAPPING destino = origem) para ensinar ao sistema como ligar os campos.
+ 
+3. Qual a diferença crucial entre ls_b = CORRESPONDING #( ls_a ) e ls_b = CORRESPONDING #( BASE ( ls_b ) ls_a )?  
+  R: A primeira instrução limpa completamente ls_b antes de copiar os dados correspondentes de ls_a (os campos sem par em ls_a ficarão vazios). A segunda instrução mantém os valores originais de ls_b e apenas atualiza (sobrescreve) os campos que coincidirem com ls_a, agindo como um "Merge" de dados.
+ 
+4. O que caracteriza uma "Estrutura Profunda" (Deep Structure) e por que devemos ter cuidado com elas?  
+  R: Uma estrutura profunda contém campos de tamanho dinâmico ou referências, como STRING, TABLE ou REF TO. Devemos ter cuidado porque operações simples de cópia podem envolver apenas a referência (endereço de memória) e não o valor real, além de não poderem ser usadas em certos contextos de banco de dados ou chaves de tabelas simples.

@@ -1,6 +1,6 @@
 # Aplicando Técnicas e Conceitos Básicos
 
-
+![Infográfico - Um Guia Visual de Boas Práticas](./01.02_Um_Guia_Visual_de_Boas_Praticas.png)
 
 ## Objetivos de Aprendizagem
 
@@ -22,28 +22,35 @@ O operador de declaração inline DATA(...) não é mágica; ele instrui o compi
 
 * Variáveis Elementares e Literais:  
   Ao atribuir literais, o sistema assume tipos padrão que podem precisar de atenção.  
+``` ABAP
   DATA(lv_text) = 'Texto'.      " Infere tipo c (char) de tamanho fixo baseado no texto  
   DATA(lv_string) = `Texto`.    " Infere tipo string (dinâmico) devido à crase  
   DATA(lv_number) = 100.        " Infere i (inteiro)
+```
 
 * Estruturas e Objetos (O Grande Ganho de Produtividade):  
   Imagine chamar um método de uma BAPI ou classe standard que retorna uma estrutura complexa com 50 campos ou mais. Antigamente, você teria que abrir a SE11, verificar a estrutura de retorno, declarar uma work area manualmente e só então chamar o método.  
   Com declaração inline, o compilador faz o trabalho pesado:  
+``` ABAP
   " O sistema cria ls_result automaticamente com a estrutura exata do retorno  
   DATA(ls_result) = lo_objeto->get_complex_data( ).
 
   " Funciona inclusive para tabelas internas  
   SELECT * FROM flight_schedule INTO TABLE @DATA(lt_flights).
+```
 
 * Casting durante a Declaração:  
   Às vezes, a inferência automática não é suficiente (ex: o método retorna um tipo genérico DATA, mas você sabe que é um objeto específico). Você pode combinar inline com casting:  
+``` ABAP
   DATA(lo_alv) = CAST cl_gui_alv_grid( lo_container->get_content( ) ).
+```
 
 ### Field Symbols Inline e Performance
 
 Também podemos declarar ponteiros (Field Symbols) diretamente em loops. Isso não apenas economiza linhas, mas incentiva o uso de referências em vez de cópias de valor, o que é crucial para performance em grandes tabelas.
 
 * **Comparativo de Memória:**  
+``` ABAP
   " Clássico (WORK AREA): Copia todo o conteúdo da linha para uma nova área de memória.  
   " Lento para estruturas largas.  
   LOOP AT lt_tabela INTO DATA(ls_copia).   
@@ -54,9 +61,11 @@ Também podemos declarar ponteiros (Field Symbols) diretamente em loops. Isso n�
   LOOP AT lt_tabela ASSIGNING FIELD-SYMBOL(<fs_linha>).  
     <fs_linha>-status = 'X'.  
   ENDLOOP.
+```
 
 **Nota Crítica sobre Escopo:** É um erro comum pensar que uma variável declarada inline dentro de um bloco IF ou LOOP deixa de existir quando o bloco fecha. No ABAP, o escopo é o **método** (ou form/function) inteiro.
 
+``` ABAP
 IF lv_condition = abap_true.  
   DATA(lv_temp) = 5.  
 ENDIF.
@@ -64,6 +73,7 @@ ENDIF.
 " A variável lv_temp AINDA EXISTE aqui e pode ser acessada, o que pode causar bugs  
 " se o desenvolvedor não estiver atento. Mantenha a disciplina de nomes!  
 lv_temp = 10. 
+```
 
 ## 2. Manipulação de Strings: String Templates
 
@@ -73,6 +83,7 @@ O comando CONCATENATE era limitado, verboso e difícil de ler quando envolvia mu
 
 A grande vantagem é a capacidade de realizar processamento *dentro* da string. Qualquer expressão ABAP válida pode ser colocada entre chaves { ... }.
 
+``` ABAP
 DATA(lv_nome) = 'Ana'.  
 DATA(lv_sobrenome) = 'Silva'.
 
@@ -84,6 +95,7 @@ DATA(lv_log) = |O usuário { lo_user->get_name( ) } acessou em { cl_abap_context
 
 " Expressões condicionais embutidas  
 DATA(lv_status_txt) = |O aluno foi { COND #( WHEN lv_nota > 7 THEN 'Aprovado' ELSE 'Reprovado' ) }|.
+```
 
 ### Opções de Formatação (Formatting Options)
 
@@ -91,6 +103,7 @@ Os templates suportam parâmetros de formatação que eliminam a necessidade de 
 
 * Datas e Números (Internacionalização):  
   O ABAP ajusta automaticamente o formato baseando-se nas configurações do usuário logado.  
+``` ABAP
   DATA(lv_hoje) = cl_abap_context_info=>get_system_date( ).
 
   " Formato Técnico (YYYY-MM-DD)  
@@ -102,9 +115,11 @@ Os templates suportam parâmetros de formatação que eliminam a necessidade de 
   " Formato de Moeda  
   DATA(lv_salary) = 5000.  
   out->write( |Salário: { lv_salary CURRENCY = 'BRL' NUMBER = USER }| ). 
+```
 
 * Conversão ALPHA (Zeros à Esquerda):  
   Essencial para chaves de banco de dados (ex: Cliente, Material, Documento).  
+``` ABAP
   DATA(lv_matnr) = '123'.
 
   " ALPHA = IN: Adiciona zeros (Output: 000000000000000123)  
@@ -112,21 +127,25 @@ Os templates suportam parâmetros de formatação que eliminam a necessidade de 
 
   " ALPHA = OUT: Remove zeros (Output: 123)  
   DATA(lv_screen_format) = |{ lv_db_format ALPHA = OUT }|. 
+```
 
 * Alinhamento e Preenchimento (Padding):  
   Útil para gerar arquivos de texto posicional (CNAB, layouts bancários).  
+``` ABAP
   " Alinha à direita, largura 10, preenche com zero: '00000Texto'  
   out->write( |{ 'Texto' WIDTH = 10 ALIGN = RIGHT PAD = '0' }| ). 
+```
 
 ## 3. Estruturas de Controle e Operadores Construtores
 
-Além de modernizar o IF e CASE com operadores simbólicos (=, <>, <=), o ABAP moderno introduziu **Operadores Construtores**. Eles permitem "construir" resultados complexos em uma única linha de comando.
+Além de modernizar o `IF` e `CASE` com operadores simbólicos (`=`, `<>`, `<=`), o ABAP moderno introduziu **Operadores Construtores**. Eles permitem "construir" resultados complexos em uma única linha de comando.
 
 ### Operador COND (O "IF" Funcional)
 
-Usado para atribuir valores baseados em condições. Diferente do IF, ele deve retornar um resultado para ser atribuído.
+Usado para atribuir valores baseados em condições. Diferente do `IF`, ele deve retornar um resultado para ser atribuído.
 
 * **Antigo (Verboso):**  
+``` ABAP
   IF lv_idade < 12.  
     lv_fase = 'Criança'.  
   ELSEIF lv_idade < 18.  
@@ -134,27 +153,33 @@ Usado para atribuir valores baseados em condições. Diferente do IF, ele deve r
   ELSE.  
     lv_fase = 'Adulto'.  
   ENDIF.
+```
 
 * Moderno (Conciso):  
   Note o uso de # que significa "infira o tipo da variável à esquerda".  
+``` ABAP
   DATA(lv_fase) = COND string( WHEN lv_idade < 12 THEN 'Criança'  
                                WHEN lv_idade < 18 THEN 'Adolescente'  
                                ELSE 'Adulto' ).
+```
 
 ### Operador SWITCH (O "CASE" Funcional)
 
 Ideal quando a decisão é baseada em valores específicos de uma única variável.
 
+``` ABAP
 DATA(lv_cor_semaforo) = SWITCH string( lv_status  
                           WHEN 'S' THEN 'Verde'   " Success  
                           WHEN 'E' THEN 'Vermelho'" Error  
                           WHEN 'W' THEN 'Amarelo' " Warning  
                           ELSE 'Cinza' ).         " Default
+```
 
 ### Expressão LET (Variáveis Locais Temporárias)
 
 Uma das adições mais poderosas. O LET permite definir variáveis auxiliares dentro de um construtor (COND, SWITCH, VALUE) que só existem durante aquela operação. Isso evita poluir o código com variáveis temporárias globais.
 
+``` ABAP
 " Calcula desconto baseado na média de compras, sem criar variável para a média  
 DATA(lv_discount) = COND i(   
     LET media = ( lv_compra1 + lv_compra2 ) / 2   
@@ -162,6 +187,7 @@ DATA(lv_discount) = COND i(
     WHEN media > 1000 THEN 20  
     WHEN media > 500  THEN 10  
     ELSE 0 ).
+```
 
 ### Operador VALUE (Construção de Estruturas)
 
@@ -182,13 +208,17 @@ DATA(ls_user) = VALUE ty_user( id = 1 name = 'João' ).
 O ABAP clássico exigia truques para verificar condições booleanas.
 
 * **xsdbool( log_exp )**: Retorna abap_true ('X') ou abap_false (' ') baseado em uma expressão lógica.  
+``` ABAP
   " Passa 'X' para o método se a idade for maior que 18  
   lo_class->set_adult_flag( xsdbool( lv_age >= 18 ) ).
+```
 
 * **line_exists( ... )**: Verifica se uma linha existe numa tabela interna sem precisar fazer um READ TABLE e checar o sy-subrc.  
+``` ABAP
   IF line_exists( lt_users[ id = 99 ] ).  
     " Usuário existe...  
   ENDIF.
+```
 
 ## 4. Exemplo Prático: Calculadora Robusta com Histórico
 

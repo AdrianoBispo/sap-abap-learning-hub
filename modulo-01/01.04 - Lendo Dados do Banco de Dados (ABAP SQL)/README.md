@@ -1,24 +1,22 @@
-# **Módulo 01: Programação ABAP Básica**
+# Lendo Dados do Banco de Dados (ABAP SQL)**
 
-## **Aula 04: Lendo Dados do Banco de Dados (ABAP SQL)**
+[Infográfico - A Evolução do SQL no ABAP Moderno](./01.04_A_Evolucao_do_ABAP_SQL.png)
 
-### **🎯 Objetivos de Aprendizagem**
+## Objetivos de Aprendizagem
 
-Ao final desta aula, o estudante deverá ser capaz de:
+- Escrever comandos **SELECT** robustos utilizando a sintaxe moderna (Strict Mode), compreendendo suas regras sintáticas e benefícios.  
+- Entender a fundo o uso do caractere de escape **@ (Host Variables)** para diferenciar variáveis ABAP de colunas SQL.  
+- Utilizar **Declarações Inline** (@DATA) para criação automática de tabelas internas e estruturas complexas baseadas na projeção da consulta.  
+- Aplicar filtros avançados (WHERE, IN, LIKE), ordenação (ORDER BY) e limitar resultados (UP TO n ROWS) de forma eficiente.  
+- Diferenciar o uso de **SELECT SINGLE** para leituras únicas e entender as variáveis de sistema **sy-subrc** e **sy-dbcnt**.
 
-1. Escrever comandos **SELECT** robustos utilizando a sintaxe moderna (Strict Mode), compreendendo suas regras sintáticas e benefícios.  
-2. Entender a fundo o uso do caractere de escape **@ (Host Variables)** para diferenciar variáveis ABAP de colunas SQL.  
-3. Utilizar **Declarações Inline** (@DATA) para criação automática de tabelas internas e estruturas complexas baseadas na projeção da consulta.  
-4. Aplicar filtros avançados (WHERE, IN, LIKE), ordenação (ORDER BY) e limitar resultados (UP TO n ROWS) de forma eficiente.  
-5. Diferenciar o uso de **SELECT SINGLE** para leituras únicas e entender as variáveis de sistema **sy-subrc** e **sy-dbcnt**.
-
-### **1. ABAP SQL Moderno: O Que Mudou e Por Quê?**
+## 1. ABAP SQL Moderno: O Que Mudou e Por Quê?
 
 Antigamente chamado de *Open SQL*, o ABAP SQL é a camada de abstração que traduz nosso código ABAP para a linguagem específica do banco de dados subjacente (seja ele HANA, Oracle, DB2, etc.).
 
 No ABAP Clássico, o SQL era limitado. Trazíamos os dados brutos para o servidor de aplicação e processávamos tudo com loops LOOP AT. Com a chegada do SAP HANA e do **ABAP 7.40+**, o paradigma mudou para **Code Pushdown** (empurrar o código para o banco). Para suportar novas funcionalidades (como cálculos e expressões), a SAP introduziu uma nova sintaxe.
 
-#### **O "Strict Mode" (Modo Estrito)**
+### O "Strict Mode" (Modo Estrito)
 
 O Modo Estrito não é uma configuração que você liga; ele é ativado automaticamente pelo compilador assim que você usa qualquer funcionalidade moderna (como vírgulas na lista de campos ou o símbolo @).
 
@@ -28,21 +26,24 @@ O Modo Estrito não é uma configuração que você liga; ele é ativado automat
 * **INTO no Final:** A cláusula de destino deve vir após as cláusulas de seleção, filtro e ordenação.  
 * **Escape @ Obrigatório:** Toda variável do programa ABAP usada na query deve ter o prefixo @.
 
-### **2. A Sintaxe do SELECT Moderno**
+## 2. A Sintaxe do SELECT Moderno
 
-#### **Selecionando Múltiplas Linhas (Tabela Interna)**
+### Selecionando Múltiplas Linhas (Tabela Interna)
 
 Vamos analisar uma consulta na tabela /dmo/connection (Modelo de Voo).
 
 * Estilo Antigo (Obsoleto no Cloud):  
   Exigia declaração prévia e a ordem das cláusulas era rígida.  
+``` ABAP
   DATA: lt_connections TYPE TABLE OF /dmo/connection.  
   " Sintaxe antiga: sem vírgulas, sem @, INTO no meio  
   SELECT * FROM /dmo/connection INTO TABLE lt_connections  
            WHERE carrier_id = 'LH'.
+```
 
 * Estilo Moderno (Recomendado):  
   Permite renomear colunas (AS), usar literais e declarar o destino na hora.  
+``` ABAP
   DATA(lv_airline) = 'LH'.
 
   " A sintaxe moderna flui como uma frase lógica:  
@@ -59,46 +60,53 @@ Vamos analisar uma consulta na tabela /dmo/connection (Modelo de Voo).
     INTO TABLE @DATA(lt_flights).
 
   *Nota:* A tabela lt_flights terá os campos carrier_id, connection_id, departure_airport, etc. O tipo é inferido automaticamente.
+```
 
-#### **Selecionando uma Única Linha (Estrutura)**
+### Selecionando uma Única Linha (Estrutura)
 
 Existem duas formas principais de ler um único registro.
 
-A. SELECT SINGLE (Leitura por Chave)  
+A. `SELECT SINGLE` (Leitura por Chave)  
 Ideal quando você tem a chave primária completa e quer validar existência ou ler atributos.  
+``` ABAP
 SELECT SINGLE FROM /dmo/connection  
   FIELDS airport_from, airport_to  
   WHERE carrier_id = 'AA'  
     AND connection_id = '0017'  
   INTO @DATA(ls_flight_info).
+```
 
-B. SELECT ... UP TO 1 ROWS (Amostragem)  
+B. `SELECT ... UP TO 1 ROWS` (Amostragem)  
 Ideal quando você não tem a chave completa e quer apenas "o primeiro que encontrar" ou "o mais recente" (se combinado com ORDER BY).  
+``` ABAP
 SELECT FROM /dmo/connection  
   FIELDS connection_id  
   WHERE airport_from = 'JFK'  
   ORDER BY distance ASCENDING " Pega o voo mais curto saindo de JFK  
   INTO TABLE @DATA(lt_one_flight)  
   UP TO 1 ROWS.
+```
 
-### **3. O Porquê do "@" (Host Variables)**
+## 3. O Porquê do `@` (Host Variables)
 
 No Strict Mode, o parser do SQL precisa de uma distinção clara entre o que pertence ao **Banco de Dados** e o que pertence ao **Programa ABAP**.
 
-* carrier_id: É uma coluna que existe na tabela do banco.  
-* @lv_airline: É uma variável ("Host Variable") hospedada na memória do programa ABAP.
+* `carrier_id`: É uma coluna que existe na tabela do banco.  
+* `@lv_airline`: É uma variável ("Host Variable") hospedada na memória do programa ABAP.
 
 Por que isso é seguro?  
-O uso do @ ajuda a prevenir ambiguidades e melhora a segurança. O banco sabe exatamente que aquele valor é um parâmetro externo, o que ajuda na performance (reaproveitamento do plano de execução) e segurança.  
+O uso do `@` ajuda a prevenir ambiguidades e melhora a segurança. O banco sabe exatamente que aquele valor é um parâmetro externo, o que ajuda na performance (reaproveitamento do plano de execução) e segurança.  
 *Exemplo de Erro Comum:*
 
+``` ABAP
 " ERRADO no Strict Mode  
 SELECT FROM /dmo/flight FIELDS * WHERE carrier_id = lv_id INTO TABLE @data(lt_tab).
 
 " CORRETO  
 SELECT FROM /dmo/flight FIELDS * WHERE carrier_id = @lv_id INTO TABLE @data(lt_tab).
+```
 
-### **4. Variáveis de Sistema: O Painel de Controle**
+## 4. Variáveis de Sistema: O Painel de Controle
 
 Após cada comando SELECT, o sistema atualiza duas variáveis críticas na estrutura sy:
 
@@ -112,10 +120,11 @@ Após cada comando SELECT, o sistema atualiza duas variáveis críticas na estru
    * Se sy-subrc = 0, sy-dbcnt dirá quantas linhas vieram (ex: 500).  
    * Se sy-subrc = 4, sy-dbcnt será 0.
 
-### **5. Exemplo Prático: Buscando e Exibindo Dados**
+## 5. Exemplo Prático: Buscando e Exibindo Dados
 
 Neste exemplo expandido, vamos usar uma tabela de intervalos (Range) para filtro e analisar a contagem de registros.
 
+``` ABAP
 CLASS zcl_read_data DEFINITION  
   PUBLIC  
   FINAL  
@@ -182,10 +191,19 @@ CLASS zcl_read_data IMPLEMENTATION.
   ENDMETHOD.
 
 ENDCLASS.
+```
 
-### **🧠 Material para Estudo (Flashcards & Resumo)**
+## Pontos de Atenção (Performance e Sintaxe)
 
-#### **Glossário Técnico Expandido**
+| Conceito | Prática Ruim (Legado) | Prática Boa (Moderno/Strict) | Motivo |
+| :---- | :---- | :---- | :---- |
+| **Seleção de Colunas** | SELECT * | SELECT field1, field2 | Economiza memória e tráfego de rede. |
+| **Verificar Existência** | SELECT * ... UP TO 1 ROWS | SELECT SINGLE @abap_true ... | Mais leve, não transporta dados inúteis. |
+| **Escape de Variável** | WHERE id = lv_id | WHERE id = @lv_id | Clareza para o parser e segurança. |
+| **Looping** | SELECT dentro de LOOP | FOR ALL ENTRIES ou JOIN | Evita "N+1 selects" (múltiplas idas ao banco). |
+| **Destino** | INTO CORRESPONDING FIELDS | Lista explícita com INTO TABLE | CORRESPONDING é mais lento pois compara nomes. |
+
+## Glossário Técnico
 
 * **ABAP SQL (Antigo Open SQL):** Subconjunto da linguagem ABAP usado para acessar o banco de dados de forma independente da plataforma. Ele converte a sintaxe ABAP para o SQL nativo do banco (HANA, Oracle, etc.).  
 * **Host Variable (@):** Uma variável declarada no programa ABAP utilizada dentro de uma instrução SQL. O prefixo @ é obrigatório no modo estrito para diferenciação de colunas.  
@@ -196,23 +214,16 @@ ENDCLASS.
 * **FIELDS:** Palavra-chave introduzida no ABAP 7.40+ para listar as colunas a serem lidas. Embora opcional em alguns contextos, é recomendada para clareza e obrigatória em queries complexas.  
 * **Inline Declaration (@DATA):** Recurso que permite criar a tabela ou estrutura de destino no momento exato da leitura, inferindo os tipos de dados a partir da lista de campos do SELECT.
 
-#### **Pontos de Atenção (Performance e Sintaxe)**
+## Quiz de Fixação
 
-| Conceito | Prática Ruim (Legado) | Prática Boa (Moderno/Strict) | Motivo |
-| :---- | :---- | :---- | :---- |
-| **Seleção de Colunas** | SELECT * | SELECT field1, field2 | Economiza memória e tráfego de rede. |
-| **Verificar Existência** | SELECT * ... UP TO 1 ROWS | SELECT SINGLE @abap_true ... | Mais leve, não transporta dados inúteis. |
-| **Escape de Variável** | WHERE id = lv_id | WHERE id = @lv_id | Clareza para o parser e segurança. |
-| **Looping** | SELECT dentro de LOOP | FOR ALL ENTRIES ou JOIN | Evita "N+1 selects" (múltiplas idas ao banco). |
-| **Destino** | INTO CORRESPONDING FIELDS | Lista explícita com INTO TABLE | CORRESPONDING é mais lento pois compara nomes. |
+1. O que acontece se eu esquecer de colocar o símbolo @ antes de uma variável ABAP dentro de um SELECT moderno?  
+  R: Ocorrerá um erro de sintaxe. No modo estrito (Strict Mode), ativado pelo uso de vírgulas ou declarações inline, o compilador exige o @ para diferenciar inequivocamente o que é coluna do banco de dados e o que é variável do programa (Host Variable).
+  
+2. Por que devemos evitar o uso de SELECT * (selecionar todas as colunas) em aplicações de alta performance?  
+  R: SELECT * traz todas as colunas da tabela, muitas das quais podem não ser usadas pelo programa. Isso consome memória desnecessária no servidor de aplicação e aumenta o volume de dados trafegados na rede entre o Banco e o ABAP. A boa prática é selecionar explicitamente apenas os campos (FIELDS) necessários.
 
-### **📝 Quiz de Fixação**
+3. Qual a diferença entre sy-subrc e sy-dbcnt após um SELECT?  
+  R: sy-subrc indica o sucesso da operação (0 = achou, 4 = não achou). sy-dbcnt indica a quantidade de registros processados (ex: 10 linhas encontradas). É comum verificar sy-subrc para controle de fluxo e sy-dbcnt para relatórios ou validação de volume.
 
-Q1: O que acontece se eu esquecer de colocar o símbolo @ antes de uma variável ABAP dentro de um SELECT moderno?  
-R: Ocorrerá um erro de sintaxe. No modo estrito (Strict Mode), ativado pelo uso de vírgulas ou declarações inline, o compilador exige o @ para diferenciar inequivocamente o que é coluna do banco de dados e o que é variável do programa (Host Variable).  
-Q2: Por que devemos evitar o uso de SELECT * (selecionar todas as colunas) em aplicações de alta performance?  
-R: SELECT * traz todas as colunas da tabela, muitas das quais podem não ser usadas pelo programa. Isso consome memória desnecessária no servidor de aplicação e aumenta o volume de dados trafegados na rede entre o Banco e o ABAP. A boa prática é selecionar explicitamente apenas os campos (FIELDS) necessários.  
-Q3: Qual a diferença entre sy-subrc e sy-dbcnt após um SELECT?  
-R: sy-subrc indica o sucesso da operação (0 = achou, 4 = não achou). sy-dbcnt indica a quantidade de registros processados (ex: 10 linhas encontradas). É comum verificar sy-subrc para controle de fluxo e sy-dbcnt para relatórios ou validação de volume.  
-Q4: Quando devo usar SELECT SINGLE em vez de SELECT ... UP TO 1 ROWS?  
-R: Use SELECT SINGLE quando você puder fornecer a chave primária completa para buscar um registro específico de forma inequívoca. Use UP TO 1 ROWS quando você quiser uma amostragem ou o "primeiro registro" de um conjunto maior, geralmente combinado com ORDER BY (ex: buscar o pedido mais recente de um cliente).
+4. Quando devo usar SELECT SINGLE em vez de SELECT ... UP TO 1 ROWS?  
+  R: Use SELECT SINGLE quando você puder fornecer a chave primária completa para buscar um registro específico de forma inequívoca. Use UP TO 1 ROWS quando você quiser uma amostragem ou o "primeiro registro" de um conjunto maior, geralmente combinado com ORDER BY (ex: buscar o pedido mais recente de um cliente).

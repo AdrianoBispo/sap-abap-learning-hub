@@ -1,18 +1,16 @@
-# **Módulo 01: Programação ABAP Básica**
+# Trabalhando com Classes Locais e Orientação a Objetos
 
-## **Aula 03: Trabalhando com Classes Locais e Orientação a Objetos**
+![Infográfico - Classes Locais](./01.03_Classes_Locais.png)
 
-### **🎯 Objetivos de Aprendizagem**
+## Objetivos de Aprendizagem
 
-Ao final desta aula, o estudante deverá ser capaz de:
+- Distinguir claramente entre **Classes Globais** e **Classes Locais**, compreendendo os casos de uso ideais para cada uma.  
+- Dominar a anatomia de uma classe: separar a **Definição** (Interface/Contrato) da **Implementação** (Lógica/Código).  
+- Aplicar estrategicamente as seções de visibilidade (`PUBLIC`, `PROTECTED`, `PRIVATE`) para garantir o encapsulamento e segurança do código.  
+- Utilizar a sintaxe moderna de instanciação com o operador NEW, incluindo a passagem de parâmetros para o construtor.  
+- Entender a diferença entre membros de **Instância** e membros **Estáticos**.
 
-1. Distinguir claramente entre **Classes Globais** e **Classes Locais**, compreendendo os casos de uso ideais para cada uma.  
-2. Dominar a anatomia de uma classe: separar a **Definição** (Interface/Contrato) da **Implementação** (Lógica/Código).  
-3. Aplicar estrategicamente as seções de visibilidade (PUBLIC, PROTECTED, PRIVATE) para garantir o encapsulamento e segurança do código.  
-4. Utilizar a sintaxe moderna de instanciação com o operador NEW, incluindo a passagem de parâmetros para o construtor.  
-5. Entender a diferença entre membros de **Instância** e membros **Estáticos**.
-
-### **1. Classes Globais vs. Classes Locais: Onde codificar?**
+## 1. Classes Globais vs. Classes Locais: Onde codificar?
 
 No ecossistema ABAP, a Orientação a Objetos (OO) é a espinha dorsal do desenvolvimento moderno (RAP). Embora a sintaxe seja idêntica, o escopo de uso difere:
 
@@ -27,14 +25,15 @@ No ecossistema ABAP, a Orientação a Objetos (OO) é a espinha dorsal do desenv
     * **Classes Auxiliares (Helpers):** Para quebrar uma lógica complexa interna sem poluir o repositório global com classes que só servem para uma tarefa específica.  
     * **Testes Unitários (ABAP Unit):** Este é o uso mais crítico. Todos os testes unitários são escritos como classes locais (FOR TESTING) que simulam o comportamento da classe principal.
 
-### **2. A Anatomia de uma Classe: Contrato vs. Ação**
+## 2. A Anatomia de uma Classe: Contrato vs. Ação
 
 Uma classe ABAP não é um bloco monolítico. Ela é dividida em duas partes obrigatórias que funcionam como uma promessa e seu cumprimento.
 
-#### **A. DEFINITION (A Promessa / Contrato)**
+### A. DEFINITION (A Promessa / Contrato)
 
-Aqui descrevemos a "interface" da classe. Definimos os tipos de dados, as constantes e as assinaturas dos métodos (parâmetros de entrada e saída). Nenhuma linha de lógica executável (como IF, LOOP) entra aqui.
+Aqui descrevemos a "interface" da classe. Definimos os tipos de dados, as constantes e as assinaturas dos métodos (parâmetros de entrada e saída). Nenhuma linha de lógica executável (como `IF`, `LOOP`) entra aqui.
 
+``` ABAP
 CLASS lcl_exemplo DEFINITION.  
   PUBLIC SECTION.  
     DATA: mv_nome TYPE string.      " Atributo de Instância  
@@ -43,11 +42,13 @@ CLASS lcl_exemplo DEFINITION.
     METHODS: constructor IMPORTING iv_nome TYPE string. " Método Especial  
     METHODS: executar.  
 ENDCLASS.
+```
 
-#### **B. IMPLEMENTATION (A Ação / Lógica)**
+### B. `IMPLEMENTATION` (A Ação / Lógica)
 
-Aqui escrevemos o código ABAP real. Cada método declarado na DEFINITION deve ter sua correspondente implementação aqui.
+Aqui escrevemos o código ABAP real. Cada método declarado na `DEFINITION` deve ter sua correspondente implementação aqui.
 
+``` ABAP
 CLASS lcl_exemplo IMPLEMENTATION.  
   METHOD constructor.  
     mv_nome = iv_nome.  
@@ -58,45 +59,53 @@ CLASS lcl_exemplo IMPLEMENTATION.
     " Lógica de negócio...  
   ENDMETHOD.  
 ENDCLASS.
+```
 
-#### **Seções de Visibilidade (Encapsulamento)**
+### Seções de Visibilidade (Encapsulamento)
 
 O encapsulamento é vital para manutenção. Se tudo for público, qualquer desenvolvedor pode alterar variáveis internas da sua classe, causando bugs inesperados.
 
-1. **PUBLIC SECTION:** A vitrine da loja. Métodos e atributos que o mundo externo precisa acessar. Define a API estável da classe.  
-2. **PROTECTED SECTION:** A área da família. Acessível pela própria classe e por suas classes filhas (herança). Usado para permitir que subclasses reutilizem lógica interna sem expô-la ao mundo.  
+1. **PUBLIC SECTION:** A vitrine da loja. Métodos e atributos que o mundo externo precisa acessar. Define a API estável da classe.
+  
+2. **PROTECTED SECTION:** A área da família. Acessível pela própria classe e por suas classes filhas (herança). Usado para permitir que subclasses reutilizem lógica interna sem expô-la ao mundo.
+  
 3. **PRIVATE SECTION:** O cofre. Acessível *apenas* pela própria classe. É onde escondemos a complexidade. Se você mudar a lógica de um método privado, tem a garantia de que nenhum código externo quebrará, pois ninguém de fora consegue chamá-lo.
 
-### **3. Instanciação Moderna: O Operador NEW**
+## 3. Instanciação Moderna: O Operador `NEW`
 
 A criação de objetos evoluiu para tornar o código mais fluído e legível.
 
-#### **Sintaxe Antiga vs. Moderna**
+### Sintaxe Antiga vs. Moderna
 
 * **Antigo (CREATE OBJECT):** Exigia a declaração prévia da variável com o tipo exato, ocupando várias linhas.  
+``` ABAP
   DATA: lo_cliente TYPE REF TO lcl_cliente.  
   CREATE OBJECT lo_cliente  
     EXPORTING  
       iv_id = '100'.
+```
 
-* **Moderno (NEW):** Permite instanciação inline. O tipo é inferido (#) ou explícito.  
+* **Moderno (`NEW`):** Permite instanciação inline. O tipo é inferido (`#`) ou explícito.  
+``` ABAP
   " Inferência de tipo (se o lado esquerdo já estiver tipado ou for claro)  
   DATA(lo_cliente) = NEW lcl_cliente( iv_id = '100' ).
 
   " Uso direto em chamadas de método (sem variável auxiliar!)  
   lo_fatura->processar( io_cliente = NEW lcl_cliente( '100' ) ).
+```
 
-#### **O Método CONSTRUCTOR**
+### O Método CONSTRUCTOR
 
-Ao usar NEW, o método especial constructor da classe é chamado automaticamente.
+Ao usar `NEW`, o método especial constructor da classe é chamado automaticamente.
 
 * Ele é usado para **inicializar** o objeto (ex: carregar dados obrigatórios).  
-* Se o construtor tiver parâmetros IMPORTING, eles devem ser passados dentro dos parênteses do NEW ... ( ).
+* Se o construtor tiver parâmetros `IMPORTING`, eles devem ser passados dentro dos parênteses do `NEW ... ( )`.
 
-### **4. Exemplo Prático Expandido: Calculadora de IMC com Estado**
+## 4. Exemplo Prático Expandido: Calculadora de IMC com Estado
 
 Neste exemplo avançado, criamos uma classe local que possui um **Construtor** para configurar a unidade de medida (Métrica ou Imperial) e mantemos o estado interno.
 
+``` ABAP
 " -----------------------------------------------------------------------  
 " 1. DEFINIÇÃO DA CLASSE LOCAL  
 " -----------------------------------------------------------------------  
@@ -214,10 +223,17 @@ CLASS zcl_health_app IMPLEMENTATION.
   ENDMETHOD.
 
 ENDCLASS.
+```
 
-### **🧠 Material para Estudo (Flashcards & Resumo)**
+## Tabela Comparativa: Visibilidade
 
-#### **Glossário Técnico**
+| Seção | Acesso Interno | Acesso por Subclasses | Acesso Externo (Público) | Objetivo Principal |
+| :---- | :---- | :---- | :---- | :---- |
+| **PUBLIC** | ✅ | ✅ | ✅ | Definir a API de uso da classe. |
+| **PROTECTED** | ✅ | ✅ | ❌ | Permitir extensão via herança. |
+| **PRIVATE** | ✅ | ❌ | ❌ | Ocultar lógica interna (Segurança). |
+
+## Glossário Técnico
 
 * **Instance (Instância):** A concretização de uma classe na memória. Enquanto a classe é o projeto (blueprint), a instância é o objeto real com seus próprios dados. Múltiplas instâncias da mesma classe podem coexistir com dados diferentes.  
 * **Constructor (Construtor):** Método especial (constructor) executado automaticamente no momento da criação do objeto (NEW). Usado para configurar o estado inicial e validar dependências obrigatórias.  
@@ -227,21 +243,16 @@ ENDCLASS.
 * **Encapsulation (Encapsulamento):** Pilar da OO que visa ocultar os detalhes de implementação (Private) e expor apenas uma interface segura (Public), protegendo a integridade dos dados internos.  
 * **Method Signature:** A definição completa da interface de um método, incluindo seu nome e todos os parâmetros de entrada, saída e exceções.
 
-#### **Tabela Comparativa: Visibilidade**
+## Quiz de Fixação
 
-| Seção | Acesso Interno | Acesso por Subclasses | Acesso Externo (Público) | Objetivo Principal |
-| :---- | :---- | :---- | :---- | :---- |
-| **PUBLIC** | ✅ | ✅ | ✅ | Definir a API de uso da classe. |
-| **PROTECTED** | ✅ | ✅ | ❌ | Permitir extensão via herança. |
-| **PRIVATE** | ✅ | ❌ | ❌ | Ocultar lógica interna (Segurança). |
+1. Qual a diferença fundamental entre a DEFINITION e a IMPLEMENTATION de uma classe?  
+  R: A DEFINITION descreve o contrato da classe (quais métodos e atributos ela possui e sua visibilidade), servindo como um manual de uso. A IMPLEMENTATION contém o código ABAP real (a lógica) que dita como esses métodos funcionam internamente.
+  
+2. O que acontece se eu tentar acessar um atributo definido na PRIVATE SECTION a partir de um programa externo?  
+  R: Ocorrerá um erro de sintaxe. O compilador ABAP impede o acesso direto a membros privados de fora da própria classe, garantindo o encapsulamento.
+ 
+3. Para que serve o método constructor e quando ele é chamado?  
+  R: Ele serve para inicializar o objeto, definindo valores padrão ou recebendo configurações iniciais. Ele é chamado automaticamente pelo sistema no momento em que o comando NEW (ou CREATE OBJECT) é executado.
 
-### **📝 Quiz de Fixação**
-
-Q1: Qual a diferença fundamental entre a DEFINITION e a IMPLEMENTATION de uma classe?  
-R: A DEFINITION descreve o contrato da classe (quais métodos e atributos ela possui e sua visibilidade), servindo como um manual de uso. A IMPLEMENTATION contém o código ABAP real (a lógica) que dita como esses métodos funcionam internamente.  
-Q2: O que acontece se eu tentar acessar um atributo definido na PRIVATE SECTION a partir de um programa externo?  
-R: Ocorrerá um erro de sintaxe. O compilador ABAP impede o acesso direto a membros privados de fora da própria classe, garantindo o encapsulamento.  
-Q3: Para que serve o método constructor e quando ele é chamado?  
-R: Ele serve para inicializar o objeto, definindo valores padrão ou recebendo configurações iniciais. Ele é chamado automaticamente pelo sistema no momento em que o comando NEW (ou CREATE OBJECT) é executado.  
-Q4: Se eu alterar um atributo estático (CLASS-DATA) em uma instância da classe, o que acontece com as outras instâncias?  
-R: O valor muda para todas as instâncias. Atributos estáticos são compartilhados globalmente por todos os objetos daquela classe, pois residem na memória da classe, não na memória do objeto individual.
+4. Se eu alterar um atributo estático (CLASS-DATA) em uma instância da classe, o que acontece com as outras instâncias?  
+  R: O valor muda para todas as instâncias. Atributos estáticos são compartilhados globalmente por todos os objetos daquela classe, pois residem na memória da classe, não na memória do objeto individual.

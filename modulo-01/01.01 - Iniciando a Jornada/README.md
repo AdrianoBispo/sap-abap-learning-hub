@@ -6,10 +6,10 @@
 
 ## Objetivos de Aprendizagem
 
-- Compreender profundamente a mudança de paradigma do ABAP Clássico para o **ABAP Cloud** e suas implicações na arquitetura de sistemas.  
--  Identificar e configurar o ambiente de desenvolvimento moderno: **ABAP Development Tools (ADT)** no Eclipse, entendendo suas vantagens sobre a SE80.  
--  Entender a hierarquia de organização de software: Componentes de Software, Pacotes e o papel do **abapGit**.  
--  Criar, ativar e executar a primeira aplicação ABAP ("Hello World") utilizando uma Classe Global e a interface de Console, abandonando o conceito de Reports tradicionais.
+- Compreender profundamente a mudança de paradigma do _ABAP Clássico_ para o _ABAP Cloud_ e suas implicações na arquitetura de sistemas.  
+-  Identificar e configurar o ambiente de desenvolvimento moderno: _ABAP Development Tools (ADT)_ no _Eclipse_, entendendo suas vantagens sobre a `SE80`.  
+-  Entender a hierarquia de organização de software: _Componentes de Software, Pacotes e o papel do **abapGit**_.  
+-  Criar, ativar e executar a primeira aplicação ABAP ("Hello World") utilizando uma _Classe Global_ e a _Interface de Console_, abandonando o conceito de _Reports_ tradicionais.
 
 ## 1. Introdução ao Ambiente de Desenvolvimento Moderno
 
@@ -51,7 +51,7 @@ A organização do código no ABAP moderno é mais rígida para facilitar o tran
 
 ### 1. Software Component (Componente de Software)
 
-É o contêiner de nível mais alto. No ambiente On-Premise, é gerenciado via transações de transporte (SE01/SE09/STMS). No ambiente Cloud/BTP, o Componente de Software é frequentemente vinculado a um repositório **Git**. Isso permite que o código seja gerenciado com *branches*, *pull requests* e *code reviews* externos.
+É o contêiner de nível mais alto. No ambiente On-Premise, é gerenciado via transações de transporte (`SE01`/`SE09`/`STMS`). No ambiente Cloud/BTP, o Componente de Software é frequentemente vinculado a um repositório **Git**. Isso permite que o código seja gerenciado com *branches*, *pull requests* e *code reviews* externos.
 
 ### 2. Package (Pacote)
 
@@ -66,19 +66,19 @@ O Pacote funciona como uma "pasta" ou "namespace", mas no ABAP moderno ele tem u
 
 Esqueça os comandos REPORT e WRITE. No ABAP Cloud, a lógica de apresentação (UI) é totalmente separada da lógica de backend. Não existem telas geradas pelo servidor ABAP (Dynpros).
 
-Para testar lógica de backend, utilizamos uma **Classe ABAP Global** que implementa uma interface especial: if_oo_adt_classrun.
+Para testar lógica de backend, utilizamos uma **Classe ABAP Global** que implementa uma interface especial: `if_oo_adt_classrun`.
 
 ### Por que uma Interface?
 
-A interface if_oo_adt_classrun funciona como um "contrato". Ela garante que sua classe tenha um método main que o ambiente ADT sabe chamar. É o equivalente ao public static void main do Java ou C#.
+A interface `if_oo_adt_classrun` funciona como um "contrato". Ela garante que sua classe tenha um método main que o ambiente ADT sabe chamar. É o equivalente ao public static void main do Java ou C#.
 
 ### Passo a Passo Detalhado
 
 1. No ADT, clique com botão direito no seu Pacote > **New** > **ABAP Class**.  
-2. Nomeie como zcl_hello_world (ou prefixo do seu usuário) e adicione uma descrição.  
-3. Na aba de Interfaces, adicione if_oo_adt_classrun.  
-4. Ative a classe (Ctrl+F3).  
-5. Execute a classe pressionando F9.
+2. Nomeie como `zcl_hello_world` (ou prefixo do seu usuário) e adicione uma descrição.  
+3. Na aba de Interfaces, adicione `if_oo_adt_classrun`.  
+4. Ative a classe (`Ctrl+F3`).  
+5. Execute a classe pressionando `F9`.
 
 ### Análise do Código (Syntax Highlighting e Comentários)
 
