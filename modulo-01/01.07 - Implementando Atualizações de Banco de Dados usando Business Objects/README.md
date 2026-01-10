@@ -2,6 +2,8 @@
 
 ![Infográfico - Atualização de Dados no ABAP Moderno](./01.07_Atualizacao_de_Dados_no_ABAP_RAP.png)
 
+> **Começe pelos slides: [Dominando a Persistência de Dados no ABAP Moderno](./01.07_ABAP_Persistência_EML_Guardião_de_Dados.pdf)**
+
 ## Objetivos de Aprendizagem
 
 - Compreender profundamente a arquitetura transacional do RAP e por que comandos de atualização direta SQL (INSERT, UPDATE, DELETE) são estritamente proibidos em cenários de negócio modernos.  

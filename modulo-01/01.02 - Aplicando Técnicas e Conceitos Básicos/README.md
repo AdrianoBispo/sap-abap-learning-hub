@@ -2,6 +2,8 @@
 
 ![Infográfico - Um Guia Visual de Boas Práticas](./01.02_Um_Guia_Visual_de_Boas_Praticas.png)
 
+> **Começe pelos slides: [ABAP Moderno: Escreva Menos, Ralize Mais](./01.02_ABAP_Moderno_Escreva_Menos_Realize_Mais.pdf)**
+
 ## Objetivos de Aprendizagem
 
 - Dominar o uso de **Declarações Inline** para variáveis e *Field Symbols*, compreendendo regras de escopo, inferência de tipos complexos e o impacto na legibilidade do código.  

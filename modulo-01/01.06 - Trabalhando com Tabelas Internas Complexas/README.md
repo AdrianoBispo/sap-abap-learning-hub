@@ -2,6 +2,8 @@
 
 ![Infográfico - Otimização de Tabelas Internas](./01.06_Otimizacao_de_Tabelas_Internas.png)
 
+> **Começe pelos slides: [O Playbook de Performance para ABAP Moderno](./01.06_ABAP_Performance_Playbook.pdf)**
+
 ## Objetivos de Aprendizagem
 
 - Distinguir tecnicamente entre os três tipos de tabelas internas: **Standard**, **Sorted** e **Hashed**, compreendendo a complexidade algorítmica de cada uma (Big O Notation).  

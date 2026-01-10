@@ -2,6 +2,8 @@
 
 ![Infográfico - Classes Locais](./01.03_Classes_Locais.png)
 
+> **Começe pelos slides: [O Artesão de Código Moderno](./01.03_O_Artesão_de_Código_Moderno.pdf)**
+
 ## Objetivos de Aprendizagem
 
 - Distinguir claramente entre **Classes Globais** e **Classes Locais**, compreendendo os casos de uso ideais para cada uma.  
