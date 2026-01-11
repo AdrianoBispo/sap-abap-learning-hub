@@ -1,36 +1,42 @@
-# **Módulo 04: Aprofundando o Conhecimento em Programação ABAP**
+# Usando Code Pushdown no ABAP SQL
 
-## **Aula 04: Usando Code Pushdown no ABAP SQL**
+![Infográfico - Modernize seu Code Pushdown](./04.04_Modernize_seu_ABAP_com_Code_Pushdown.png)
 
-### **🎯 Objetivos de Aprendizagem**
+> **Começe pelos slides: [Dominando o Code Pushdown para Performance Máxima](./04.04_Code_Pushdown_Guia_Definitivo.pdf)**
 
-Ao final desta aula, o estudante deverá ser capaz de:
+## Objetivos de Aprendizagem
 
-1. Aplicar **Expressões Aritméticas e de String** diretamente na lista de seleção do SELECT, eliminando a necessidade de pós-processamento de dados no servidor de aplicação.  
-2. Utilizar lógica condicional complexa com **CASE** dentro de consultas SQL para transformar códigos técnicos em informações de negócio legíveis na fonte.  
-3. Realizar agregações estatísticas (**SUM**, **AVG**, **COUNT**, **MIN**, **MAX**) e agrupamentos (**GROUP BY**) para criar relatórios analíticos de alta performance.  
-4. Combinar resultados de múltiplas seleções heterogêneas usando **UNION** e **UNION ALL**, compreendendo as implicações de performance e requisitos de compatibilidade de tipos.  
-5. Empregar funções de tratamento de nulos como **COALESCE** para garantir a robustez de cálculos matemáticos no banco de dados.
+- Aplicar **Expressões Aritméticas e de String** diretamente na lista de seleção do SELECT, eliminando a necessidade de pós-processamento de dados no servidor de aplicação.  
 
-### **1. ABAP SQL vs. CDS Views: Quando usar qual?**
+- Utilizar lógica condicional complexa com **CASE** dentro de consultas SQL para transformar códigos técnicos em informações de negócio legíveis na fonte.  
+
+- Realizar agregações estatísticas (**SUM**, **AVG**, **COUNT**, **MIN**, **MAX**) e agrupamentos (**GROUP BY**) para criar relatórios analíticos de alta performance.  
+
+- Combinar resultados de múltiplas seleções heterogêneas usando **UNION** e **UNION ALL**, compreendendo as implicações de performance e requisitos de compatibilidade de tipos.  
+
+- Empregar funções de tratamento de nulos como **COALESCE** para garantir a robustez de cálculos matemáticos no banco de dados.
+
+## 1. ABAP SQL vs. CDS Views: Quando usar qual?
 
 Já aprendemos a colocar lógica no banco usando CDS Views. Mas e se a lógica for específica demais para uma única rotina? A escolha entre criar uma View no dicionário ou escrever uma query complexa no código depende da **reutilização**.
 
 * **CDS View:** A ferramenta ideal para definir modelos de dados reutilizáveis. Se o cálculo de "Total com Impostos" for usado em três relatórios e um aplicativo Fiori, ele deve estar numa CDS View. É a "Single Source of Truth".  
+
 * **ABAP SQL Moderno:** A ferramenta para lógica específica de um método ou classe. Se você precisa de uma query ad-hoc que combina dados de forma única para um processamento batch específico, não polua o dicionário com uma View que só tem um consumidor. Escreva o SQL complexo diretamente no ABAP.
 
 O ABAP SQL (a partir do 7.50) herdou quase todos os "superpoderes" do CDS, permitindo que a sintaxe seja praticamente idêntica. Isso facilita a refatoração: você pode prototipar no ABAP SQL e depois mover para uma CDS View se a lógica provar ser reutilizável.
 
-### **2. Cálculos e Expressões na Query**
+## 2. Cálculos e Expressões na Query
 
-O padrão antigo de "Selecionar tudo (SELECT *), jogar na tabela interna e fazer LOOP para calcular" é o maior inimigo da performance em bancos de dados em memória como o SAP HANA. O custo de trazer milhões de células de dados pela rede apenas para somar duas colunas e descartar o resto é proibitivo.
+O padrão antigo de "Selecionar tudo (`SELECT *`), jogar na tabela interna e fazer `LOOP` para calcular" é o maior inimigo da performance em bancos de dados em memória como o SAP HANA. O custo de trazer milhões de células de dados pela rede apenas para somar duas colunas e descartar o resto é proibitivo.
 
-#### **Aritmética no SELECT**
+### Aritmética no `SELECT`
 
 Podemos calcular preços, impostos, margens e datas direto na query. O banco de dados é extremamente eficiente em matemática vetorial.
 
-**Atenção aos Nulos:** Em operações SQL, 5 + NULL = NULL. Para evitar que um campo vazio anule seu cálculo, usamos a função COALESCE( campo, 0 ), que retorna o primeiro valor não nulo (neste caso, zero se o campo for nulo).
+**Atenção aos Nulos:** Em operações SQL, `5 + NULL = NULL`. Para evitar que um campo vazio anule seu cálculo, usamos a função `COALESCE( campo, 0 )`, que retorna o primeiro valor não nulo (neste caso, zero se o campo for nulo).
 
+``` ABAP
 SELECT FROM zrap_travel  
   FIELDS travel_id,  
          total_price,  
@@ -51,11 +57,13 @@ SELECT FROM zrap_travel
 
   WHERE currency_code = 'EUR'  
   INTO TABLE @DATA(lt_results).
+```
 
-#### **Strings no SELECT**
+### Strings no SELECT
 
 Manipulação de texto também pode ser feita no banco, economizando loops ABAP. Além da concatenação, temos funções para caixa alta/baixa, substituição e comprimento.
 
+``` ABAP
 SELECT FROM /dmo/customer  
   FIELDS customer_id,  
            
@@ -72,8 +80,9 @@ SELECT FROM /dmo/customer
          substring( last_name, 1, 3 ) AS short_name
 
   INTO TABLE @DATA(lt_names).
+```
 
-### **3. Lógica Condicional (CASE)**
+## 3. Lógica Condicional (CASE)
 
 O famoso IF/ELSE dentro do loop pode ser eliminado usando CASE no SQL. Isso permite transformar códigos técnicos (ex: 'X', 'A') em textos descritivos ou categorizações diretamente na extração.
 
@@ -82,6 +91,7 @@ Existem duas formas de CASE:
 1. **Simple CASE:** Compara um campo contra valores.  
 2. **Complex CASE:** Permite condições lógicas variadas (WHEN a > b).
 
+``` ABAP
 SELECT FROM zrap_travel  
   FIELDS travel_id,  
          overall_status,  
@@ -104,19 +114,20 @@ SELECT FROM zrap_travel
          END AS price_category
 
   INTO TABLE @DATA(lt_status).
+```
 
-### **4. Agregações e Agrupamento (GROUP BY)**
+## 4. Agregações e Agrupamento (`GROUP BY`)
 
 Se você precisa de um relatório de totais, **nunca** traga os dados detalhados para o ABAP para somar (usando COLLECT ou Loop). O banco de dados possui índices e otimizações específicas para agregação que são ordens de magnitude mais rápidas que o servidor de aplicação.
 
-* **Funções de Agregação:** SUM(), AVG() (Média), MIN(), MAX(), COUNT().  
-* **Regra Fundamental:** Se usar qualquer função de agregação, **qualquer campo** na lista de seleção que *não* for agregado deve obrigatoriamente estar na cláusula GROUP BY. O banco precisa saber "somar o quê por quem".
+* **Funções de Agregação:** `SUM()`, `AVG()`, `MIN()`, `MAX()`, `COUNT()`.  
+* **Regra Fundamental:** Se usar qualquer função de agregação, **qualquer campo** na lista de seleção que *não* for agregado deve obrigatoriamente estar na cláusula `GROUP BY`. O banco precisa saber "somar o quê por quem".
 
-**HAVING vs. WHERE:**
+* **`HAVING` vs. `WHERE`:**
+  * **`WHERE:`** Filtra os dados **antes** de agrupar (ex: "Considere apenas viagens em Dólar").  
+  * **`HAVING:`** Filtra os dados **depois** de agrupar (ex: "Mostre apenas clientes que gastaram mais de 1 milhão no total").
 
-* WHERE: Filtra os dados **antes** de agrupar (ex: "Considere apenas viagens em Dólar").  
-* HAVING: Filtra os dados **depois** de agrupar (ex: "Mostre apenas clientes que gastaram mais de 1 milhão no total").
-
+``` ABAP
 SELECT FROM zrap_travel  
   FIELDS customer_id,  
          currency_code,  
@@ -141,8 +152,9 @@ SELECT FROM zrap_travel
   HAVING SUM( total_price ) > 50000   
     
   INTO TABLE @DATA(lt_analytics).
+```
 
-### **5. Combinando Resultados (UNION)**
+## 5. Combinando Resultados (UNION)
 
 Às vezes precisamos juntar dados de duas tabelas diferentes que têm estrutura similar, mas que logicamente estão separadas (ex: Tabela de Vendas Atuais e Tabela de Histórico/Arquivo Morto, ou Clientes Nacionais e Internacionais). O ABAP SQL permite fazer isso em uma única ida ao banco.
 
@@ -150,6 +162,7 @@ SELECT FROM zrap_travel
 * **UNION ALL:** Junta os resultados das duas queries "como estão". É muito rápido.  
 * **UNION:** Junta os resultados e executa um passo extra de **ordenação e remoção de duplicatas**. É mais lento e deve ser usado apenas se você realmente precisar garantir unicidade entre os conjuntos.
 
+``` ABAP
 " Seleciona Voos Ativos  
 SELECT FROM /dmo/connection  
   FIELDS carrier_id, connection_id, distance  
@@ -163,11 +176,13 @@ SELECT FROM /dmo/conn_hist
   WHERE distance > 2000
 
 INTO TABLE @DATA(lt_all_long_flights).
+```
 
-### **6. Exemplo Prático: Relatório Analítico via Código**
+## 6. Exemplo Prático: Relatório Analítico via Código
 
-Vamos criar uma classe que gera um relatório de gastos por agência, classificando-as como "VIP" ou "Standard", utilizando todo o poder do Code Pushdown: Agregação, CASE, Aritmética e Filtro Pós-Agregação.
+Vamos criar uma classe que gera um relatório de gastos por agência, classificando-as como "VIP" ou "Standard", utilizando todo o poder do Code Pushdown: Agregação, `CASE`, Aritmética e Filtro Pós-Agregação.
 
+``` ABAP
 CLASS zcl_sql_pushdown DEFINITION  
   PUBLIC  
   FINAL  
@@ -222,19 +237,9 @@ CLASS zcl_sql_pushdown IMPLEMENTATION.
   ENDMETHOD.
 
 ENDCLASS.
+```
 
-### **🧠 Material para Estudo (Flashcards & Resumo)**
-
-#### **Glossário Técnico**
-
-* **Aggregation Function (Função de Agregação):** Funções SQL que operam em um conjunto de linhas para retornar um único valor resumido. Exemplos: SUM (Soma), AVG (Média), MAX (Máximo), MIN (Mínimo).  
-* **GROUP BY:** Cláusula SQL obrigatória quando se mistura colunas normais e funções de agregação. Ela define os "baldes" onde os dados serão agrupados (ex: agrupar vendas "por Cliente").  
-* **HAVING:** Cláusula usada para filtrar resultados *após* a agregação ter sido feita (diferente do WHERE, que filtra *antes*). É usada para condições sobre os valores sumarizados (ex: HAVING SUM(val) > 100).  
-* **UNION / UNION ALL:** Operadores que combinam o conjunto de resultados de duas ou mais instruções SELECT. UNION remove linhas duplicadas (custoso), enquanto UNION ALL mantém todas (rápido).  
-* **Coalesce:** Função SQL (coalesce( val1, val2, ... )) que retorna o primeiro valor não nulo de uma lista de argumentos. Indispensável para evitar que valores NULL propaguem e anulem cálculos aritméticos inteiros.  
-* **Literals (Literais):** Valores fixos escritos diretamente na query (ex: 'Ativo', 100, 0.1). Podem ser usados em expressões aritméticas, comparações e projeções.
-
-#### **Loop ABAP vs Code Pushdown SQL**
+## Loop ABAP vs Code Pushdown SQL
 
 | Cenário | ABAP Clássico (Evitar) | ABAP SQL (Recomendado) | Vantagem SQL |
 | :---- | :---- | :---- | :---- |
@@ -243,13 +248,30 @@ ENDCLASS.
 | **Juntar Tabelas** | Dois SELECTs, LOOP e APPEND. | SELECT ... UNION ... | Uma única ida ao banco (Roundtrip). |
 | **Filtro de Soma** | LOOP, calcular, DELETE se menor que X. | SELECT ... HAVING SUM > X | O banco só retorna o que interessa. |
 
-### **📝 Quiz de Fixação**
+## Glossário Técnico
 
-Q1: Qual a diferença técnica e de performance entre WHERE e HAVING em uma consulta SQL com agregações?  
-R: O WHERE filtra as linhas brutas antes que elas sejam agrupadas e calculadas, reduzindo o volume de dados a ser processado pelo agrupador. O HAVING filtra os resultados já agregados (os grupos) após o cálculo. Para performance, deve-se filtrar o máximo possível no WHERE.  
-Q2: Por que UNION ALL é geralmente mais performático que UNION?  
-R: Porque o UNION padrão executa um passo adicional e custoso de processamento (sort/distinct) para identificar e remover linhas duplicadas entre os conjuntos de resultados. O UNION ALL simplesmente anexa os resultados sequencialmente, sem verificação extra.  
-Q3: Se eu usar a função SUM( price ) na minha lista de campos, o que sou obrigado a fazer com os outros campos (ex: customer_id) que não estão sendo somados?  
-R: Sou obrigado a incluí-los na cláusula GROUP BY. Caso contrário, ocorrerá um erro de sintaxe SQL, pois o banco de dados não sabe como condensar múltiplas linhas de clientes diferentes em uma só linha de soma sem um critério explícito de agrupamento.  
-Q4: Para que serve a função COALESCE e em que cenário ela é indispensável?  
-R: A função COALESCE retorna o primeiro valor não nulo de uma lista. Ela é indispensável em cálculos aritméticos (somas, multiplicações) onde um dos campos pode ser NULL, pois em SQL qualquer operação com NULL resulta em NULL. O COALESCE permite substituir o nulo por zero ou um valor padrão para que o cálculo prossiga.
+* **Aggregation Function (Função de Agregação):** Funções SQL que operam em um conjunto de linhas para retornar um único valor resumido. Exemplos: SUM (Soma), AVG (Média), MAX (Máximo), MIN (Mínimo).  
+
+* **GROUP BY:** Cláusula SQL obrigatória quando se mistura colunas normais e funções de agregação. Ela define os "baldes" onde os dados serão agrupados (ex: agrupar vendas "por Cliente").  
+
+* **HAVING:** Cláusula usada para filtrar resultados *após* a agregação ter sido feita (diferente do WHERE, que filtra *antes*). É usada para condições sobre os valores sumarizados (ex: HAVING SUM(val) > 100).  
+
+* **UNION / UNION ALL:** Operadores que combinam o conjunto de resultados de duas ou mais instruções SELECT. UNION remove linhas duplicadas (custoso), enquanto UNION ALL mantém todas (rápido).  
+
+* **Coalesce:** Função SQL (coalesce( val1, val2, ... )) que retorna o primeiro valor não nulo de uma lista de argumentos. Indispensável para evitar que valores NULL propaguem e anulem cálculos aritméticos inteiros.  
+
+* **Literals (Literais):** Valores fixos escritos diretamente na query (ex: 'Ativo', 100, 0.1). Podem ser usados em expressões aritméticas, comparações e projeções.
+
+## Quiz de Fixação
+
+1. Qual a diferença técnica e de performance entre WHERE e HAVING em uma consulta SQL com agregações?  
+  R: O WHERE filtra as linhas brutas antes que elas sejam agrupadas e calculadas, reduzindo o volume de dados a ser processado pelo agrupador. O HAVING filtra os resultados já agregados (os grupos) após o cálculo. Para performance, deve-se filtrar o máximo possível no WHERE.  
+
+2. Por que UNION ALL é geralmente mais performático que UNION?  
+  R: Porque o UNION padrão executa um passo adicional e LOOPcustoso de processamento (sort/distinct) para identificar e remover linhas duplicadas entre os conjuntos de resultados. O UNION ALL simplesmente anexa os resultados sequencialmente, sem verificação extra.  
+
+3. Se eu usar a função SUM( price ) na minha lista de campos, o que sou obrigado a fazer com os outros campos (ex: customer_id) que não estão sendo somados?  
+  R: Sou obrigado a incluí-los na cláusula GROUP BY. Caso contrário, ocorrerá um erro de sintaxe SQL, pois o banco de dados não sabe como condensar múltiplas linhas de clientes diferentes em uma só linha de soma sem um critério explícito de agrupamento.  
+
+4. Para que serve a função COALESCE e em que cenário ela é indispensável?  
+  R: A função COALESCE retorna o primeiro valor não nulo de uma lista. Ela é indispensável em cálculos aritméticos (somas, multiplicações) onde um dos campos pode ser NULL, pois em SQL qualquer operação com NULL resulta em NULL. O COALESCE permite substituir o nulo por zero ou um valor padrão para que o cálculo prossiga.
