@@ -2,7 +2,7 @@
 
 ![Guia Visual: Ciclo de Vida de Um App Fiori Elements](./03.00_Ciclo_de_Vida_de_Um_App_Fiori_Elements.png)
 
-O material foi construído com base no curso [**"Getting Started with Creating an SAP Fiori Elements App Based on an OData V4 RAP Service" da plataforma SAP Learning"**](https://learning.sap.com/courses/getting-started-with-creating-an-sap-fiori-elements-app-based-on-an-odata-v4-rap-service), que é uma jornada de aprendizado gratuita e introdutória voltada para desenvolvedores, arquitetos e consultores que desejam criar aplicações SAP Fiori utilizando o modelo de programação ABAP RESTful (RAP) com serviços OData V4.
+O material foi construído com base no curso [**"Getting Started with Creating an SAP Fiori Elements App Based on an OData V4 RAP Service"**](https://learning.sap.com/courses/getting-started-with-creating-an-sap-fiori-elements-app-based-on-an-odata-v4-rap-service) da plataforma SAP Learning. Este curso se trata de uma jornada de aprendizado gratuita e introdutória voltada para desenvolvedores, arquitetos e consultores que desejam criar aplicações SAP Fiori utilizando o modelo de programação ABAP RESTful (RAP) com serviços OData V4.
 
 > **Começe por aqui: [RAP Fiori Elements: Jornada Completa](./03.00_RAP_Fiori_Elements_Jornada_Completa.pdf)**
 
