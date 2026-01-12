@@ -79,7 +79,7 @@ Para criar um App Fiori do zero no ADT (Eclipse), seguimos um fluxo rigoroso:
 8. **Preview:** Utilizar a função de *Preview* do Service Binding para testar a aplicação Fiori Elements instantaneamente no navegador, validando anotações e comportamentos.
 
 ## 5. Diagrama Conceitual (Fluxo de Dados)
-
+```
       [ Browser / Fiori Launchpad ]  
                   ^  
                   | (HTTPS / OData)  
@@ -99,6 +99,7 @@ Para criar um App Fiori do zero no ADT (Eclipse), seguimos um fluxo rigoroso:
           | (SQL)                      | (ABAP EML)  
           v                            v  
  [ Banco de Dados HANA ]      [ Lógica de Negócio (Classes BP_) ]
+```
 
 ## Pontos de Atenção (Arquitetura)
 
