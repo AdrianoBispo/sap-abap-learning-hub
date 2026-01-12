@@ -2,7 +2,7 @@
 
 ![Infográfico - Classes Locais](./01.03_Classes_Locais.png)
 
-> **Começe pelos slides: [O Artesão de Código Moderno](./01.03_O_Artesão_de_Código_Moderno.pdf)**
+> **Comece pelos slides: [O Artesão de Código Moderno](./01.03_O_Artesão_de_Código_Moderno.pdf)**
 
 ## Objetivos de Aprendizagem
 

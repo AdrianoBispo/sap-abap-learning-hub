@@ -2,7 +2,7 @@
 
 ![Infográfico - Configurando Tabelas (Cores e Ações)](./03.07_Tabelas_Dinamicas_no_Fiori_Elements.png)
 
-> **Começe pelos slides: [Anatomia de Uma Tabela Inteligente em Fiori Elements](./03.07_Anatomia_da_Tabela_Fiori_Inteligente.pdf)**
+> **Comece pelos slides: [Anatomia de Uma Tabela Inteligente em Fiori Elements](./03.07_Anatomia_da_Tabela_Fiori_Inteligente.pdf)**
 
 ## Objetivos de Aprendizagem
 

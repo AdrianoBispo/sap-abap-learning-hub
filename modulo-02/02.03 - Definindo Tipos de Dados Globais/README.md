@@ -2,7 +2,7 @@
 
 ![Infográfico - Definindo Tipos de Dados Globais](./02.03_Modelagem_de_Dados_Inteligente.png)
 
-> **Começe pelos slides: [Dominando Tipos de Dados Globais no ABAP](./02.03_ABAP_Dictionary_Fundamentos_Fiori.pdf)**
+> **Comece pelos slides: [Dominando Tipos de Dados Globais no ABAP](./02.03_ABAP_Dictionary_Fundamentos_Fiori.pdf)**
 
 ## Objetivos de Aprendizagem
 

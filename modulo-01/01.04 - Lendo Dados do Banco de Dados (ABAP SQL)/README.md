@@ -2,7 +2,7 @@
 
 ![Infográfico - A Evolução do SQL no ABAP Moderno](./01.04_A_Evolucao_do_ABAP_SQL.png)
 
-> **Começe pelos slides: [Evolução e Maestria: Dominando a Leitura de Dados com o ABAP SQL Moderno](./01.04_ABAP_SQL_Moderno_Maestria_em_Leitura_de_Dados.pdf)**
+> **Comece pelos slides: [Evolução e Maestria: Dominando a Leitura de Dados com o ABAP SQL Moderno](./01.04_ABAP_SQL_Moderno_Maestria_em_Leitura_de_Dados.pdf)**
 
 ## Objetivos de Aprendizagem
 

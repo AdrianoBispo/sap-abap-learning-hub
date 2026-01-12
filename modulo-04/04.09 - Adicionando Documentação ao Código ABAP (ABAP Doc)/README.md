@@ -2,7 +2,7 @@
 
 ![Infográfico - Adicionando Documentação ao Código ABAP (ABAP Doc)](./04.09_ABAP_Doc.png)
 
-> **Começe pelos slides: [A Revolução da Documentação (ABAP Doc](./04.09_ABAP_Doc_A_Jornada_Para_o_Código_Mestre.pdf)**
+> **Comece pelos slides: [A Revolução da Documentação (ABAP Doc](./04.09_ABAP_Doc_A_Jornada_Para_o_Código_Mestre.pdf)**
 
 ## Objetivos de Aprendizagem
 

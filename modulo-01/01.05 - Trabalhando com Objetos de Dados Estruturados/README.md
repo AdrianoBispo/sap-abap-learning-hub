@@ -2,7 +2,7 @@
 
 ![Infográfico - Estruturas de Dados no ABAP Moderno](./01.05_Estruturas_de_Dados_ABAP.png)
 
-> **Começe pelos slides: [Dominando Estruturas de Dados em ABAP](./01.05_Dominando_Estruturas_de_Dados_em_ABAP_e_RAP.pdf)**
+> **Comece pelos slides: [Dominando Estruturas de Dados em ABAP](./01.05_Dominando_Estruturas_de_Dados_em_ABAP_e_RAP.pdf)**
 
 ## Objetivos de Aprendizagem
 

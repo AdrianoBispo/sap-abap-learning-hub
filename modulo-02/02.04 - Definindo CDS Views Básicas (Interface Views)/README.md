@@ -2,7 +2,7 @@
 
 ![Infográfico - Definindo CDS Views Básicas (Interface Views)](./02.04_CDS_Views.png)
 
-> **Começe pelos slides: [A Base de Aplicações Modernas: Dominando as CDS Views Essencias](./02.04_CDS_Views_Essenciais_Uma_Nova_Arquitetura.pdf)**
+> **Comece pelos slides: [A Base de Aplicações Modernas: Dominando as CDS Views Essencias](./02.04_CDS_Views_Essenciais_Uma_Nova_Arquitetura.pdf)**
 
 ## Objetivos de Aprendizagem
 

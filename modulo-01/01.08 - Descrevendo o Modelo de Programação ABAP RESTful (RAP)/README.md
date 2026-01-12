@@ -2,7 +2,7 @@
 
 ![Infográfico - Desvendando o RAP](./01.08_Desvendando_o_RAP.png)
 
-> **Começe pelos slides: [Arquiteto de Software: Dominando ABAP RAP](./01.08_Arquiteto_de_Software_Dominando_ABAP_RAP.pdf)**
+> **Comece pelos slides: [Arquiteto de Software: Dominando ABAP RAP](./01.08_Arquiteto_de_Software_Dominando_ABAP_RAP.pdf)**
 
 ## Objetivos de Aprendizagem
 

@@ -2,7 +2,7 @@
 
 ![Infográfico - Aprofundando no Modelo de Extensibilidade do S/4HANA Cloud](./05.04_Clean_Core_Extensibilidade_SAP_S4HANA.png)
 
-> **Começe pelos slides: [Dominando Cloud BAdIs para um Clean Core](./05.04_Cloud_BAdIs_for_a_Clean_Core.pdf)**
+> **Comece pelos slides: [Dominando Cloud BAdIs para um Clean Core](./05.04_Cloud_BAdIs_for_a_Clean_Core.pdf)**
 
 ## Objetivos de Aprendizagem
 

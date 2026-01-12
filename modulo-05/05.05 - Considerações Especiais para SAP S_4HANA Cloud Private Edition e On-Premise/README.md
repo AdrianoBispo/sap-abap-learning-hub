@@ -2,7 +2,7 @@
 
 ![Infográfico - Considerações Especiais para SAP S/4HANA Cloud Private Edition e On-Premise](./05.05_Modernizando_o_ABAP.png)
 
-> **Começe pelos slides: [Dominando os Dois Mundos](./05.05_Dominando_os_Dois_Mundos_Estratégia_Clean_Core.pdf)**
+> **Comece pelos slides: [Dominando os Dois Mundos](./05.05_Dominando_os_Dois_Mundos_Estratégia_Clean_Core.pdf)**
 
 ## Objetivos de Aprendizagem
 

@@ -2,7 +2,7 @@
 
 ![Infográfico - Definindo e Trabalhando com Classes de Exceção](./04.08_Guia_Rapido_Excecoes_Modernas_em_ABAP_OO.png)
 
-> **Começe pelos slides: [Dominando Exceções no ABAP OO](./04.08_Dominando_Exceções_ABAP_OO.pdf)**
+> **Comece pelos slides: [Dominando Exceções no ABAP OO](./04.08_Dominando_Exceções_ABAP_OO.pdf)**
 
 ## Objetivos de Aprendizagem
 

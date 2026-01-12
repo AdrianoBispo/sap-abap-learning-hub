@@ -2,7 +2,7 @@
 
 ![Infográfico - A Evolução do ABAP](./01.01_A_Evolucao_do_ABAP.png)
 
-> **Começe pelos slides: [Iniciando a Jornada: O Paradigma do ABAP Moderno](./01.01_ABAP_Cloud_Clean_Core_E_ADT.pdf)**
+> **Comece pelos slides: [Iniciando a Jornada: O Paradigma do ABAP Moderno](./01.01_ABAP_Cloud_Clean_Core_E_ADT.pdf)**
 
 ## Objetivos de Aprendizagem
 

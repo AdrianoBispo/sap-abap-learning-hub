@@ -2,7 +2,7 @@
 
 ![Infográfico - Definindo Meta Objetos (Metadata Extensions)](./02.07_A_Vantagem_das_Metadatas_Extensions.png)
 
-> **Começe pelos slides: [Do Caos a Clareza: Dominando Metadata Extensions](./02.07_Do_Caos_à_Clareza.pdf)**
+> **Comece pelos slides: [Do Caos a Clareza: Dominando Metadata Extensions](./02.07_Do_Caos_à_Clareza.pdf)**
 
 ## Objetivos de Aprendizagem
 

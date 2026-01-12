@@ -2,7 +2,7 @@
 
 ![Infográfico - A Evolução do Processamento de Strings em ABAP](./04.03_A_Evolucao_do_Processamento_de_Strings.png)
 
-> **Começe pelos slides: [A Evolução do Processamento de Strings em ABAP](./04.03_ABAP_String_Processing_Evolution.pdf)**
+> **Comece pelos slides: [A Evolução do Processamento de Strings em ABAP](./04.03_ABAP_String_Processing_Evolution.pdf)**
 
 ## Objetivos de Aprendizagem
 

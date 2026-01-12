@@ -2,7 +2,7 @@
 
 ![Infográfico - ABAP Cloud em Profundidade](./05.03_Extensibilidade_SAP.png)
 
-> **Começe pelos slides: [Desmetificando o ABAP Cloud](./05.03_ABAP_Cloud_Guia_Arquitetural.pdf)**
+> **Comece pelos slides: [Desmetificando o ABAP Cloud](./05.03_ABAP_Cloud_Guia_Arquitetural.pdf)**
 
 ## Objetivos de Aprendizagem
 

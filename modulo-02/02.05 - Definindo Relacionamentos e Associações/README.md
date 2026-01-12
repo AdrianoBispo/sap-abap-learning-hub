@@ -2,7 +2,7 @@
 
 ![Infográfico - Definindo Relacionamentos e Associações](./02.05_Associacoes_vs_JOINs_Classicos.png)
 
-> **Começe pelos slides: [A Revolução Silenciosa: De Joins a Associações em ABAP CDS](./02.05_JOINs_para_Associações_ABAP_CDS.pdf)**
+> **Comece pelos slides: [A Revolução Silenciosa: De Joins a Associações em ABAP CDS](./02.05_JOINs_para_Associações_ABAP_CDS.pdf)**
 
 ## Objetivos de Aprendizagem
 

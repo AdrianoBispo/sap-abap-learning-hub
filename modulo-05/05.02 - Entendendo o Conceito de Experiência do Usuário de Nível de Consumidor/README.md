@@ -2,7 +2,7 @@
 
 ![Infográfico - Entendendo o Conceito de Experiência do Usuário de Nível de Consumidor](./05.02_Os_5_Principios_do_SAP_Fiori.png)
 
-> **Começe pelos slides: [A Grande Virada: Da Função à Experiência](./05.02_Fiori_Redefinindo_o_Papel_do_Desenvolvedor.pdf)**
+> **Comece pelos slides: [A Grande Virada: Da Função à Experiência](./05.02_Fiori_Redefinindo_o_Papel_do_Desenvolvedor.pdf)**
 
 ## Objetivos de Aprendizagem
 
