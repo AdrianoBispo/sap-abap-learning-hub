@@ -170,3 +170,7 @@ Para evitar esse desperdício, usamos **BAdI Filters**.
 - ![Implemente extensões adicionando uma nova validação.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_2B778AD125AAFBB5:uebung)
 - ![Implemente extensões adicionando um novo nó.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_52697900929AF293:uebung)
 - ![Implementar um BAdI lançado](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_F5C8FF6C8EB37D99:uebung)
+- ![Utilize os recursos de busca de objetos do visualizador de repositório Cloudification.](https://learnsap.enable-now.cloud.sap/wa/mmcp/index.html?show=project!PR_B21FE28DFA71A891:uebung#2)
+- ![Configurar componentes de software para desenvolvimento ABAP Cloud e ABAP Classic](https://learnsap.enable-now.cloud.sap/wa/mmcp/index.html?show=project!PR_AC4D43D592CB95A1:uebung#2)
+- ![Configure as autorizações de desenvolvedor para o desenvolvimento ABAP Cloud e ABAP Classic.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_E795479B3AE3D8F:uebung)
+- ![Atribuir versões da linguagem ABAP a objetos de desenvolvimento](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_DC8A1E5D4F326888:uebung)
