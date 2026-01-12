@@ -153,3 +153,9 @@ ENDCLASS.
 
 1. Qual é a função da interface if_oo_adt_classrun e por que ela é usada no lugar de Reports tradicionais?  
   R: Ela permite que uma classe global seja executada diretamente pelo console do ADT (Eclipse). É usada no lugar de Reports porque no ABAP Cloud não existem telas de seleção ou saída de lista clássica; a interface fornece uma maneira leve e padronizada de testar lógica de backend e exibir resultados simples.
+
+## Links de Demonstrações
+
+- ![Como criar um ABAP Cloud Project](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_CFA821567D1C62AF:demo)
+- ![Como criar um ABAP Package](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_E85FDC0DEC83B2B8:demo)
+- ![Como criar seu primeiro app ABAP ('Hellow World')](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_B569C1AE21873BA7:demo)
