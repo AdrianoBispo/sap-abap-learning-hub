@@ -258,3 +258,16 @@ ENDCLASS.
 
 4. Se eu alterar um atributo estático (CLASS-DATA) em uma instância da classe, o que acontece com as outras instâncias?  
   R: O valor muda para todas as instâncias. Atributos estáticos são compartilhados globalmente por todos os objetos daquela classe, pois residem na memória da classe, não na memória do objeto individual.
+
+## Links de Demonstrações
+
+- ![Como Criar uma Classe Local Dentro de uma Classe Global](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_101F7AF901D991BF:demo)
+- ![Como criar instâncias de uma Classe ABAP](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_EA37F7B8BEAF78A0:demo)
+- ![Como Gerenciar Instâncias dentro de uma Tabela Interna](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_68826944F2FA597:demo)
+- ![Como Definir Métodos](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_D41C6BBE46D32482:demo)
+- ![Como Implementar Métodos](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_6BF8538B5A617BA1:demo)
+- ![Como Chamar Métodos](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_2DEC8B2FBF8684A2:demo)
+- ![Como Usar Atributos Privados](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_2EF94ED3881D7EAE:demo)
+- ![Como Definir um Construtor de Instância](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_AA201DE9A603868E:demo)
+- ![Como Depurar a Execução de Construtores](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_5189FB6B111ACAAE:demo)
+- 
