@@ -1,8 +1,8 @@
-# Módulo 5: Praticando a extensibilidade do Clean Core para SAP S/4HANA Cloud
+# Módulo 5: Praticando a Extensibilidade do Clean Core para SAP S/4HANA Cloud
 
 ![Guia Visual: A Estratégia Clean Core](./05.00_A_Estrategia_Clean_Core.png)
 
-O material foi construído com base no curso [**"Practicing Clean Core Extensibility for SAP S/4HANA Cloud" da plataforma SAP Learning"**](https://learning.sap.com/courses/practicing-clean-core-extensibility-for-sap-s-4hana-cloud), que é uma jornada de aprendizado gratuita e intermediária com cerca de **8 horas de duração**, voltada para profissionais que desejam dominar a criação de extensões no SAP S/4HANA Cloud de forma alinhada aos princípios de **Clean Core**.
+O material foi construído com base no curso [**"Practicing Clean Core Extensibility for SAP S/4HANA Cloud"**](https://learning.sap.com/courses/practicing-clean-core-extensibility-for-sap-s-4hana-cloud) da plataforma SAP Learning. Este curso é uma jornada de aprendizagem gratuita e intermediária, voltada para profissionais que desejam dominar a criação de extensões no **SAP S/4HANA Cloud** de forma alinhada aos princípios de **Clean Core**.
 
 > **Começe por aqui: [Do Legado à Agilidade: Guia de Arquitetura S/4HANA](./05.00_Do_Legado_à_Agilidade_Guia_de_Arquitetura_S4HANA.pdf)**
 
