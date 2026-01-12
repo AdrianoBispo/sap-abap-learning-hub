@@ -158,3 +158,9 @@ Q2: Como um desenvolvedor pode descobrir se uma determinada CDS View padrão da 
 
 Q3: Em um cenário de S/4HANA Private Cloud, você precisa reutilizar uma função Z complexa antiga que não segue as regras do ABAP Cloud. Qual é a estratégia arquitetural recomendada para acessá-la a partir de um novo App Fiori RAP?  
   R: Deve-se criar um Wrapper. Ou seja, criar uma classe intermediária na camada de ABAP Clássico (Tier 3) que chama a função Z antiga. Em seguida, deve-se liberar (Release C1) essa classe Wrapper explicitamente para uso em Cloud Development. O App Fiori (Tier 2) chamará então o Wrapper, que por sua vez chamará o código legado.
+
+## Links de Demonstrações
+
+- ![Explore os objetos do modelo de programação de aplicativos RESTful do ABAP](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_9B0C1017F903CE90:uebung)
+- ![Utilize o SAP Business Accelerator Hub.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_B9A11D1014CB1FA0:uebung)
+- ![Utilize a visualização de APIs lançadas pela SAP nas Ferramentas de Desenvolvimento ABAP para Eclipse.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_156649D76ABBCFB2:uebung)
