@@ -97,9 +97,8 @@ define table zrap_travel {
   last_changed_by : syuname;  
   last_changed_at : timestampl;  
   local_last_changed_at : timestampl;
-```
-
 }
+```
 
 ### Análise Detalhada do Código:
 
