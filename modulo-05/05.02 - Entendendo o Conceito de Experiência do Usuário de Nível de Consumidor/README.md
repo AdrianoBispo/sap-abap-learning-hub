@@ -135,3 +135,8 @@ Q2: Por que a mudança de um design "Baseado em Funções" (SAP GUI) para "Basea
 
 Q3: Do ponto de vista econômico (TCO), qual é a principal desvantagem de um desenvolvedor criar uma interface "Freestyle" que não segue os padrões de design do SAP Fiori (Princípio da Coerência)?  
   R: O aumento do custo de treinamento e suporte. Se a interface for inconsistente com o resto do sistema, os usuários não conseguirão aplicar seu conhecimento prévio (memória muscular), exigindo treinamento específico para aquele app e aumentando a probabilidade de erros operacionais e chamados de suporte.
+
+## Links de Demonstrações
+
+- ![Crie uma aplicação SAP Fiori](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_E638047297BCDEB3:uebung)
+- ![Crie uma experiência do usuário (UX) usando o SAP Build Apps.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_B483C3DF4A2E1B9A:uebung)
