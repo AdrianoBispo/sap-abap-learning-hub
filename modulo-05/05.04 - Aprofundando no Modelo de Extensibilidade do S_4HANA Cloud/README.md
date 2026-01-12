@@ -162,3 +162,11 @@ Para evitar esse desperdício, usamos **BAdI Filters**.
 
 3. Onde um desenvolvedor Clean Core deve procurar por BAdIs disponíveis para uso em um projeto S/4HANA Cloud?  
   R: Na árvore de "Released Objects" dentro do ABAP Development Tools (Eclipse), navegando até a categoria "Enhancements". A transação clássica SE18 não deve ser usada, pois ela mostra todos os BAdIs do sistema, incluindo aqueles que não são liberados ou seguros para uso na nuvem.
+
+## Links de Demonstrações
+
+- ![Implemente extensões adicionando um novo campo.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_C4129427A6E10880:uebung)
+- ![Implemente extensões adicionando uma nova ação.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_8C70C0B4D34D9CB6:uebung)
+- ![Implemente extensões adicionando uma nova validação.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_2B778AD125AAFBB5:uebung)
+- ![Implemente extensões adicionando um novo nó.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_52697900929AF293:uebung)
+- ![Implementar um BAdI lançado](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_F5C8FF6C8EB37D99:uebung)
