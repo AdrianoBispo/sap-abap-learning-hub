@@ -2,7 +2,7 @@
 
 ![Guia Visual: Pilares para Código de Alta Performance](./04.00_Pilares_para_Codigo_de_Alta_Performance.png)
 
-O material foi construído com base no curso [**"Deepening Your ABAP Programming Knowledge" da plataforma SAP Learning"**](https://learning.sap.com/courses/deepening-your-abap-programming-knowledge), que é voltado para desenvolvedores que já possuem conhecimentos básicos em ABAP e desejam aprofundar suas habilidades. Ele tem uma carga horária de aproximadamente **23 horas** e cobre tópicos essenciais para escrever código ABAP mais eficiente, seguro e bem estruturado.
+O material foi construído com base no curso [**"Deepening Your ABAP Programming Knowledge"**](https://learning.sap.com/courses/deepening-your-abap-programming-knowledge) da plataforma SAP Learning. Este curso é voltado para desenvolvedores que já possuem conhecimentos básicos em ABAP e desejam aprofundar suas habilidades. Ele cobre tópicos essenciais para escrever código ABAP mais eficiente, seguro e bem estruturado.
 
 > **Começe por aqui: [Excelência ABAP: Robustez, Performance e Design](./04.00_Excelência_ABAP_Robustez_Performance_Design.pdf)**
 
