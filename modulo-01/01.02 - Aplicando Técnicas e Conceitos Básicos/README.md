@@ -346,3 +346,10 @@ ENDCLASS.
 
 4. O que acontece com uma variável declarada inline (DATA(...)) dentro de um loop DO ou LOOP após o término do loop?  
   R: A variável permanece acessível. No ABAP, o escopo de uma variável inline é o bloco de processamento atual (método, função ou form). Ela não "morre" ao final do loop. Reutilizar o mesmo nome de variável em loops subsequentes pode levar a erros de tipo ou valor residual se não for gerenciado com cuidado (ex: usando CLEAR).
+
+## Links de Demonstrações
+
+- ![Como Comentar e Descomentar um código ABAP](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_BE9803D7D14C7EAB:demo)
+- ![Como Iniciar o Debugger](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_42BD2588C06F3CA6:demo)
+- ![Como controlar a Execução do Código](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_645B252C3E912386:demo)
+- ![Como analisar os conteúdos dos objetos de dados](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_6624D135F97CCBAC:demo)
