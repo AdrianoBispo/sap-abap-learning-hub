@@ -1,6 +1,6 @@
 # Módulo 4: Programação ABAP Intermediária
 
-![Guia Visual: Pilares para Código de Alta Performance](./04.00_Pilares_para_Codigo_de_Alta_Performance.png)
+![Guia Visual: Modernizando seu Código ABAP](./04.00_Modernizando_seu_Codigo_ABAP.png)
 
 O material foi construído com base no curso [**"Deepening Your ABAP Programming Knowledge"**](https://learning.sap.com/courses/deepening-your-abap-programming-knowledge) da plataforma SAP Learning. Este curso é voltado para desenvolvedores que já possuem conhecimentos básicos em ABAP e desejam aprofundar suas habilidades. Ele cobre tópicos essenciais para escrever código ABAP mais eficiente, seguro e bem estruturado.
 
