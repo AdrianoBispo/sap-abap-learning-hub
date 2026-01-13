@@ -2,7 +2,7 @@
 
 ![Infográfico - Visão Geral do Conceito de Navegação em Apps SAP Fiori Elements](./03.08_Navegacao_em_Apps_Fiori.png)
 
-> **Começe pelos slides: [Navegação Inteligente em SAP Fiori Elements](./03.08_Navegação_Inteligente_SAP_Fiori_Elements_Guia_Definitivo.pdf)**
+> **Comece pelos slides: [Navegação Inteligente em SAP Fiori Elements](./03.08_Navegação_Inteligente_SAP_Fiori_Elements_Guia_Definitivo.pdf)**
 
 ## Objetivos de Aprendizagem
 

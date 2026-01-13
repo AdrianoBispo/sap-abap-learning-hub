@@ -2,7 +2,7 @@
 
 ![Infográfico - Configurações Avançadas de Páginas de Objeto](./03.09_Potencialize_suas_Object_Pages_.png)
 
-> **Começe pelos slides: [Construindo uma Object Page de Alta Performance](./03.09_De_Básico_a_Brilhante.pdf)**
+> **Comece pelos slides: [Construindo uma Object Page de Alta Performance](./03.09_De_Básico_a_Brilhante.pdf)**
 
 ## Objetivos de Aprendizagem
 

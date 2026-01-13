@@ -2,7 +2,7 @@
 
 ![Infográfico - Implementando Verificações de Autorização](./04.06_ABAP_vs_CDS.png)
 
-> **Começe pelos slides: [Dominando a Segurança em ABAP](./04.06_Segurança_ABAP_Do_Básico_à_Maestria.pdf)**
+> **Comece pelos slides: [Dominando a Segurança em ABAP](./04.06_Segurança_ABAP_Do_Básico_à_Maestria.pdf)**
 
 ## Objetivos de Aprendizagem
 

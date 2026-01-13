@@ -2,7 +2,7 @@
 
 ![Infográfico - Explorando a Modelagem de Dados no ABAP](./02.01_A_Evolucao_da_Modelagem_de_Dados_ABAP.png)
 
-> **Começe pelos slides: [A Revolução Silenciosa da Modelagem de Dados no S/4HANA ](./02.01_CDS_VDM_S4HANA_Architecture.pdf)**
+> **Comece pelos slides: [A Revolução Silenciosa da Modelagem de Dados no S/4HANA ](./02.01_CDS_VDM_S4HANA_Architecture.pdf)**
 
 ## Objetivos de Aprendizagem
 

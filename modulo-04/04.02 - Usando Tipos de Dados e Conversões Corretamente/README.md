@@ -2,7 +2,7 @@
 
 ![Infográfico - Usando Tipos de Dados e Conversões Corretamente](./04.02_Guia_Rapido_Tipos_de_Dados_e_Conversoes_Seguras.png)
 
-> **Começe pelos slides: [Dominando Tipos de Dados e Conversões em ABAP Moderno](./04.02_Do_Perigo_à_Maestria_Dominando_ABAP_Types.pdf)**
+> **Comece pelos slides: [Dominando Tipos de Dados e Conversões em ABAP Moderno](./04.02_Do_Perigo_à_Maestria_Dominando_ABAP_Types.pdf)**
 
 ## Objetivos de Aprendizagem
 

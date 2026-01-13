@@ -2,7 +2,7 @@
 
 ![Infográfico - Examinando o Modelo de Programação Flexível (FPM)](./03.10_Fiori_FPM.png)
 
-> **Começe pelos slides: [Dominando o Flexible Programming Model ](./03.10_Fiori_Stability_Meets_Flexibility.pdf)**
+> **Comece pelos slides: [Dominando o Flexible Programming Model ](./03.10_Fiori_Stability_Meets_Flexibility.pdf)**
 
 ## Objetivos de Aprendizagem
 

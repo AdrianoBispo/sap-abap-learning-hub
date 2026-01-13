@@ -2,13 +2,16 @@
 
 ![Infográfico - A Evolução do ABAP](./01.01_A_Evolucao_do_ABAP.png)
 
-> **Começe pelos slides: [Iniciando a Jornada: O Paradigma do ABAP Moderno](./01.01_ABAP_Cloud_Clean_Core_E_ADT.pdf)**
+> **Comece pelos slides: [Iniciando a Jornada: O Paradigma do ABAP Moderno](./01.01_ABAP_Cloud_Clean_Core_E_ADT.pdf)**
 
 ## Objetivos de Aprendizagem
 
 - Compreender profundamente a mudança de paradigma do _ABAP Clássico_ para o _ABAP Cloud_ e suas implicações na arquitetura de sistemas.  
+
 -  Identificar e configurar o ambiente de desenvolvimento moderno: _ABAP Development Tools (ADT)_ no _Eclipse_, entendendo suas vantagens sobre a `SE80`.  
+
 -  Entender a hierarquia de organização de software: _Componentes de Software, Pacotes e o papel do **abapGit**_.  
+
 -  Criar, ativar e executar a primeira aplicação ABAP ("Hello World") utilizando uma _Classe Global_ e a _Interface de Console_, abandonando o conceito de _Reports_ tradicionais.
 
 ## 1. Introdução ao Ambiente de Desenvolvimento Moderno
@@ -22,8 +25,11 @@ A ferramenta padrão agora é o **ADT (ABAP Development Tools)**, um conjunto de
 A transição para o Eclipse não é apenas estética; é funcional e necessária para o modelo de nuvem.
 
 * **Velocidade e Refatoração:** O ADT oferece ferramentas de refatoração poderosas que não existem no SAP GUI. Você pode renomear métodos em todo o sistema, extrair constantes ou variáveis locais com um clique e formatar código automaticamente ("Pretty Printer" avançado).  
+
 * **Suporte Exclusivo a Funcionalidades Cloud:** O desenvolvimento de **Core Data Services (CDS Views)**, **Behavior Definitions (RAP)** e a nova sintaxe de Service Binding são suportados **apenas** no ADT. Não é possível editar esses objetos via SAP GUI.  
+
 * **Múltiplas Conexões e Projetos:** Diferente do SAP GUI, onde você está logado em um mandante por vez por janela, o ADT permite visualizar e comparar códigos de diferentes sistemas (ex: Desenvolvimento vs. Qualidade) lado a lado na mesma interface.  
+
 * **Integração com Ferramentas Modernas:** O ADT integra-se nativamente com o **abapGit** (para versionamento de código descentralizado) e pipelines de CI/CD (Integração e Entrega Contínuas), fundamentais para práticas de DevOps.
 
 ## 2. O Conceito de ABAP Cloud e Clean Core
@@ -41,8 +47,10 @@ No ABAP Clássico, os desenvolvedores tinham "superpoderes" perigosos. Podiam le
 O **Clean Core** é a estratégia para garantir que o sistema ERP possa ser atualizado automaticamente (como seu smartphone atualiza o Android/iOS) sem quebrar as customizações. Para isso, o **ABAP Cloud** impõe restrições técnicas rigorosas:
 
 1. **Language Version 5 (ABAP for Cloud Development):** O compilador bloqueia comandos obsoletos ou perigosos. Você não pode usar CALL SCREEN (Dynpros), WRITE (Listas clássicas), ou acesso direto a arquivos do servidor.  
+
 2. **Released Objects (Objetos Liberados):** Esta é a "Regra de Ouro". Você só pode referenciar objetos SAP que foram explicitamente marcados como **APIs Públicas (Whitelisted)**.  
    * *Exemplo:* No clássico, líamos a tabela MARA para dados de material. No Cloud, isso gera erro de sintaxe. Devemos usar a CDS View pública I_Product, que é a "interface contrato" estável que a SAP garante que não mudará.  
+
 3. **Acesso a Dados:** O acesso direto ao banco de dados é restrito. Toda leitura deve passar por CDS Views liberadas, garantindo que as verificações de segurança e a lógica de negócio sejam respeitadas.
 
 ## 3. Estrutura de Organização do Código
@@ -125,23 +133,28 @@ ENDCLASS.
 
 | Recurso | ABAP Clássico (Legacy/On-Premise) | ABAP Moderno (Cloud/RAP) |
 | :---- | :---- | :---- |
-| **IDE Principal** | SAP GUI (SE80, SE38, SE11) | Eclipse com ADT |
-| **Saída de Texto** | Comando WRITE 'Texto'. | Método out->write( 'Texto' ). |
-| **Tipo de Programa** | Report (REPORT z...) | Classe Global com if_oo_adt_classrun |
-| **Leitura de Dados** | SELECT * FROM tabela_sap (Qualquer tabela) | SELECT * FROM cds_view_liberada (Apenas liberadas) |
+| **IDE Principal** | SAP GUI (`SE80`, `SE38`, `SE11`) | Eclipse com ADT |
+| **Saída de Texto** | Comando `WRITE 'Texto'`. | Método `out->write( 'Texto' )`. |
+| **Tipo de Programa** | Report (`REPORT z...`) | Classe Global com `if_oo_adt_classrun` |
+| **Leitura de Dados** | `SELECT * FROM tabela_sap` (Qualquer tabela) | `SELECT * FROM cds_view_liberada` (Apenas liberadas) |
 | **Telas (UI)** | Dynpro / Web Dynpro | SAP Fiori (UI5 / Fiori Elements) |
-| **Variáveis Sistema** | Uso livre de sy-datum, sy-uname | Uso de classes como cl_abap_context_info |
+| **Variáveis Sistema** | Uso livre de `sy-datum`, `sy-uname` | Uso de classes como `cl_abap_context_info` |
 
 ## Glossário Técnico
 
 * **ADT (ABAP Development Tools):** IDE baseada em Eclipse, mandatória para desenvolvimento ABAP moderno (RAP, CDS, Cloud). Substitui a SE80.  
-* **ABAP Cloud:** Modelo de desenvolvimento restrito focado em "Clean Core". Proíbe acesso direto ao sistema e obriga o uso de APIs liberadas.  
-* **Clean Core:** Estratégia arquitetural da SAP para manter o núcleo do ERP livre de modificações diretas, garantindo que upgrades de software não quebrem extensões customizadas.  
-* **Released Object (Objeto Liberado):** Artefatos SAP (Tabelas, Classes, CDS) marcados com um contrato de estabilidade (C1/C2). Apenas estes objetos podem ser usados em desenvolvimento ABAP Cloud.  
-* **if_oo_adt_classrun:** Interface padrão para criar classes executáveis via console no ADT. Substitui a necessidade de criar Reports (SE38) para testes de lógica.  
-* **String Templates (|...|):** Sintaxe moderna para manipulação de strings que permite interpolação de variáveis e formatação embutida dentro de barras verticais.  
-* **abapGit:** Cliente Git para ABAP, permitindo importação/exportação de código e versionamento distribuído. Essencial para ambientes Cloud e BTP.
 
+* **ABAP Cloud:** Modelo de desenvolvimento restrito focado em "Clean Core". Proíbe acesso direto ao sistema e obriga o uso de APIs liberadas.  
+
+* **Clean Core:** Estratégia arquitetural da SAP para manter o núcleo do ERP livre de modificações diretas, garantindo que upgrades de software não quebrem extensões customizadas.  
+
+* **Released Object (Objeto Liberado):** Artefatos SAP (Tabelas, Classes, CDS) marcados com um contrato de estabilidade (C1/C2). Apenas estes objetos podem ser usados em desenvolvimento ABAP Cloud.  
+
+* **`if_oo_adt_classrun`:** Interface padrão para criar classes executáveis via console no ADT. Substitui a necessidade de criar Reports (SE38) para testes de lógica.  
+
+* **String Templates (|...|):** Sintaxe moderna para manipulação de strings que permite interpolação de variáveis e formatação embutida dentro de barras verticais.  
+
+* **abapGit:** Cliente Git para ABAP, permitindo importação/exportação de código e versionamento distribuído. Essencial para ambientes Cloud e BTP.
 
 ## Quiz de Fixação
 
@@ -153,3 +166,9 @@ ENDCLASS.
 
 1. Qual é a função da interface if_oo_adt_classrun e por que ela é usada no lugar de Reports tradicionais?  
   R: Ela permite que uma classe global seja executada diretamente pelo console do ADT (Eclipse). É usada no lugar de Reports porque no ABAP Cloud não existem telas de seleção ou saída de lista clássica; a interface fornece uma maneira leve e padronizada de testar lógica de backend e exibir resultados simples.
+
+## Links de Demonstrações
+
+- [Como criar um ABAP Cloud Project](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_CFA821567D1C62AF:demo)
+- [Como criar um ABAP Package](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_E85FDC0DEC83B2B8:demo)
+- [Como criar seu primeiro app ABAP ('Hellow World')](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_B569C1AE21873BA7:demo)

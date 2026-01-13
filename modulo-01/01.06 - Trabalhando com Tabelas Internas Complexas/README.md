@@ -2,7 +2,7 @@
 
 ![Infográfico - Otimização de Tabelas Internas](./01.06_Otimizacao_de_Tabelas_Internas.png)
 
-> **Começe pelos slides: [O Playbook de Performance para ABAP Moderno](./01.06_ABAP_Performance_Playbook.pdf)**
+> **Comece pelos slides: [O Playbook de Performance para ABAP Moderno](./01.06_ABAP_Performance_Playbook.pdf)**
 
 ## Objetivos de Aprendizagem
 
@@ -220,3 +220,7 @@ ENDCLASS.
   
 4. Qual é o custo ("trade-off") de usar uma Tabela Sorted em comparação com uma Standard?  
   R: A operação de inserção (INSERT) é mais lenta na Tabela Sorted, pois o sistema precisa encontrar a posição correta para manter a ordenação. Na Standard, o APPEND apenas adiciona ao final, o que é instantâneo.
+
+## Links de Demonstrações
+
+- ![Como depurar tabelas internas complexas](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_9171F14114573EA8:demo)

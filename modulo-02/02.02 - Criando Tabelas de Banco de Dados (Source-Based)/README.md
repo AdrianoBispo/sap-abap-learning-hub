@@ -2,7 +2,7 @@
 
 ![Infográfico - Criando Tabelas de Banco de Dados (Source-Based)](./02.02_Modernizando_Tabelas_ABAP.png)
 
-> **Começe pelos slides: [A Evolução da Modelagem de Dados no ABAP](./02.02_ABAP_Data_Modeling_From_Forms_to_Code.pdf)**
+> **Comece pelos slides: [A Evolução da Modelagem de Dados no ABAP](./02.02_ABAP_Data_Modeling_From_Forms_to_Code.pdf)**
 
 ## Objetivos de Aprendizagem
 
@@ -97,9 +97,8 @@ define table zrap_travel {
   last_changed_by : syuname;  
   last_changed_at : timestampl;  
   local_last_changed_at : timestampl;
-```
-
 }
+```
 
 ### Análise Detalhada do Código:
 

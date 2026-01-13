@@ -2,7 +2,7 @@
 
 ![Infográfico - Modernize seu Code Pushdown](./04.04_Modernize_seu_ABAP_com_Code_Pushdown.png)
 
-> **Começe pelos slides: [Dominando o Code Pushdown para Performance Máxima](./04.04_Code_Pushdown_Guia_Definitivo.pdf)**
+> **Comece pelos slides: [Dominando o Code Pushdown para Performance Máxima](./04.04_Code_Pushdown_Guia_Definitivo.pdf)**
 
 ## Objetivos de Aprendizagem
 

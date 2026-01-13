@@ -2,7 +2,7 @@
 
 ![Infográfico - Usando Code Pushdown em CDS Views (Expressões SQL)](./02.06_Code_Pushdown_com_ABAP_CDS.png)
 
-> **Começe pelos slides: [O Fim do LOOP: Dominando o Code Pushdown em ABAP CDS com Expressões SQL)](./02.06_O_Fim_do_LOOP_Code_Pushdown_em_ABAP_CDS.pdf)**
+> **Comece pelos slides: [O Fim do LOOP: Dominando o Code Pushdown em ABAP CDS com Expressões SQL)](./02.06_O_Fim_do_LOOP_Code_Pushdown_em_ABAP_CDS.pdf)**
 
 ## Objetivos de Aprendizagem
 
@@ -33,7 +33,7 @@ Podemos usar o CASE simples (comparando um campo) ou o CASE complexo (com múlti
 
 #### Exemplo - Traduzindo Códigos Técnicos para Textos de Negócio
 
-``` ABAP
+``` CDS
 case overall_status  
   when 'O' then 'Em Aberto'  
   when 'A' then 'Aceito'  
@@ -44,10 +44,11 @@ end as StatusText
 
 #### Exemplo - Criticality (Cores no Fiori)
 
-Um uso extremamente comum no RAP é definir a "Criticidade" de uma linha. O Fiori Elements entende valores numéricos (0=Neutro, 1=Negativo, 2=Crítico, 3=Positivo) para colorir textos e ícones.
+Um uso extremamente comum no RAP é definir a "Criticidade" de uma linha. O Fiori Elements entende valores numéricos (`0=Neutro`, `1=Negativo`, `2=Crítico`, `3=Positivo`) para colorir textos e ícones.
 
+``` CDS
 /* Lógica de Negócio para Cores */  
-``` ABAP
+
 case   
   when overall_status = 'X' then 1  -- Vermelho (Erro)  
   when overall_status = 'O' and dats_days_between(created_at, $session.system_date) > 30 then 2 -- Amarelo (Atrasado)  
@@ -56,7 +57,7 @@ case
 end as StatusCriticality
 ```
 
-*Dica:* Observe como combinamos uma comparação simples (=) com uma função de data (dats_days_between) dentro da condição WHEN. O CDS permite essa flexibilidade.
+*Dica:* Observe como combinamos uma comparação simples (`=`) com uma função de data (`dats_days_between`) dentro da condição `WHEN`. O CDS permite essa flexibilidade.
 
 ## 3. Funções de Data, Aritmética e String
 
@@ -66,21 +67,23 @@ O ABAP CDS oferece uma biblioteca rica de funções integradas que eliminam a ne
 
 Podemos realizar as quatro operações básicas e usar funções matemáticas. O CDS lida automaticamente com nulos (se um operando for `NULL`, o resultado é `NULL`).
 
-* **Operadores:** `+`, `-`, `*`, / (Divisão exata, retorna Floating Point).  
+* **Operadores:** `+`, `-`, `*`, `/` (Divisão exata, retorna Floating Point).  
 * **Funções:** `div(a, b)` (Divisão inteira), `mod(a, b)` (Resto), `abs(x)` (Valor absoluto), `ceil(x)` (Arredondar para cima), `floor(x)` (Arredondar para baixo).
 
+``` CDS
 /* Exemplo: Calcular valor com margem de segurança */  
 ceil( ( total_price * 1.1 ) ) as PriceWithMargin
+```
 
 ### Datas e Timestamps
 
 Manipular datas no banco é essencial para relatórios de envelhecimento (Aging) ou duração.
 
-* **dats_days_between( data_inicio, data_fim ):** Retorna um inteiro com a diferença em dias.  
-* **dats_add_days( data, dias ):** Adiciona (ou subtrai) dias a uma data.  
-* **tstmp_current_utctimestamp():** Retorna o timestamp atual (Data+Hora) em UTC.
+* **`dats_days_between`( data_inicio, data_fim ):** Retorna um inteiro com a diferença em dias.  
+* **`dats_add_days`( data, dias ):** Adiciona (ou subtrai) dias a uma data.  
+* **`tstmp_current_utctimestamp()`:** Retorna o timestamp atual (Data+Hora) em UTC.
 
-``` cds
+``` CDS
 /* Calcular Data de Vencimento (30 dias após criação) */  
 dats_add_days( begin_date, 30 ) as DueDate
 ```
@@ -112,7 +115,7 @@ O comando `CAST` é vital quando precisamos alinhar tipos de dados. O ABAP e o S
 
 - **Concatenação:** Não é possível concatenar um número com uma string diretamente. É preciso converter o número para char/string primeiro.
   
-- **Uniões (UNION):** Ao unir duas tabelas, as colunas correspondentes devem ter tipos compatíveis.
+- **Uniões (`UNION`):** Ao unir duas tabelas, as colunas correspondentes devem ter tipos compatíveis.
 
 - **Sintaxe:** cast( expressão as TipoDestino )
 
@@ -226,7 +229,7 @@ define view entity Z_I_TRAVEL_STATS
 group by customer_id, currency_code
 ```
 
-*Nota:* Neste exemplo, se um cliente tiver viagens em EUR e USD, ele aparecerá em duas linhas diferentes (uma para cada moeda), pois currency_code faz parte do grupo.
+**Nota:** Neste exemplo, se um cliente tiver viagens em EUR e USD, ele aparecerá em duas linhas diferentes (uma para cada moeda), pois `currency_code` faz parte do grupo.
 
 ## Code Pushdown na Prática: Comparativo
 
@@ -241,21 +244,21 @@ group by customer_id, currency_code
 ## Glossário Técnico
 
 * **Expression (Expressão SQL):** Qualquer comando que gera um valor novo em tempo de execução, em vez de apenas ler um valor armazenado. Inclui cálculos, concatenações e lógica condicional.  
-* **CAST (Type Casting):** Função SQL usada para converter explicitamente um valor de um tipo de dados para outro (ex: NUMC para INT). Essencial para evitar erros de tipo em cálculos aritméticos e uniões.  
-* **Session Variable ($session):** Variáveis globais de contexto acessíveis dentro da CDS View que contêm informações do ambiente de execução atual do banco de dados/sessão ABAP. Exemplos: $session.system_date (Data atual), $session.user (Usuário logado).  
-* **Aggregations (Agregações):** Funções que condensam múltiplos registros em um único resultado resumo, como SUM (Soma), MIN (Mínimo), MAX (Máximo), AVG (Média) e COUNT (Contagem). Exigem o uso da cláusula GROUP BY.  
+* **CAST (Type Casting):** Função SQL usada para converter explicitamente um valor de um tipo de dados para outro (ex: `NUMC` para `INT`). Essencial para evitar erros de tipo em cálculos aritméticos e uniões.  
+* **Session Variable ($session):** Variáveis globais de contexto acessíveis dentro da CDS View que contêm informações do ambiente de execução atual do banco de dados/sessão ABAP. Exemplos: `$session.system_date` (Data atual), `$session.user` (Usuário logado).  
+* **Aggregations (Agregações):** Funções que condensam múltiplos registros em um único resultado resumo, como `SUM` (Soma), `MIN` (Mínimo), `MAX` (Máximo), `AVG` (Média) e `COUNT` (Contagem). Exigem o uso da cláusula `GROUP BY`.  
 * **Criticality (Criticidade):** Conceito de UI do SAP Fiori onde valores numéricos (0-3) são mapeados para cores semânticas (Cinza, Vermelho, Amarelo, Verde) para indicar status ou severidade de forma visual.
 
 ## Quiz de Fixação
 
-1. Qual é a variável de sessão correta para filtrar ou comparar dados com a data atual do sistema dentro de uma CDS View, e por que não podemos usar sy-datum?  
-  R: A variável correta é $session.system_date. Não podemos usar sy-datum porque CDS Views são objetos de dicionário de dados (DDL) que residem no banco de dados, enquanto sy-datum é uma variável de memória do tempo de execução ABAP. O banco de dados não tem acesso à memória do servidor de aplicação.
+1. Qual é a variável de sessão correta para filtrar ou comparar dados com a data atual do sistema dentro de uma CDS View, e por que não podemos usar `sy-datum`?  
+  R: A variável correta é `$session.system_date`. Não podemos usar `sy-datum` porque CDS Views são objetos de dicionário de dados (DDL) que residem no banco de dados, enquanto `sy-datum` é uma variável de memória do tempo de execução ABAP. O banco de dados não tem acesso à memória do servidor de aplicação.
 
-2. Para que serve a função dats_days_between e qual o tipo de dado que ela retorna?  
+2. Para que serve a função `dats_days_between` e qual o tipo de dado que ela retorna?  
   R: Ela calcula a diferença exata em dias entre duas datas fornecidas. Retorna um valor inteiro (Integer). É a forma padrão e performática de calcular durações, idades ou atrasos diretamente no banco de dados.
 
 3. Se eu precisar transformar um código de status ('A', 'X') em uma cor para o Fiori (3, 1), qual comando devo usar e qual o benefício disso?  
-  R: Deve-se usar a expressão CASE. O benefício é que a lógica de apresentação ("Se A então Verde") fica centralizada na View. A interface de usuário (Fiori) apenas lê o valor numérico resultante e aplica a cor, sem precisar repetir a regra de negócio no JavaScript do frontend.
+  R: Deve-se usar a expressão `CASE`. O benefício é que a lógica de apresentação ("Se A então Verde") fica centralizada na View. A interface de usuário (Fiori) apenas lê o valor numérico resultante e aplica a cor, sem precisar repetir a regra de negócio no JavaScript do frontend.
 
-4. O que acontece se eu tentar usar a função SUM( price ) em uma CDS View sem adicionar uma cláusula GROUP BY?  
+4. O que acontece se eu tentar usar a função `SUM( price )` em uma CDS View sem adicionar uma cláusula `GROUP BY`?  
   R: Ocorrerá um erro de sintaxe. Funções de agregação condensam linhas. Se houver outros campos na seleção que não estão sendo agregados (como ID do Cliente), o banco de dados precisa saber como agrupar esses campos para calcular a soma correta para cada grupo.

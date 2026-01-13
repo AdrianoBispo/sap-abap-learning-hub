@@ -2,7 +2,7 @@
 
 ![Infográfico - Estruturas de Dados no ABAP Moderno](./01.05_Estruturas_de_Dados_ABAP.png)
 
-> **Começe pelos slides: [Dominando Estruturas de Dados em ABAP](./01.05_Dominando_Estruturas_de_Dados_em_ABAP_e_RAP.pdf)**
+> **Comece pelos slides: [Dominando Estruturas de Dados em ABAP](./01.05_Dominando_Estruturas_de_Dados_em_ABAP_e_RAP.pdf)**
 
 ## Objetivos de Aprendizagem
 
@@ -261,3 +261,7 @@ ENDCLASS.
  
 4. O que caracteriza uma "Estrutura Profunda" (Deep Structure) e por que devemos ter cuidado com elas?  
   R: Uma estrutura profunda contém campos de tamanho dinâmico ou referências, como STRING, TABLE ou REF TO. Devemos ter cuidado porque operações simples de cópia podem envolver apenas a referência (endereço de memória) e não o valor real, além de não poderem ser usadas em certos contextos de banco de dados ou chaves de tabelas simples.
+
+## Links de Demonstrações
+
+- ![Como analisar objetos de dados estruturados usando a perspectiva de depuração](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_3A36CFBA3590F685:demo)

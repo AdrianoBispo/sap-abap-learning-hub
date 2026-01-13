@@ -2,7 +2,7 @@
 
 ![Infográfico - Atualização de Dados no ABAP Moderno](./01.07_Atualizacao_de_Dados_no_ABAP_RAP.png)
 
-> **Começe pelos slides: [Dominando a Persistência de Dados no ABAP Moderno](./01.07_ABAP_Persistência_EML_Guardião_de_Dados.pdf)**
+> **Comece pelos slides: [Dominando a Persistência de Dados no ABAP Moderno](./01.07_ABAP_Persistência_EML_Guardião_de_Dados.pdf)**
 
 ## Objetivos de Aprendizagem
 
@@ -250,3 +250,8 @@ ENDCLASS.
 
 4. O que devo verificar para saber se uma operação EML (como UPDATE) foi bem-sucedida?  
   R: Você deve verificar se a estrutura de retorno FAILED está inicial (vazia). Se FAILED contiver registros, a operação falhou para aquelas instâncias específicas. Não confie em sy-subrc para comandos EML.
+
+## Links de Demonstrações
+
+- ![Como analisar um objeto de negócios](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_6DC14C585665F186:demo)
+- ![Como implementar uma declaração EML](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_3AD00A7871CEE7A8:demo)

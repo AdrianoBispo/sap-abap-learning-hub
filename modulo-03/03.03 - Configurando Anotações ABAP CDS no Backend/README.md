@@ -2,7 +2,7 @@
 
 ![Infográfico - Configurando Anotações ABAP CDS no Backend](./03.03_Mapeando_Anotacoes_RAP.png)
 
-> **Começe pelos slides: [Construindo UIs Fiori Elements com Anotações ABAP CDS](./03.03_Blueprint_To_Application.pdf)**
+> **Comece pelos slides: [Construindo UIs Fiori Elements com Anotações ABAP CDS](./03.03_Blueprint_To_Application.pdf)**
 
 ## Objetivos de Aprendizagem
 

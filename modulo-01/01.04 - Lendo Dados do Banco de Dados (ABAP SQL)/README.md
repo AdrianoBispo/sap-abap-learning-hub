@@ -2,7 +2,7 @@
 
 ![Infográfico - A Evolução do SQL no ABAP Moderno](./01.04_A_Evolucao_do_ABAP_SQL.png)
 
-> **Começe pelos slides: [Evolução e Maestria: Dominando a Leitura de Dados com o ABAP SQL Moderno](./01.04_ABAP_SQL_Moderno_Maestria_em_Leitura_de_Dados.pdf)**
+> **Comece pelos slides: [Evolução e Maestria: Dominando a Leitura de Dados com o ABAP SQL Moderno](./01.04_ABAP_SQL_Moderno_Maestria_em_Leitura_de_Dados.pdf)**
 
 ## Objetivos de Aprendizagem
 
@@ -229,3 +229,8 @@ ENDCLASS.
 
 4. Quando devo usar SELECT SINGLE em vez de SELECT ... UP TO 1 ROWS?  
   R: Use SELECT SINGLE quando você puder fornecer a chave primária completa para buscar um registro específico de forma inequívoca. Use UP TO 1 ROWS quando você quiser uma amostragem ou o "primeiro registro" de um conjunto maior, geralmente combinado com ORDER BY (ex: buscar o pedido mais recente de um cliente).
+
+## Links de Demonstrações
+
+- ![Como Analisar uma Tabela de Banco de Dados](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_44B67792CC5AACB1:demo)
+- ![Como Analisar uma Visualização CDS](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_3E120CA182A03BAE:demo)

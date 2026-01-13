@@ -2,7 +2,7 @@
 
 ![Infográfico - Aprofundando no Modelo de Extensibilidade do S/4HANA Cloud](./05.04_Clean_Core_Extensibilidade_SAP_S4HANA.png)
 
-> **Começe pelos slides: [Dominando Cloud BAdIs para um Clean Core](./05.04_Cloud_BAdIs_for_a_Clean_Core.pdf)**
+> **Comece pelos slides: [Dominando Cloud BAdIs para um Clean Core](./05.04_Cloud_BAdIs_for_a_Clean_Core.pdf)**
 
 ## Objetivos de Aprendizagem
 
@@ -162,3 +162,15 @@ Para evitar esse desperdício, usamos **BAdI Filters**.
 
 3. Onde um desenvolvedor Clean Core deve procurar por BAdIs disponíveis para uso em um projeto S/4HANA Cloud?  
   R: Na árvore de "Released Objects" dentro do ABAP Development Tools (Eclipse), navegando até a categoria "Enhancements". A transação clássica SE18 não deve ser usada, pois ela mostra todos os BAdIs do sistema, incluindo aqueles que não são liberados ou seguros para uso na nuvem.
+
+## Links de Demonstrações
+
+- ![Implemente extensões adicionando um novo campo.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_C4129427A6E10880:uebung)
+- ![Implemente extensões adicionando uma nova ação.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_8C70C0B4D34D9CB6:uebung)
+- ![Implemente extensões adicionando uma nova validação.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_2B778AD125AAFBB5:uebung)
+- ![Implemente extensões adicionando um novo nó.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_52697900929AF293:uebung)
+- ![Implementar um BAdI lançado](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_F5C8FF6C8EB37D99:uebung)
+- ![Utilize os recursos de busca de objetos do visualizador de repositório Cloudification.](https://learnsap.enable-now.cloud.sap/wa/mmcp/index.html?show=project!PR_B21FE28DFA71A891:uebung#2)
+- ![Configurar componentes de software para desenvolvimento ABAP Cloud e ABAP Classic](https://learnsap.enable-now.cloud.sap/wa/mmcp/index.html?show=project!PR_AC4D43D592CB95A1:uebung#2)
+- ![Configure as autorizações de desenvolvedor para o desenvolvimento ABAP Cloud e ABAP Classic.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_E795479B3AE3D8F:uebung)
+- ![Atribuir versões da linguagem ABAP a objetos de desenvolvimento](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_DC8A1E5D4F326888:uebung)

@@ -2,7 +2,7 @@
 
 ![Infográfico - Desvendando o RAP](./01.08_Desvendando_o_RAP.png)
 
-> **Começe pelos slides: [Arquiteto de Software: Dominando ABAP RAP](./01.08_Arquiteto_de_Software_Dominando_ABAP_RAP.pdf)**
+> **Comece pelos slides: [Arquiteto de Software: Dominando ABAP RAP](./01.08_Arquiteto_de_Software_Dominando_ABAP_RAP.pdf)**
 
 ## Objetivos de Aprendizagem
 
@@ -79,7 +79,7 @@ Para criar um App Fiori do zero no ADT (Eclipse), seguimos um fluxo rigoroso:
 8. **Preview:** Utilizar a função de *Preview* do Service Binding para testar a aplicação Fiori Elements instantaneamente no navegador, validando anotações e comportamentos.
 
 ## 5. Diagrama Conceitual (Fluxo de Dados)
-
+```
       [ Browser / Fiori Launchpad ]  
                   ^  
                   | (HTTPS / OData)  
@@ -99,6 +99,7 @@ Para criar um App Fiori do zero no ADT (Eclipse), seguimos um fluxo rigoroso:
           | (SQL)                      | (ABAP EML)  
           v                            v  
  [ Banco de Dados HANA ]      [ Lógica de Negócio (Classes BP_) ]
+```
 
 ## Pontos de Atenção (Arquitetura)
 
@@ -130,3 +131,12 @@ Para criar um App Fiori do zero no ADT (Eclipse), seguimos um fluxo rigoroso:
 
 3. Se eu tenho uma BAPI antiga complexa que calcula impostos, realiza verificações de crédito e salva pedidos, e preciso usá-la em um novo App Fiori, qual tipo de implementação RAP devo escolher: Managed ou Unmanaged?  
   R: Unmanaged. Como a lógica de gravação e validação profunda já existe na BAPI legada e seria arriscado ou custoso reescrevê-la, o cenário Unmanaged permite que você delegue o salvamento para esse código existente, atuando como um "wrapper" moderno para o legado.
+
+## Links de Demonstrações
+
+- ![Como criar elementos de dados](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_64D8208310F6C3A7:demo)
+- ![Como criar uma tabela de banco de dados](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_40AB455BABB1E6AD:demo)
+- ![Como gerar os objetos adicionais](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_C5F2D28BA24C47B7:demo)
+- ![Como validar a chave semântica](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_560AA21E57073699:demo)
+- ![Como determinar as cidades e os países](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_8D5D08FDC9FDAF8A:demo)
+- ![Como controlar as propriedades do campo](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_E81E62C6D6EA70A4:demo)

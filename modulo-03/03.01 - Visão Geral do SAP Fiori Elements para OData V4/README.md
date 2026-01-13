@@ -2,7 +2,7 @@
 
 ![Infográfico - Visão Geral do SAP Fiori Elements para OData V4](./03.01_SAP_Fiori_Elements.png)
 
-> **Começe pelos slides: [A Revolução do SAP Fiori Elements no Desenvolvimento de Apps RAP](./03.01_De_Artesão_a_Arquiteto.pdf)**
+> **Comece pelos slides: [A Revolução do SAP Fiori Elements no Desenvolvimento de Apps RAP](./03.01_De_Artesão_a_Arquiteto.pdf)**
 
 ## Objetivos de Aprendizagem
 

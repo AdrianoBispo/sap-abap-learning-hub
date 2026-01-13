@@ -2,7 +2,7 @@
 
 ![Infográfico - Melhorando a Performance de Tabelas Internas](./04.05_Guia_de_Performance_para_Tabelas_ABAP.png)
 
-> **Começe pelos slides: [Melhorando a Performance de Tabelas Internas](./04.05_ABAP_Performance_Tabelas_Internas.pdf)**
+> **Comece pelos slides: [Melhorando a Performance de Tabelas Internas](./04.05_ABAP_Performance_Tabelas_Internas.pdf)**
 
 ## Objetivos de Aprendizagem
 

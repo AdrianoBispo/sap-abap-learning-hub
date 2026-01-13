@@ -2,7 +2,7 @@
 
 ![Infográfico - Implantando um Aplicativo SAP Fiori Elements](./03.11_Do_Codigo_ao_Launchpad.png)
 
-> **Começe pelos slides: [Guia Completo para o Deploy de Apps Fiori ELements no S/4HANA](./03.11_Fiori_Deploy_Do_Código_Ao_Usuário.pdf)**
+> **Comece pelos slides: [Guia Completo para o Deploy de Apps Fiori ELements no S/4HANA](./03.11_Fiori_Deploy_Do_Código_Ao_Usuário.pdf)**
 
 ## Objetivos de Aprendizagem
 

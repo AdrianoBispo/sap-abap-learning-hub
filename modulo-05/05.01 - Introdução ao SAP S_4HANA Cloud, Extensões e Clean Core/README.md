@@ -2,7 +2,7 @@
 
 ![Infográfico - Introdução ao SAP S/4HANA Cloud, Extensões e Clean Core](./05.01_As_Novas_Regras_do_Jogo_SAP_Clean_Core.png)
 
-> **Começe pelos slides: [A Nova Era da Extensibilidade SAP](./05.01_SAP_Clean_Core_A_Nova_Extensibilidade.pdf)**
+> **Comece pelos slides: [A Nova Era da Extensibilidade SAP](./05.01_SAP_Clean_Core_A_Nova_Extensibilidade.pdf)**
 
 ## Objetivos de Aprendizagem
 

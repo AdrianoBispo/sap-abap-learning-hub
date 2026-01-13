@@ -2,7 +2,7 @@
 
 ![Infográfico - A Triade da Qualidade de Código ABAP Moderno](./04.01_A_Triade_da_Qualidade_ABAP.png)
 
-> **Começe pelos slides: [Dominando a Qualidade de Código no ABAP Moderno para S/4HANA](./04.01_Qualidade_ABAP_do_Funcional_ao_Robusto.pdf)**
+> **Comece pelos slides: [Dominando a Qualidade de Código no ABAP Moderno para S/4HANA](./04.01_Qualidade_ABAP_do_Funcional_ao_Robusto.pdf)**
 
 ## Objetivos de Aprendizagem
 

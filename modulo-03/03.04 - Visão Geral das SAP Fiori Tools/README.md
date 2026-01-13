@@ -2,7 +2,7 @@
 
 ![Infográfico - Visão Geral das SAP Fiori Tools](./03.04_SAP_Fiori_Tools.png)
 
-> **Começe pelos slides: [Da Lógica de Negócio à Experiência do Usuário](./03.04_Backend_à_Experiência_Fiori_As_Ferramentas_Essenciais.pdf)**
+> **Comece pelos slides: [Da Lógica de Negócio à Experiência do Usuário](./03.04_Backend_à_Experiência_Fiori_As_Ferramentas_Essenciais.pdf)**
 
 ## Objetivos de Aprendizagem
 
