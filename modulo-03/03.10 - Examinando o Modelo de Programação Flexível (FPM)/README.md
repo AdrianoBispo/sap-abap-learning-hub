@@ -41,7 +41,7 @@ Com apenas essa linha, o sistema renderiza uma tabela Fiori Elements completa, c
 
 * **Outros Building Blocks Comuns:**
   * **`<macros:FilterBar>`:** Barra de filtros inteligente.  
-  * **`<macros:Field>`:** Campo de formulário com F4 (Value Help) e validação.  
+  * **`<macros:Field>`:** Campo de formulário com `F4` (Value Help) e validação.  
   * **`<macros:Chart>`:** Gráficos analíticos baseados em anotações.
 
 ## 3. Tipos de Extensão
@@ -57,7 +57,7 @@ Adiciona uma nova aba (Object Page) ou um novo bloco de conteúdo.
 
 ### B. Custom Actions (Ações Customizadas)
 
-Adiciona botões na barra de ferramentas ou no rodapé que executam JavaScript local. Diferente das ações BDEF (que rodam lógica no ABAP/Backend), estas rodam no navegador.
+Adiciona botões na barra de ferramentas ou no rodapé que executam JavaScript local. Diferente das ações `BDEF` (que rodam lógica no ABAP/Backend), estas rodam no navegador.
 
 * **Técnica:** Registro no manifesto apontando para um método na Controller Extension.  
 * **Uso:** Abrir um arquivo PDF em nova aba, chamar uma API REST externa (ex: Consulta de CEP), abrir um diálogo (Popup) complexo para entrada de dados antes de enviar ao backend, ou navegação customizada.
@@ -127,7 +127,7 @@ Visualize como o FPM permite a "mistura" de componentes:
 
 | Cenário | Solução Recomendada | Motivo |
 | :---- | :---- | :---- |
-| CRUD simples de tabela | **Fiori Elements Padrão (RAP)** | Mais rápido, zero código JS. |
+| `CRUD` simples de tabela | **Fiori Elements Padrão (RAP)** | Mais rápido, zero código JS. |
 | Tabela com uma coluna de botão extra que chama API externa | **Fiori Elements + Custom Action** | Mantém a tabela padrão, adiciona só a lógica necessária. |
 | Página com layout exótico (ex: Mapa interativo) | **Fiori Elements + Custom Section** | Isola o mapa numa seção, mantém o resto padrão. |
 | Dashboard analítico complexo com interações não-padrão | **Freestyle UI5** (ou FPM Heavy) | O esforço de adaptar o padrão seria maior que fazer do zero. |

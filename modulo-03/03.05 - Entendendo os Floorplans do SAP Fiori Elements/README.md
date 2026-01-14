@@ -43,7 +43,7 @@ Abaixo da barra de filtros reside a área de resultados. Esta seção é altamen
   * **Abas (Tabs) / Múltiplas Visões:** (Opcional) Permite segmentar os dados em categorias pré-definidas (ex: uma aba para "Em Aberto", outra para "Aprovadas" e outra para "Rejeitadas"). Cada aba pode ter colunas e filtros diferentes, baseados em SelectionPresentationVariants.  
   
   * **Barra de Ferramentas da Tabela (Table Toolbar):** O centro de comando operacional. Contém:  
-    * **Ações CRUD Padrão:** Botões como *Criar* e *Excluir*, controlados pelas capacidades do Behavior Definition (BDEF).  
+    * **Ações `CRUD` Padrão:** Botões como *Criar* e *Excluir*, controlados pelas capacidades do Behavior Definition (`BDEF`).  
     * **Ações Customizadas:** Botões específicos de negócio (ex: "Copiar Viagem", "Simular Preço") definidos via anotações `@UI.lineItem` com type `#FOR_ACTION`.  
     * **Ações de Sistema:** Botões para *Exportar para Excel*, *Configurações de Coluna* (personalização) e *Tela Cheia*.  
   

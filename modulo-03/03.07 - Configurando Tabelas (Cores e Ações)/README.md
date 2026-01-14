@@ -70,10 +70,10 @@ Uma tabela moderna não serve apenas para leitura; ela é um ponto de partida pa
 
 ### A. Ações Padrão (C.R.U.D.)
 
-O framework gera automaticamente os botões **Create** (Criar) e **Delete** (Excluir) baseando-se nas capacidades do seu **Behavior Definition** (BDEF).
+O framework gera automaticamente os botões **Create** (Criar) e **Delete** (Excluir) baseando-se nas capacidades do seu **Behavior Definition (`BDEF`)**.
 
-* Se o BDEF diz create;, o botão "Criar" aparece.  
-* Se o BDEF diz delete;, o botão "Excluir" aparece (ativado ao selecionar linhas).
+* Se o `BDEF` diz `create;`, o botão "Criar" aparece.  
+* Se o `BDEF` diz `delete;`, o botão "Excluir" aparece (ativado ao selecionar linhas).
 
 Controle via UI: Às vezes, o backend permite deletar (tecnicamente), mas queremos esconder o botão na tela principal por regra de negócio ou usabilidade.  
 Usamos anotações de cabeçalho:
@@ -192,7 +192,7 @@ annotate view Z_C_TRAVEL with
 
 ## Tabela de Cores (Criticality)
 
-| Valor Backend | Significado | Cor Fiori | Ícone Típico (com #WITH_ICON) |
+| Valor Backend | Significado | Cor Fiori | Ícone Típico (com `#WITH_ICON`) |
 | :---- | :---- | :---- | :---- |
 | **0** | Neutro | Cinza | Nenhum |
 | **1** | Negativo | Vermelho | X / Erro |
@@ -203,23 +203,23 @@ annotate view Z_C_TRAVEL with
 
 * **Criticality (Criticidade):** Recurso de UI que altera a cor semântica de um campo (texto ou ícone) baseando-se em um valor numérico (0=Neutro/Cinza, 1=Erro/Vermelho, 2=Aviso/Amarelo, 3=Sucesso/Verde). Essencial para dashboards e listas de exceção.  
 
-* **#FOR_ACTION:** Tipo de item de linha (type) usado na anotação @UI.lineItem para renderizar um botão que dispara uma ação BDEF (Behavior Definition). O framework cuida da chamada OData (POST) automaticamente.  
+* **#FOR_ACTION:** Tipo de item de linha (type) usado na anotação `@UI.lineItem` para renderizar um botão que dispara uma ação `BDEF` (Behavior Definition). O framework cuida da chamada OData (POST) automaticamente.  
 
-* **DataAction:** Propriedade da anotação #FOR_ACTION que define o nome técnico da ação (como definido no Behavior Definition) que será executada. Deve corresponder exatamente ao nome no backend.  
+* **DataAction:** Propriedade da anotação `#FOR_ACTION` que define o nome técnico da ação (como definido no Behavior Definition) que será executada. Deve corresponder exatamente ao nome no backend.  
 
-* **Importance:** Propriedade de responsividade que define a prioridade de exibição de uma coluna (#HIGH, #MEDIUM, #LOW). Determina se a coluna permanece na tabela ou se move para a área de detalhes (Pop-in) em telas menores.  
+* **Importance:** Propriedade de responsividade que define a prioridade de exibição de uma coluna (`#HIGH`, `#MEDIUM`, `#LOW`). Determina se a coluna permanece na tabela ou se move para a área de detalhes (Pop-in) em telas menores.  
 
-* **CriticalityRepresentation:** Define se a criticidade será mostrada apenas com cor no texto ou se incluirá um ícone (#WITH_ICON), melhorando a acessibilidade e leitura rápida.  
+* **CriticalityRepresentation:** Define se a criticidade será mostrada apenas com cor no texto ou se incluirá um ícone (`#WITH_ICON`), melhorando a acessibilidade e leitura rápida.  
 
 * **Inline Action:** Uma ação configurada para aparecer dentro da linha da tabela, ao invés da barra de ferramentas superior, facilitando o acesso rápido sem necessidade de seleção prévia.
 
 ## Quiz de Fixação
 
 1. Onde deve ser calculada a lógica que define se um status é vermelho (1) ou verde (3)?  
-  R: Preferencialmente na CDS View (usando a expressão CASE), criando um campo dedicado (ex: StatusCriticality). A Metadata Extension apenas aponta para esse campo. Isso mantém a lógica de negócio no backend (Code Pushdown) e deixa o frontend apenas com a renderização.  
+  R: Preferencialmente na CDS View (usando a expressão CASE), criando um campo dedicado (ex: `StatusCriticality`). A Metadata Extension apenas aponta para esse campo. Isso mantém a lógica de negócio no backend (Code Pushdown) e deixa o frontend apenas com a renderização.  
 
-2. Se eu definir uma coluna com importance: #LOW, o que acontece visualmente quando abro o aplicativo em um celular (tela estreita)?  
+2. Se eu definir uma coluna com importance: `#LOW`, o que acontece visualmente quando abro o aplicativo em um celular (tela estreita)?  
   R: A coluna será ocultada da grade principal da tabela para economizar espaço horizontal. Dependendo da configuração da tabela, os dados dessa coluna podem ficar acessíveis ao clicar na linha ou expandir um detalhe ("Pop-in"), mas não quebrarão o layout da tabela.  
 
 3. Para adicionar um botão customizado na tabela (ex: "Aprovar"), qual anotação devo usar e qual pré-requisito é necessário no Backend?  
-  R: Devo adicionar um item na anotação @UI.lineItem com a propriedade type: #FOR_ACTION e apontar o dataAction para o nome da ação. O pré-requisito é que essa Ação (Action) esteja definida e implementada no Behavior Definition (BDEF) da entidade.
+  R: Devo adicionar um item na anotação `@UI.lineItem` com a propriedade type: `#FOR_ACTION` e apontar o dataAction para o nome da ação. O pré-requisito é que essa Ação (Action) esteja definida e implementada no Behavior Definition (`BDEF`) da entidade.

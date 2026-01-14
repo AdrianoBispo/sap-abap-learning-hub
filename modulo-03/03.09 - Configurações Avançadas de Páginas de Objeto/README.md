@@ -119,7 +119,7 @@ Como funciona a conexão? Diferente das facetas de formulário que olham para ca
 
 1. **Colunas da Tabela Filha:** As colunas que aparecerão nesta tabela **não** são definidas na Metadata Extension da Viagem (Pai). Elas são definidas pelas anotações `@UI.lineItem` na Metadata Extension da entidade **Booking** (Filho). O Fiori Elements carrega os metadados do filho automaticamente.  
 
-2. **CRUD de Itens:** Se o _Behavior Definition_ permitir (create, delete na entidade filho), a tabela renderizada automaticamente ganhará botões de "Criar" e "Excluir", permitindo gerenciar os itens diretamente da tela do pai.
+2. **`CRUD` de Itens:** Se o _Behavior Definition_ permitir (`create`, `delete` na entidade filho), a tabela renderizada automaticamente ganhará botões de "Criar" e "Excluir", permitindo gerenciar os itens diretamente da tela do pai.
 
 ## 4. Exemplo Prático Completo
 

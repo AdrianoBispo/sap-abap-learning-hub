@@ -76,7 +76,7 @@ O Fiori Elements oferece vários modelos (Overview Page, Analytical List Page), 
 
 Por que escolher Fiori Elements em vez de contratar um desenvolvedor Frontend para fazer uma tela customizada?
 
-1. **Velocidade e Time-to-Market:** É possível criar um CRUD completo e funcional em minutos, não semanas. O foco do desenvolvimento muda de "alinhar pixels" para "resolver regras de negócio".  
+1. **Velocidade e Time-to-Market:** É possível criar um `CRUD` completo e funcional em minutos, não semanas. O foco do desenvolvimento muda de "alinhar pixels" para "resolver regras de negócio".  
 2. **Consistência de UX:** Todos os apps seguem o SAP Fiori Design Guidelines automaticamente. O usuário não precisa reaprender onde fica o botão de "Editar" em cada app novo; ele está sempre no mesmo lugar.  
 3. **Manutenção e Evolução (Future-Proof):** Se a SAP atualizar o visual do Fiori (ex: do Fiori 2.0 para o Fiori 3), seu aplicativo Fiori Elements é atualizado automaticamente apenas trocando a versão da biblioteca, sem reescrita de código.  
 4. **Enterprise Readiness:** Recursos complexos e caros de desenvolver manualmente já vêm prontos "de fábrica":  
@@ -107,7 +107,7 @@ Por que escolher Fiori Elements em vez de contratar um desenvolvedor Frontend pa
 1. Qual é a principal diferença de custo/benefício entre desenvolver um app "Freestyle SAPUI5" e um app "Fiori Elements"?  
    R: O Freestyle oferece flexibilidade visual total, mas exige muito tempo de codificação e tem alto custo de manutenção (TCO), pois qualquer mudança de design exige reescrita. O Fiori Elements sacrifica um pouco da flexibilidade visual em troca de uma velocidade de desenvolvimento extremamente alta e baixo custo de manutenção, pois a UI é gerada dinamicamente e atualizada pela SAP.  
 
-2. Cite os dois Floorplans mais comuns utilizados em aplicações de cadastro (CRUD) no modelo RAP e descreva a função de cada um.  
+2. Cite os dois Floorplans mais comuns utilizados em aplicações de cadastro (`CRUD`) no modelo RAP e descreva a função de cada um.  
    R: List Report: Serve como ponto de entrada, permitindo pesquisar, filtrar e listar registros de forma tabular. Object Page: Serve para visualizar os detalhes profundos de um único registro selecionado na lista, permitindo edição e navegação para sub-entidades.  
 
 3. Se eu quiser mudar o rótulo de uma coluna na minha tabela Fiori Elements de "Price" para "Total Cost", devo editar o código HTML/JS da aplicação?  

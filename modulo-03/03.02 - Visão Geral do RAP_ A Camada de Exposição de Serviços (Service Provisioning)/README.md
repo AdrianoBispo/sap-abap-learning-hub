@@ -10,7 +10,7 @@
 
 - Criar e estruturar uma **Service Definition** para delimitar o escopo funcional da aplicação, aplicando técnicas de *Aliasing* para desacoplar nomes técnicos de nomes públicos.  
 
-- Configurar estrategicamente um **Service Binding**, escolhendo entre os protocolos OData V2 e OData V4 e definindo o tipo de cenário (UI ou Web API) adequado aos requisitos do projeto.  
+- Configurar estrategicamente um **Service Binding**, escolhendo entre os protocolos `OData V2` e `OData V4` e definindo o tipo de cenário (UI ou Web API) adequado aos requisitos do projeto.  
 
 - Compreender o ciclo de vida de publicação de um serviço no SAP Gateway e utilizar a ferramenta de **Preview** para validação rápida de metadados e comportamento de UI.
 
@@ -18,7 +18,7 @@
 
 No Módulo 1, fomos introduzidos às três camadas do RAP. Agora, nosso foco recai exclusivamente sobre a camada intermediária: **Business Service Provisioning**.
 
-Esta camada é o ponto de inflexão onde o desenvolvimento deixa de ser "puramente ABAP" e passa a ser "orientado a serviços web". Sem essa camada, seus modelos de dados (CDS Views) e comportamentos (BDEF) são apenas lógicas internas inalcançáveis pelo navegador ou por sistemas externos.
+Esta camada é o ponto de inflexão onde o desenvolvimento deixa de ser "puramente ABAP" e passa a ser "orientado a serviços web". Sem essa camada, seus modelos de dados (CDS Views) e comportamentos (`BDEF`) são apenas lógicas internas inalcançáveis pelo navegador ou por sistemas externos.
 
 **O Fluxo de Consumo Detalhado:**  
    Navegador (Fiori Elements) <--> HTTPS (JSON/XML) <--> Service Binding (Protocolo) <--> Service Definition (Escopo) <--> Consumption View  
