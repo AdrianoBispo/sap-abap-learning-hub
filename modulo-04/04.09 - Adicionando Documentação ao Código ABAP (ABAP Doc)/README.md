@@ -186,7 +186,7 @@ ENDCLASS.
 
 * **ABAP Doc:** Padrão de documentação técnica embutida no código fonte ABAP, utilizando o prefixo `"!`. É interpretado pelo ADT para gerar documentação rica, formatada e integrada à IDE.  
 
-* **Element Info (F2):** Funcionalidade do Eclipse/ADT que exibe um pop-up com informações detalhadas (assinatura, tipos, ABAP Doc) sobre o elemento sob o cursor, permitindo leitura rápida sem navegação.  
+* **Element Info (`F2`):** Funcionalidade do Eclipse/ADT que exibe um pop-up com informações detalhadas (assinatura, tipos, ABAP Doc) sobre o elemento sob o cursor, permitindo leitura rápida sem navegação.  
 
 * **Javadoc:** Padrão de documentação da linguagem Java que inspirou o ABAP Doc. Baseia-se na extração de comentários estruturados para gerar manuais de API em HTML.  
 
@@ -200,7 +200,7 @@ ENDCLASS.
   R: O conjunto de caracteres `"!` (Aspas duplas seguidas de exclamação). Comentários normais usam apenas aspas duplas (`"`) ou asterisco (`*`) na coluna 1.  
 
 2. Onde devo escrever o ABAP Doc de um método: na seção de Definição (`DEFINITION`) ou na seção de Implementação (`IMPLEMENTATION`) da classe?  
-  R: Na `DEFINITION`. O ABAP Doc destina-se a quem vai consumir a classe (interface pública), portanto deve estar junto da assinatura do método. O ADT lê a documentação a partir da definição para exibir no pop-up F2.  
+  R: Na `DEFINITION`. O ABAP Doc destina-se a quem vai consumir a classe (interface pública), portanto deve estar junto da assinatura do método. O ADT lê a documentação a partir da definição para exibir no pop-up `F2`.  
 
 3. Além de texto simples, o que mais posso usar dentro de um bloco ABAP Doc para melhorar a legibilidade?  
   R: Você pode usar Tags HTML básicas (como `<p>`, `<ul>`, `<li>`, `<b>`, `<code>`) para formatar o texto, criar listas e dar ênfase a partes importantes da explicação.  

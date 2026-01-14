@@ -46,7 +46,7 @@ O ATC atua como um "inspetor de qualidade" automatizado. Ele utiliza a engine do
 
 Às vezes, o ATC aponta um erro que, naquele contexto específico, é intencional ou inevitável.
 
-* **Quick Fixes (`Ctrl+1`):** No ADT, muitos erros (como falta de ordenação no SELECT) podem ser corrigidos automaticamente pela ferramenta.  
+* **Quick Fixes (`Ctrl+1`):** No ADT, muitos erros (como falta de ordenação no `SELECT`) podem ser corrigidos automaticamente pela ferramenta.  
 
 * **Pragmas:** Para silenciar um aviso falso-positivo, usamos pragmas (comandos ##...). Exemplo: Se você declarar uma variável que propositalmente não será usada agora:  
 ``` ABAP
@@ -193,7 +193,7 @@ ENDCLASS.
 | **Tipo de Análise** | Estática (Lê o código). | Dinâmica (Roda o código). |
 | **O que detecta?** | Erros de sintaxe, performance estrutural, segurança, convenções de nome. | Lógica de negócio incorreta, bugs de cálculo, falhas de fluxo. |
 | **Responsabilidade** | O sistema verifica automaticamente (Qualidade passiva). | O Desenvolvedor escreve os cenários (Qualidade ativa). |
-| **Execução** | Na liberação da tarefa ou manual. | Manual (Ctrl+Shift+F10) ou agendada (Nightly). |
+| **Execução** | Na liberação da tarefa ou manual. | Manual (`Ctrl + Shift + F10`) ou agendada (Nightly). |
 | **Bloqueio** | Pode impedir a liberação da Request (Transporte). | Erros de teste não bloqueiam transporte por padrão (mas deveriam). |
 
 ## Glossário Técnico

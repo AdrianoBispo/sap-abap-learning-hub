@@ -190,7 +190,7 @@ RAISE EXCEPTION TYPE zcx_generic_error
 
 * **CLEANUP:** Bloco opcional dentro da estrutura TRY que é executado quando uma exceção ocorre e o fluxo está saindo do bloco atual para um manipulador superior. É usado para restaurar a consistência do sistema (ex: fechar arquivos, liberar bloqueios).  
 
-* **IF_T100_MESSAGE:** Interface padrão que permite vincular uma classe de exceção a mensagens armazenadas na tabela T100 (transação SE91), habilitando suporte nativo a tradução e substituição de parâmetros dinâmicos (&1).  
+* **IF_T100_MESSAGE:** Interface padrão que permite vincular uma classe de exceção a mensagens armazenadas na tabela T100 (transação `SE91`), habilitando suporte nativo a tradução e substituição de parâmetros dinâmicos (&1).  
 
 * **PREVIOUS (Inner Exception):** Atributo presente em todas as exceções que permite o "Encadeamento de Exceções". Se você capturar um erro técnico (CX_SQL_ERROR) e quiser relançá-lo como um erro de negócio (ZCX_ORDER_ERROR), você passa o erro original no parâmetro PREVIOUS para não perder o rastro da causa raiz.
 
@@ -200,7 +200,7 @@ RAISE EXCEPTION TYPE zcx_generic_error
   R: O código não será ativado e gerará um erro de sintaxe. O compilador ABAP impõe estritamente que exceções estáticas sejam tratadas ou propagadas explicitamente, garantindo a robustez do contrato da interface.  
 
 2. Para que serve a interface `IF_T100_MESSAGE` em uma classe de exceção e qual problema ela resolve em relação ao uso de textos fixos?  
-  R: Ela permite associar a exceção a uma Mensagem Standard (Tabela T100 / SE91). Isso resolve o problema da internacionalização, pois o texto da mensagem é recuperado no idioma de logon do usuário, e permite a substituição dinâmica de parâmetros (&1, &2) no texto do erro de forma estruturada.  
+  R: Ela permite associar a exceção a uma Mensagem Standard (Tabela T100 / `SE91`). Isso resolve o problema da internacionalização, pois o texto da mensagem é recuperado no idioma de logon do usuário, e permite a substituição dinâmica de parâmetros (`&1`, `&2`) no texto do erro de forma estruturada.  
 
 3. Em um bloco `TRY...CATCH`, qual é a diferença de comportamento entre o bloco CATCH e o bloco CLEANUP?  
   R: O bloco CATCH captura a exceção, "engole" o erro (a menos que seja relançado) e permite que o programa continue. O bloco CLEANUP é executado apenas quando a exceção NÃO é capturada localmente (está subindo para o chamador), servindo exclusivamente para limpar recursos (housekeeping) antes que o controle seja perdido.
