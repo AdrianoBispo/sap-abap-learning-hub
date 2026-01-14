@@ -6,7 +6,7 @@
 
 ## Objetivos de Aprendizagem
 
-- Criar tabelas de banco de dados robustas utilizando a sintaxe baseada em código (**Dictionary DDL**) no ADT, abandonando as antigas telas gráficas da SE11.  
+- Criar tabelas de banco de dados robustas utilizando a sintaxe baseada em código (**Dictionary DDL**) no ADT, abandonando as antigas telas gráficas da `SE11`.  
 
 - Aplicar corretamente as anotações técnicas obrigatórias (`@AbapCatalog`, `@EndUserText`, `@Semantics`) para controlar o armazenamento, o transporte e o comportamento semântico da tabela.  
 
@@ -14,9 +14,9 @@
 
 - Compreender profundamente a diferença arquitetural entre usar **Data Elements** e **Tipos Primitivos**, decidindo qual utilizar com base nos requisitos de reutilização e internacionalização.
 
-## 1. Adeus SE11, Olá Código Fonte
+## 1. Adeus `SE11`, Olá Código Fonte
 
-Durante décadas, a transação **SE11 (ABAP Dictionary)** foi o coração da modelagem de dados no SAP. Desenvolvedores preenchiam formulários, navegavam entre abas ("Delivery and Maintenance", "Fields", "Currency/Quantity Fields") e clicavam em botões para ativar objetos.
+Durante décadas, a transação **`SE11` (ABAP Dictionary)** foi o coração da modelagem de dados no SAP. Desenvolvedores preenchiam formulários, navegavam entre abas ("Delivery and Maintenance", "Fields", "Currency/Quantity Fields") e clicavam em botões para ativar objetos.
 
 No ABAP moderno (especialmente no **ABAP Cloud**), essa abordagem foi substituída pela **Source-Code Based Approach**. Isso significa que a definição de uma tabela agora é um artefato de texto puro, editável no Eclipse (ADT).
 
@@ -24,7 +24,7 @@ No ABAP moderno (especialmente no **ABAP Cloud**), essa abordagem foi substituí
 
 * **Versionamento e Git:** Sendo um arquivo de texto, a definição da tabela pode ser facilmente versionada, comparada (diff) e mergeada utilizando ferramentas como **abapGit**.  
 * **Velocidade e Produtividade:** Copiar e colar definições de campos, duplicar tabelas ou aplicar refatorações em massa (Find/Replace) é infinitamente mais rápido do que navegar por telas lentas do SAP GUI.  
-* **Clareza:** Todas as configurações técnicas (que antes ficavam escondidas em popups e menus da SE11) agora estão explícitas no topo do arquivo como anotações.
+* **Clareza:** Todas as configurações técnicas (que antes ficavam escondidas em popups e menus da `SE11`) agora estão explícitas no topo do arquivo como anotações.
 
 ## 2. Sintaxe de Definição de Tabela
 
@@ -32,7 +32,7 @@ Uma tabela no ADT começa com a instrução `DEFINE TABLE`. No entanto, o compor
 
 ### Anotações Técnicas (Header)
 
-Estas anotações substituem as configurações de "Technical Settings" e "Delivery Class" da antiga SE11. Elas são obrigatórias.
+Estas anotações substituem as configurações de "Technical Settings" e "Delivery Class" da antiga `SE11`. Elas são obrigatórias.
 
 * `@EndUserText.label`: Define a descrição curta da tabela. É o texto que aparece quando você pesquisa o objeto ou pressiona F1.  
 * `@AbapCatalog.tableCategory`: Define se é uma tabela Transparente (`#TRANSPARENT`), Global Temporary, etc. Para persistência padrão, sempre usamos Transparente.  

@@ -20,9 +20,9 @@ Para criar um campo reutilizável e consistente em milhares de tabelas e program
 
 ### Camada 1: Domínio (Domain) - "O Técnico"
 
-O Domínio é a base da pirâmide. Ele define as propriedades técnicas puras do dado, independentemente do seu significado de negócio. Vários Elementos de Dados diferentes (ex: "Telefone Comercial", "Telefone Celular", "Fax") podem apontar para o mesmo Domínio técnico (ex: CHAR30).
+O Domínio é a base da pirâmide. Ele define as propriedades técnicas puras do dado, independentemente do seu significado de negócio. Vários Elementos de Dados diferentes (ex: "Telefone Comercial", "Telefone Celular", "Fax") podem apontar para o mesmo Domínio técnico (ex: `CHAR30`).
 
-* **Tipo de Dado e Tamanho:** Define o formato físico no banco (CHAR, DEC, INT4, DATS, TIMS) e o comprimento (Length).  
+* **Tipo de Dado e Tamanho:** Define o formato físico no banco (`CHAR`, `DEC`, `INT4`, `DATS`, `TIMS`) e o comprimento (Length).  
 * **Propriedades de Saída:** Define se o campo permite minúsculas (Lower Case) ou se requer sinal negativo.  
 
 * **Rotina de Conversão (Conversion Routine):** Um recurso vital. Define uma função que é executada automaticamente ao mover dados da tela para o banco (INPUT) e vice-versa (OUTPUT).  
@@ -41,7 +41,7 @@ O Elemento de Dados adiciona significado e contexto ao Domínio. Ele responde à
   * *Heading:* "St." (Para cabeçalhos de colunas estreitas)  
   * *O Mágica do Fiori:* O SAP Fiori Elements é responsivo. Se a coluna na tela for larga, ele usa o rótulo "Long". Se o usuário acessar pelo celular e a tela encolher, o Fiori troca automaticamente para "Medium" ou "Short". Se você não preencher isso corretamente, a UI ficará quebrada em telas pequenas.  
 
-* **Ajuda F1 (Documentation):** Você pode escrever um texto explicativo técnico ou de negócio que aparecerá quando o usuário pedir ajuda sobre o campo.  
+* **Ajuda `F1` (Documentation):** Você pode escrever um texto explicativo técnico ou de negócio que aparecerá quando o usuário pedir ajuda sobre o campo.  
 
 * **Parameter ID (SET/GET):** Permite que o campo lembre o último valor digitado pelo usuário entre diferentes transações (memória da sessão SAP).
 
@@ -53,11 +53,11 @@ No desenvolvimento RAP ágil, pode ser tentador definir um campo na tabela apena
 Se você usar tipos primitivos, a coluna no aplicativo Fiori não terá um texto mestre. Ela aparecerá com o nome técnico do campo (ex: Z_USER_STATUS) ou vazia.
 
 * *Consequência:* Você terá que redefinir o rótulo manualmente (@EndUserText.label) em cada uma das 10 CDS Views que usam esse campo.  
-* *Tradução:* Se sua empresa tem filiais globais, você terá que traduzir esses labels em cada view. Com um Elemento de Dados, você traduz uma vez (via SE63 ou ADT) e o sistema propaga a tradução para todas as telas automaticamente.
+* *Tradução:* Se sua empresa tem filiais globais, você terá que traduzir esses labels em cada view. Com um Elemento de Dados, você traduz uma vez (via `SE63` ou ADT) e o sistema propaga a tradução para todas as telas automaticamente.
 
 2. Análise de Impacto (Where-Used List):  
-Ao usar um Elemento de Dados global (Z_CUSTOMER_ID), você pode usar a ferramenta "Where-Used List" para encontrar todas as tabelas, estruturas, classes e métodos que utilizam esse conceito de negócio. Com tipos primitivos, essa rastreabilidade semântica se perde.  
-**A Solução:** Ao usar um Elemento de Dados z_status_xyz com o label "Status do Pedido", o Fiori automaticamente exibe "Status do Pedido" na tela, em qualquer idioma que o usuário logar, garantindo consistência e reduzindo esforço de manutenção.
+Ao usar um Elemento de Dados global (`Z_CUSTOMER_ID`), você pode usar a ferramenta "Where-Used List" para encontrar todas as tabelas, estruturas, classes e métodos que utilizam esse conceito de negócio. Com tipos primitivos, essa rastreabilidade semântica se perde.  
+**A Solução:** Ao usar um Elemento de Dados `z_status_xyz` com o label "Status do Pedido", o Fiori automaticamente exibe "Status do Pedido" na tela, em qualquer idioma que o usuário logar, garantindo consistência e reduzindo esforço de manutenção.
 
 ## 3. Enumerações (Enums): A Abordagem Moderna
 
@@ -99,27 +99,27 @@ ENDIF.
 
 ## 4. Prática no ADT (Eclipse)
 
-Diferente das tabelas (que usam código fonte DEFINE TABLE), a criação de Domínios e Elementos de Dados no ADT ainda utiliza editores baseados em formulários (Form-Based Editors), mas eles estão totalmente integrados ao fluxo de projeto e ao Git.
+Diferente das tabelas (que usam código fonte `DEFINE TABLE`), a criação de Domínios e Elementos de Dados no ADT ainda utiliza editores baseados em formulários (Form-Based Editors), mas eles estão totalmente integrados ao fluxo de projeto e ao Git.
 
 1. **Criação:** Botão Direito no Pacote > **New** > **Dictionary** > **Data Element**.  
 2. **Definição de Tipo:** Na aba principal, escolha entre "Built-in Type" (para tipos simples sem domínio, mas com labels) ou "Domain" (para reutilização técnica máxima).  
 3. **Labels (Crucial):** Vá na aba **"Field Labels"**. Preencha Short (10), Medium (20), Long (40) e Heading.  
    * *Dica:* Use textos que façam sentido isoladamente. Evite abreviações obscuras no label "Long".  
-4. **Ativação:** Salve e ative (Ctrl+F3). O objeto agora está disponível para uso em tabelas e CDS Views.
+4. **Ativação:** Salve e ative (`Ctrl+F3`). O objeto agora está disponível para uso em tabelas e CDS Views.
 
 ## Relação Hierárquica: Tabela x Elemento x Domínio
 
 Imagine um campo de "Número de Telefone Comercial":
 
-1. **Tabela:** ZCLIENTE-TEL_COMERCIAL (O campo físico na tabela).  
-2. **Elemento de Dados:** Z_TELEFONE_COMERCIAL (Label: "Tel. Comercial", "Telefone Comercial do Cliente").  
-3. **Domínio:** Z_CHAR30 (Técnico: CHAR de 30 posições, sem distinção de maiúsculas/minúsculas). *Nota: O mesmo domínio pode ser usado para o Elemento de Dados "Telefone Residencial".*
+1. **Tabela:** `ZCLIENTE-TEL_COMERCIAL` (O campo físico na tabela).  
+2. **Elemento de Dados:** `Z_TELEFONE_COMERCIAL` (Label: "Tel. Comercial", "Telefone Comercial do Cliente").  
+3. **Domínio:** `Z_CHAR30` (Técnico: CHAR de 30 posições, sem distinção de maiúsculas/minúsculas). *Nota: O mesmo domínio pode ser usado para o Elemento de Dados "Telefone Residencial".*
 
 ## Glossário Técnico
 
 * **Domain (Domínio):** Objeto do dicionário que define os atributos técnicos (tipo, comprimento, casas decimais) e regras de transformação (Rotinas de Conversão) de um campo. É a menor unidade de definição técnica.  
 
-* **Data Element (Elemento de Dados):** Objeto do dicionário que descreve o significado semântico e de negócio de um campo. Ele carrega os textos (Field Labels), a documentação (F1) e pode carregar Search Helps.  
+* **Data Element (Elemento de Dados):** Objeto do dicionário que descreve o significado semântico e de negócio de um campo. Ele carrega os textos (Field Labels), a documentação (`F1`) e pode carregar Search Helps.  
 
 * **Field Label (Rótulo de Campo):** Textos definidos dentro do Elemento de Dados (Curto, Médio, Longo, Cabeçalho). O SAP Fiori Elements utiliza uma lógica inteligente para escolher qual label exibir dependendo do espaço disponível na tela (Responsividade).  
 
@@ -133,7 +133,7 @@ Imagine um campo de "Número de Telefone Comercial":
   R: O campo aparecerá na interface sem um rótulo amigável (provavelmente mostrando o nome técnico da coluna, como MY_FIELD, ou vazio), pois o Fiori busca os textos de exibição nos "Field Labels" do Elemento de Dados. Além disso, a tradução do rótulo terá que ser feita manualmente em cada aplicação que consumir essa tabela.
 
 2. Qual é a principal diferença de responsabilidade entre um Domínio e um Elemento de Dados?  
-  R: O Domínio define a parte técnica (tipo físico, tamanho, rotinas de conversão), focando em como o dado é armazenado. O Elemento de Dados define a parte semântica (significado de negócio, labels de tela, ajuda F1), focando em o que o dado representa para o usuário.
+  R: O Domínio define a parte técnica (tipo físico, tamanho, rotinas de conversão), focando em como o dado é armazenado. O Elemento de Dados define a parte semântica (significado de negócio, labels de tela, ajuda `F1`), focando em o que o dado representa para o usuário.
 
-3. As Enumerações (Enums) são objetos globais do dicionário criados via SE11?  
+3. As Enumerações (Enums) são objetos globais do dicionário criados via `SE11`?  
   R: Não exatamente da forma clássica (como tabelas). Embora existam Enumerações globais no Dicionário (a partir do ABAP 7.51), elas são definidas através de código fonte em Interfaces ou Classes Globais (ou artefatos específicos de Type Group modernos) para uso em lógica de programação, oferecendo tipagem forte (Type Safety) que as antigas listas de valores fixos de domínio não possuíam.
