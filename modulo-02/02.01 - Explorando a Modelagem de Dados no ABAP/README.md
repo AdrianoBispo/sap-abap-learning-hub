@@ -1,6 +1,6 @@
 # Explorando a Modelagem de Dados no ABAP
 
-![Infográfico - Explorando a Modelagem de Dados no ABAP](./02.01_A_Evolucao_da_Modelagem_de_Dados_ABAP.png)
+![Infográfico - A Evolução da Modelagem de Dados no ABAP](./02.01_A_Evolucao_da_Modelagem_de_Dados_ABAP.png)
 
 > **Comece pelos slides: [A Revolução Silenciosa da Modelagem de Dados no S/4HANA ](./02.01_CDS_VDM_S4HANA_Architecture.pdf)**
 
@@ -28,8 +28,7 @@ Toda a inteligência residia no servidor de aplicação (ABAP). Para calcular o 
 4. Fazer loops para somar e agrupar os valores.  
    Resultado: Ineficiência extrema em grandes volumes de dados.
 
-A Solução (ABAP CDS):  
-Com a chegada do SAP HANA, foi necessário criar uma linguagem que explorasse o poder do banco. O Core Data Services (CDS) é uma infraestrutura de modelagem de dados de "próxima geração" (DDL avançada). Ele permite definir modelos de dados semanticamente ricos diretamente no banco de dados, não apenas no servidor de aplicação. Uma CDS View não é apenas uma "View SQL"; é uma entidade que suporta associações, anotações de metadados, controle de acesso (DCL) e lógica de negócio.
+**A Solução (ABAP CDS):** Com a chegada do SAP HANA, foi necessário criar uma linguagem que explorasse o poder do banco. O Core Data Services (CDS) é uma infraestrutura de modelagem de dados de "próxima geração" (DDL avançada). Ele permite definir modelos de dados semanticamente ricos diretamente no banco de dados, não apenas no servidor de aplicação. Uma CDS View não é apenas uma "View SQL"; é uma entidade que suporta associações, anotações de metadados, controle de acesso (DCL) e lógica de negócio.
 
 ## 2. O Paradigma "Code-to-Data" (Code Pushdown)
 
@@ -68,11 +67,13 @@ No S/4HANA e no RAP, desencorajamos o acesso direto a tabelas físicas (como VBA
    * **Características:** Acessam diretamente a tabela do banco. Normalizam nomes (ex: MATNR vira Material). Não devem ter filtros restritivos (como WHERE Plant = '1000') para garantir reutilização máxima.  
    * **Nomenclatura Padrão:** I_NomeDaEntidade (ex: I_Product, I_SalesOrder).  
    * **Anotação:** @VDM.viewType: #BASIC  
+
 2. **Composite Views (Camada de Composição):**  
    * **Função:** Combinar Interface Views para formar cubos de dados ou visões de negócio mais ricas.  
    * **Características:** Faz Joins e Associações entre Interface Views. Contém a lógica de negócio reutilizável (ex: "Buscar Cliente com Endereço e Dados Bancários"). É a base para a analítica.  
    * **Nomenclatura Padrão:** I_NomeComposto (ex: I_SalesOrderWithCustomer).  
    * **Anotação:** @VDM.viewType: #COMPOSITE  
+
 3. **Consumption / Projection Views (Camada de Consumo):**  
    * **Função:** Atender a uma necessidade específica de uma tela (UI) ou API.  
    * **Características:** É a "ponta do iceberg". Filtra apenas os campos que o App Fiori precisa. Contém anotações de UI (@UI), rótulos específicos e parâmetros de pesquisa.  
@@ -99,9 +100,13 @@ Para visualizar como isso se aplica na prática, imagine que estamos construindo
 ## Glossário Técnico
 
 * **ABAP CDS (Core Data Services):** Linguagem de definição de dados (DDL) avançada e independente de plataforma (embora otimizada para HANA) que permite criar modelos de dados semanticamente ricos e executar lógica complexa (Code Pushdown) no nível do banco de dados.  
+
 * **Code Pushdown:** Técnica fundamental de otimização de performance no ecossistema SAP HANA. Consiste em delegar operações intensivas de dados (agregações, filtros, cálculos) para a camada de banco de dados, minimizando a transferência de dados e o uso de CPU no servidor de aplicação.  
+
 * **VDM (Virtual Data Model):** Uma representação estruturada, hierárquica e abstrata dos dados de negócio do S/4HANA. Composto inteiramente por CDS Views, ele isola a complexidade das tabelas físicas e fornece visões de negócio prontas para consumo (Interface, Composite, Consumption).  
+
 * **SE11:** Código de transação do SAP GUI para o ABAP Dictionary clássico. No desenvolvimento moderno, seu uso é restrito à definição de tabelas físicas e tipos globais, sendo obsoleta para a criação de Views lógicas.  
+
 * **ADT (ABAP Development Tools):** A IDE baseada em Eclipse onde as CDS Views *devem* ser criadas. O SAP GUI não possui editor para CDS, tornando o ADT obrigatório para qualquer desenvolvimento S/4HANA ou RAP.
 
 ## Quiz de Fixação

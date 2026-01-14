@@ -1,14 +1,17 @@
 # Definindo Tipos de Dados Globais
 
-![Infográfico - Definindo Tipos de Dados Globais](./02.03_Modelagem_de_Dados_Inteligente.png)
+![Infográfico - Modelagem de Dados Inteligente](./02.03_Modelagem_de_Dados_Inteligente.png)
 
 > **Comece pelos slides: [Dominando Tipos de Dados Globais no ABAP](./02.03_ABAP_Dictionary_Fundamentos_Fiori.pdf)**
 
 ## Objetivos de Aprendizagem
 
 - Explicar em profundidade a hierarquia de duas camadas do dicionário ABAP: **Domínio** (Definição Técnica) vs **Elemento de Dados** (Definição Semântica), e como esse desacoplamento favorece a manutenção.  
+
 - Criar e configurar Elementos de Dados para garantir a **tradução automática** e a seleção inteligente de labels (Rótulos) nas aplicações Fiori responsivas.  
+
 - Entender o papel crítico dos **Value Helps** (Ajudas de Pesquisa) e **Rotinas de Conversão** associados aos tipos globais.  
+
 - Dominar o uso de **Enumerations** (Enumerações) como a alternativa moderna e type-safe para listas de valores fixos.
 
 ## 1. A Hierarquia de Tipos do ABAP Dictionary
@@ -21,8 +24,10 @@ O Domínio é a base da pirâmide. Ele define as propriedades técnicas puras do
 
 * **Tipo de Dado e Tamanho:** Define o formato físico no banco (CHAR, DEC, INT4, DATS, TIMS) e o comprimento (Length).  
 * **Propriedades de Saída:** Define se o campo permite minúsculas (Lower Case) ou se requer sinal negativo.  
+
 * **Rotina de Conversão (Conversion Routine):** Um recurso vital. Define uma função que é executada automaticamente ao mover dados da tela para o banco (INPUT) e vice-versa (OUTPUT).  
   * *Exemplo:* A rotina ALPHA converte automaticamente 123 para 0000000123 (Input) e remove os zeros na exibição (Output). Sem isso, as chaves numéricas do SAP seriam ingovernáveis.  
+
 * **Valores Fixos (Fixed Values):** Uma lista estática de valores válidos permitidos para aquele domínio (ex: 'A' = Ativo, 'C' = Cancelado). Isso gera uma validação automática em telas clássicas, mas no modelo RAP preferimos CDS Views de domínio ou Enumerações.
 
 ### Camada 2: Elemento de Dados (Data Element) - "O Semântico"
@@ -35,7 +40,9 @@ O Elemento de Dados adiciona significado e contexto ao Domínio. Ele responde à
   * *Long (40):* "Status Atual do Processamento"  
   * *Heading:* "St." (Para cabeçalhos de colunas estreitas)  
   * *O Mágica do Fiori:* O SAP Fiori Elements é responsivo. Se a coluna na tela for larga, ele usa o rótulo "Long". Se o usuário acessar pelo celular e a tela encolher, o Fiori troca automaticamente para "Medium" ou "Short". Se você não preencher isso corretamente, a UI ficará quebrada em telas pequenas.  
+
 * **Ajuda F1 (Documentation):** Você pode escrever um texto explicativo técnico ou de negócio que aparecerá quando o usuário pedir ajuda sobre o campo.  
+
 * **Parameter ID (SET/GET):** Permite que o campo lembre o último valor digitado pelo usuário entre diferentes transações (memória da sessão SAP).
 
 ## 2. Por que criar Elementos de Dados Customizados?
@@ -111,14 +118,18 @@ Imagine um campo de "Número de Telefone Comercial":
 ## Glossário Técnico
 
 * **Domain (Domínio):** Objeto do dicionário que define os atributos técnicos (tipo, comprimento, casas decimais) e regras de transformação (Rotinas de Conversão) de um campo. É a menor unidade de definição técnica.  
+
 * **Data Element (Elemento de Dados):** Objeto do dicionário que descreve o significado semântico e de negócio de um campo. Ele carrega os textos (Field Labels), a documentação (F1) e pode carregar Search Helps.  
+
 * **Field Label (Rótulo de Campo):** Textos definidos dentro do Elemento de Dados (Curto, Médio, Longo, Cabeçalho). O SAP Fiori Elements utiliza uma lógica inteligente para escolher qual label exibir dependendo do espaço disponível na tela (Responsividade).  
+
 * **Conversion Routine (Rotina de Conversão):** Um par de Function Modules (Input/Output) associado a um Domínio que transforma o dado automaticamente (ex: Formato interno de banco vs. Formato externo de visualização).  
+
 * **Enumeration (Enum):** Tipo de dados especial que define um conjunto estrito de constantes nomeadas. Melhora a legibilidade do código ABAP e previne erros de atribuição, garantindo que uma variável contenha apenas valores válidos do conjunto.
 
 ## Quiz de Fixação
 
-1. Se eu criar uma tabela e definir um campo diretamente como abap.char(10) sem usar um Elemento de Dados, qual será a consequência na aplicação Fiori Elements gerada sobre essa tabela?  
+1. Se eu criar uma tabela e definir um campo diretamente como `abap.char(10)` sem usar um Elemento de Dados, qual será a consequência na aplicação Fiori Elements gerada sobre essa tabela?  
   R: O campo aparecerá na interface sem um rótulo amigável (provavelmente mostrando o nome técnico da coluna, como MY_FIELD, ou vazio), pois o Fiori busca os textos de exibição nos "Field Labels" do Elemento de Dados. Além disso, a tradução do rótulo terá que ser feita manualmente em cada aplicação que consumir essa tabela.
 
 2. Qual é a principal diferença de responsabilidade entre um Domínio e um Elemento de Dados?  

@@ -1,8 +1,8 @@
 # Definindo Meta Objetos (Metadata Extensions)
 
-![Infográfico - Definindo Meta Objetos (Metadata Extensions)](./02.07_A_Vantagem_das_Metadatas_Extensions.png)
+![Infográfico - As Vantagens da Metadata Extensions](./02.07_A_Vantagem_das_Metadatas_Extensions.png)
 
-> **Comece pelos slides: [Do Caos a Clareza: Dominando Metadata Extensions](./02.07_Do_Caos_à_Clareza.pdf)**
+> **Comece pelos slides: [Definindo Meta Objetos (Metadata Exetensions](./02.07_Definindo_Meta_Objetos.pdf)**
 
 ## Objetivos de Aprendizagem
 

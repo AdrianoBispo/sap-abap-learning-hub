@@ -1,6 +1,6 @@
 # Definindo Relacionamentos e Associações
 
-![Infográfico - Definindo Relacionamentos e Associações](./02.05_Associacoes_vs_JOINs_Classicos.png)
+![Infográfico - ABAP CDS: Associações vs JOINs Clássicos](./02.05_Associacoes_vs_JOINs_Classicos.png)
 
 > **Comece pelos slides: [A Revolução Silenciosa: De Joins a Associações em ABAP CDS](./02.05_JOINs_para_Associações_ABAP_CDS.pdf)**
 

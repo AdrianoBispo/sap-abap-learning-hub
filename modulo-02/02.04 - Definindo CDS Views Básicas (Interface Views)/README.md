@@ -1,14 +1,17 @@
 # Definindo CDS Views Básicas (Interface Views)
 
-![Infográfico - Definindo CDS Views Básicas (Interface Views)](./02.04_CDS_Views.png)
+![Infográfico - CDS Views: Do Legado ao Moderno](./02.04_CDS_Views.png)
 
 > **Comece pelos slides: [A Base de Aplicações Modernas: Dominando as CDS Views Essencias](./02.04_CDS_Views_Essenciais_Uma_Nova_Arquitetura.pdf)**
 
 ## Objetivos de Aprendizagem
 
 - Escrever uma **CDS View Entity** utilizando a sintaxe moderna e estrita, compreendendo as melhorias de performance e arquitetura em relação às views clássicas.  
+
 - Aplicar rigorosamente as convenções de nomenclatura do **Virtual Data Model (VDM)**, diferenciando **Interface Views (I_)** de **Consumption Views (C_)** e entendendo o propósito de reutilização de cada uma.  
+
 - Utilizar **Aliases** estrategicamente para converter nomes técnicos legados (ex: MATNR) para nomes semânticos em **CamelCase** (ex: MaterialID), facilitando o consumo por interfaces web (_UI5/Fiori_).  
+
 - Entender a diferença técnica crítica entre `DEFINE VIEW` (Obsoleto, gera artefatos `SE11`) e `DEFINE VIEW ENTITY` (Novo Padrão, gerenciado pelo Kernel ABAP).
 
 ## 1. A Nova Sintaxe: View Entity vs. CDS View Clássica
@@ -174,9 +177,13 @@ cast(total_price as abap.fltp) as PriceFloat
 ## Glossário Técnico
 
 * **CDS View Entity:** A evolução da CDS View. Uma entidade de projeção SQL gerenciada inteiramente pelo kernel ABAP, que não gera artefatos correspondentes no Dicionário ABAP clássico (`SE11`). Oferece melhor performance e validação de sintaxe.  
+
 * **Alias (Apelido):** Nome alternativo dado a um campo na lista de seleção (usando as NovoNome). No VDM, usamos Aliases para converter nomes técnicos do banco (MATNR) para nomes legíveis e padronizados (MaterialID).  
+
 * **CamelCase:** Estilo de escrita onde as palavras são unidas sem espaços e cada palavra subsequente começa com maiúscula (ex: FlightDate). É o padrão para nomes de campos em CDS Views modernas para facilitar o consumo por JavaScript/UI5.  
+
 * **Key (Chave):** Palavra-chave obrigatória em CDS Views. Define quais campos identificam unicamente um registro. Sem chaves definidas corretamente, o framework OData não consegue realizar operações de leitura (Read) ou navegação em registros individuais.  
+
 * **`@Semantics`:** Família de anotações que descrevem o significado do dado (ex: isto é um e-mail, isto é uma moeda, isto é um usuário de criação). Essencial para automações do framework RAP e renderização correta no Fiori.
 
 ## Quiz de Fixação

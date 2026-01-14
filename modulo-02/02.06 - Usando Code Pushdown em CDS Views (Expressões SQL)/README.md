@@ -1,14 +1,17 @@
 # Usando Code Pushdown em CDS Views (Expressões SQL)
 
-![Infográfico - Usando Code Pushdown em CDS Views (Expressões SQL)](./02.06_Code_Pushdown_com_ABAP_CDS.png)
+![Infográfico - Code Pushdown com ABAP CDS](./02.06_Code_Pushdown_com_ABAP_CDS.png)
 
 > **Comece pelos slides: [O Fim do LOOP: Dominando o Code Pushdown em ABAP CDS com Expressões SQL)](./02.06_O_Fim_do_LOOP_Code_Pushdown_em_ABAP_CDS.pdf)**
 
 ## Objetivos de Aprendizagem
 
 - Aplicar lógica condicional complexa com **CASE Expressions** diretamente na CDS View, substituindo estruturas de controle ABAP (IF/ELSEIF) por lógica de banco de dados.  
+
 - Realizar cálculos aritméticos avançados e manipulação de datas utilizando funções nativas como dats_days_between, dats_add_days e operações matemáticas.  
+
 - Converter tipos de dados explicitamente utilizando a instrução **CAST**, garantindo a integridade dos dados em operações de cálculo e uniões.  
+
 - Utilizar **Variáveis de Sessão** ($session.system_date, $session.user, $session.system_language) para criar views dinâmicas que respondem ao contexto do usuário logado.
 
 ## 1. O Poder das Expressões SQL e o Fim do Loop
