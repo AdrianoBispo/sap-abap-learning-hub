@@ -1,8 +1,8 @@
 # Considerações Especiais para SAP S/4HANA Cloud Private Edition e On-Premise
 
-![Infográfico - Considerações Especiais para SAP S/4HANA Cloud Private Edition e On-Premise](./05.05_Modernizando_o_ABAP.png)
+![Infográfico - Modernizando o ABAP: A Estratégia Clean Core para S/4HANA Private Cloud](./05.05_Modernizando_o_ABAP.png)
 
-> **Comece pelos slides: [Dominando os Dois Mundos](./05.05_Dominando_os_Dois_Mundos_Estratégia_Clean_Core.pdf)**
+> **Comece pelos slides: [Dominando os Dois Mundos: A Estratégia Clean Core Definitiva para SAP S/4HANA Private Cloud e On-Premise](./05.05_Dominando_os_Dois_Mundos_Estratégia_Clean_Core.pdf)**
 
 ## Objetivos de Aprendizagem
 

@@ -1,6 +1,6 @@
 # Introdução ao SAP S/4HANA Cloud, Extensões e Clean Core
 
-![Infográfico - Introdução ao SAP S/4HANA Cloud, Extensões e Clean Core](./05.01_As_Novas_Regras_do_Jogo_SAP_Clean_Core.png)
+![Infográfico - ABAP Cloud: As Novas Regras do Jogo para um SAP Clean Core](./05.01_As_Novas_Regras_do_Jogo_SAP_Clean_Core.png)
 
 > **Comece pelos slides: [A Nova Era da Extensibilidade SAP](./05.01_SAP_Clean_Core_A_Nova_Extensibilidade.pdf)**
 

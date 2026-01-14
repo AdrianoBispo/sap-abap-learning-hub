@@ -1,6 +1,6 @@
 # ABAP Cloud em Profundidade
 
-![Infográfico - ABAP Cloud em Profundidade](./05.03_Extensibilidade_SAP.png)
+![Infográfico - Extensibilidade SAP: A Evolução do Legado para o Clean Core](./05.03_Extensibilidade_SAP.png)
 
 > **Comece pelos slides: [Desmetificando o ABAP Cloud](./05.03_ABAP_Cloud_Guia_Arquitetural.pdf)**
 
