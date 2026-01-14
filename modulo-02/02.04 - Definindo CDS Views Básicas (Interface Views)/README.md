@@ -8,9 +8,9 @@
 
 - Escrever uma **CDS View Entity** utilizando a sintaxe moderna e estrita, compreendendo as melhorias de performance e arquitetura em relação às views clássicas.  
 
-- Aplicar rigorosamente as convenções de nomenclatura do **Virtual Data Model (VDM)**, diferenciando **Interface Views (I_)** de **Consumption Views (C_)** e entendendo o propósito de reutilização de cada uma.  
+- Aplicar rigorosamente as convenções de nomenclatura do **Virtual Data Model (VDM)**, diferenciando **Interface Views (`I_`)** de **Consumption Views (`C_`)** e entendendo o propósito de reutilização de cada uma.  
 
-- Utilizar **Aliases** estrategicamente para converter nomes técnicos legados (ex: MATNR) para nomes semânticos em **CamelCase** (ex: MaterialID), facilitando o consumo por interfaces web (_UI5/Fiori_).  
+- Utilizar **Aliases** estrategicamente para converter nomes técnicos legados (ex: `MATNR`) para nomes semânticos em **CamelCase** (ex: MaterialID), facilitando o consumo por interfaces web (_UI5/Fiori_).  
 
 - Entender a diferença técnica crítica entre `DEFINE VIEW` (Obsoleto, gera artefatos `SE11`) e `DEFINE VIEW ENTITY` (Novo Padrão, gerenciado pelo Kernel ABAP).
 
@@ -60,8 +60,8 @@ O "miolo" da view, dentro das chaves `{ }`. Aqui selecionamos campos, criamos c�
 
 O VDM organiza as milhares de views do S/4HANA.
 
-* **Interface Views (I_):** A base da pirâmide. Devem ser agnósticas de UI, reutilizáveis e estáveis. Espelham os dados do negócio. Ex: `Z_I_Travel`.  
-* **Consumption Views (C_):** O topo da pirâmide. Específicas para um aplicativo ou relatório. Consomem as Interface Views. Ex: `Z_C_Travel_Analytics`.
+* **Interface Views (`I_`):** A base da pirâmide. Devem ser agnósticas de UI, reutilizáveis e estáveis. Espelham os dados do negócio. Ex: `Z_I_Travel`.  
+* **Consumption Views (`C_`):** O topo da pirâmide. Específicas para um aplicativo ou relatório. Consomem as Interface Views. Ex: `Z_C_Travel_Analytics`.
 
 ## 3. Exemplo Prático: Criando a Interface de Viagens
 
