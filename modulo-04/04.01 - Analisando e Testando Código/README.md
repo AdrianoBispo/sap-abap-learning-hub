@@ -32,11 +32,11 @@ O ATC atua como um "inspetor de qualidade" automatizado. Ele utiliza a engine do
 
 ### O que o ATC verifica (Categorias Principais):
 
-* **Sintaxe e Modernização:** Uso de comandos obsoletos (ex: MOVE, COMPUTE, SELECT *) em vez das novas sintaxes (Inline, Expressions).  
+* **Sintaxe e Modernização:** Uso de comandos obsoletos (ex: `MOVE`, `COMPUTE`, `SELECT *`) em vez das novas sintaxes (Inline, Expressions).  
 
 * **Performance (HANA):** Detecta *SELECTs dentro de LOOPs* (o pecado capital da performance), leitura de tabelas inteiras sem filtro e índices ausentes.  
 
-* **Segurança:** Falta de verificação de autorização (AUTHORITY-CHECK) antes de ações críticas ou vulnerabilidades de injeção de SQL (SQL Injection) em SQL dinâmico.  
+* **Segurança:** Falta de verificação de autorização (`AUTHORITY-CHECK`) antes de ações críticas ou vulnerabilidades de injeção de SQL (SQL Injection) em SQL dinâmico.  
 
 * **Robustez:** Variáveis declaradas mas não usadas (Dead Code), ou tipos incompatíveis que podem causar *Dumps* em tempo de execução.  
 
