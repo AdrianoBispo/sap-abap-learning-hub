@@ -2,7 +2,7 @@
 
 ![Guia Visual: Modelagem de Dados RAP](./02.00_Modelagem_de_Dados_RAP.png)
 
-O material foi construído com base no curso [**"Data Modelling in ABAP Dictionary and ABAP Core Data Services"**](https://learning.sap.com/courses/data-modelling-in-abap-dictionary-and-abap-core-data-services)  da plataforma SAP Learning. Este curso é uma formação gratuita e intermediária voltada para profissionais que desejam aprofundar seus conhecimentos em modelagem de dados no ambiente ABAP Moderno (RAP.
+Material baseado no curso [**"Data Modelling in ABAP Dictionary and ABAP Core Data Services"**](https://learning.sap.com/courses/data-modelling-in-abap-dictionary-and-abap-core-data-services) da SAP Learning. Este conteúdo intermediário destina-se a profissionais que desejam aprofundar conhecimentos em modelagem de dados no ambiente ABAP Moderno (RAP).
 
 > **Comece por aqui: [ABAP CDS e Modelagem Arquitetural](./02.00_ABAP_CDS_Modelagem_Arquitetural.pdf)**
 
