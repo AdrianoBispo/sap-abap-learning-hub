@@ -1,6 +1,6 @@
 # Configurações Avançadas de Páginas de Objeto
 
-![Infográfico - Configurações Avançadas de Páginas de Objeto](./03.09_Potencialize_suas_Object_Pages_.png)
+![Infográfico - Potencialize suas Objects Pages no SAP Fiori Elements](./03.09_Potencialize_suas_Object_Pages_.png)
 
 > **Comece pelos slides: [Construindo uma Object Page de Alta Performance](./03.09_De_Básico_a_Brilhante.pdf)**
 
@@ -8,7 +8,7 @@
 
 - Configurar **Header Facets** para exibir informações críticas (KPIs, Status, Contatos) no cabeçalho colapsável da página, melhorando a capacidade de decisão rápida do usuário.  
 
-- Aplicar **Visibilidade Dinâmica** (@UI.hidden) para mostrar ou ocultar campos, botões e facetas inteiras baseados em condições lógicas do backend, limpando a interface de elementos irrelevantes.  
+- Aplicar **Visibilidade Dinâmica** (`@UI.hidden`) para mostrar ou ocultar campos, botões e facetas inteiras baseados em condições lógicas do backend, limpando a interface de elementos irrelevantes.  
 
 - Entender e implementar o uso de **Sub-Seções** aninhadas para organizar formulários longos em blocos lógicos menores, evitando a fadiga de rolagem.  
 

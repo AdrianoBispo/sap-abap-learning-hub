@@ -1,8 +1,8 @@
 # Entendendo os Floorplans do SAP Fiori Elements
 
-![Infográfico - Entendendo os Floorplans do SAP Fiori Elements](./03.05_Anatomia_dos_Floorplans_SAP_Fiori_Elements.png)
+![Infográfico - Anatomia dos Floorplans do SAP Fiori Elements](./03.05_Anatomia_dos_Floorplans_SAP_Fiori_Elements.png)
 
-> **Comece pelos slides: [Desvendando os Floorplans do SAP Fiori Elements](./03.05_Fiori_Elements_Floorplans_Visual_Guide.pdf)**
+> **Comece pelos slides: [Desvendando os Floorplans do SAP Fiori Elements](./03.05_Desvendando_os_Floorplans_do_SAP_Fiori_Elements.pdf)**
 
 ## Objetivos de Aprendizagem
 

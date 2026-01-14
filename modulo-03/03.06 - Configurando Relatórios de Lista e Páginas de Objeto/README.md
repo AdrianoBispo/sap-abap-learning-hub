@@ -2,7 +2,7 @@
 
 ![Infográfico - Guia Rápido Otimizando Telas SAP Fiori Elements](./03.06_Otimizando_Telas_Fiori_Elements.png)
 
-> **Comece pelos slides: [Criando a Experiência Perfeita Fiori com Anotações](./03.06_Fiori_Elements_Do_Rascunho_à_Obra_Prima.pdf)**
+> **Comece pelos slides: [Criando a Experiência Fiori Perfeita com Anotações](./03.06_Fiori_Elements_Do_Rascunho_à_Obra_Prima.pdf)**
 
 ## Objetivos de Aprendizagem
 

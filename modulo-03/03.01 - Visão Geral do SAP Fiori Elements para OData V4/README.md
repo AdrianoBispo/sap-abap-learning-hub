@@ -1,6 +1,6 @@
 # Visão Geral do SAP Fiori Elements para OData V4
 
-![Infográfico - Visão Geral do SAP Fiori Elements para OData V4](./03.01_SAP_Fiori_Elements.png)
+![Infográfico - SAP Fiori Elements: A Evolução de Interfaces SAP](./03.01_SAP_Fiori_Elements.png)
 
 > **Comece pelos slides: [A Revolução do SAP Fiori Elements no Desenvolvimento de Apps RAP](./03.01_De_Artesão_a_Arquiteto.pdf)**
 

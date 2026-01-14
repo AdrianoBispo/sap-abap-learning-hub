@@ -1,6 +1,6 @@
 # Visão Geral do RAP: A Camada de Exposição de Serviços (Service Provisioning)
 
-![Infográfico - Visão Geral do RAP: A Camada de Exposição de Serviços (Service Provisioning)](./03.02_Expondo_Servicos_com_RAP.png)
+![Infográfico - Guia Visual: Expondo Serviços com SAP RAP](./03.02_Expondo_Servicos_com_RAP.png)
 
 > **Comece pelos slides: [SAP RAP: Da Lógica ABAP à API Global ](./03.02_RAP_ABAP_à_API_Global_Service_Provisioning.pdf)**
 

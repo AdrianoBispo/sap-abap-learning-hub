@@ -1,6 +1,6 @@
 # Configurando Anotações ABAP CDS no Backend
 
-![Infográfico - Configurando Anotações ABAP CDS no Backend](./03.03_Mapeando_Anotacoes_RAP.png)
+![Infográfico - Mapeando Anotações ABAP CDS para UI SAP Fiori](./03.03_Mapeando_Anotacoes_RAP.png)
 
 > **Comece pelos slides: [Construindo UIs Fiori Elements com Anotações ABAP CDS](./03.03_Blueprint_To_Application.pdf)**
 
