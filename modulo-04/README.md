@@ -2,7 +2,7 @@
 
 ![Guia Visual: Modernizando seu Código ABAP](./04.00_Modernizando_seu_Codigo_ABAP.png)
 
-O material foi construído com base no curso [**"Deepening Your ABAP Programming Knowledge"**](https://learning.sap.com/courses/deepening-your-abap-programming-knowledge) da plataforma SAP Learning. Este curso é voltado para desenvolvedores que já possuem conhecimentos básicos em ABAP e desejam aprofundar suas habilidades. Ele cobre tópicos essenciais para escrever código ABAP mais eficiente, seguro e bem estruturado.
+Material baseado no curso [**"Deepening Your ABAP Programming Knowledge"**](https://learning.sap.com/courses/deepening-your-abap-programming-knowledge) da SAP Learning. Voltado para desenvolvedores com conhecimentos básicos em ABAP que desejam aprofundar suas habilidades, cobrindo tópicos essenciais para escrever código eficiente, seguro e bem estruturado.
 
 > **Comece por aqui: [Excelência ABAP: Robustez, Performance e Design](./04.00_Excelência_ABAP_Robustez_Performance_Design.pdf)**
 
