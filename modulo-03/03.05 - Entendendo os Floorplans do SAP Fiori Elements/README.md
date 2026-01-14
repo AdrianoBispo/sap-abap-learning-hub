@@ -47,7 +47,7 @@ Abaixo da barra de filtros reside a área de resultados. Esta seção é altamen
     * **Ações Customizadas:** Botões específicos de negócio (ex: "Copiar Viagem", "Simular Preço") definidos via anotações `@UI.lineItem` com type `#FOR_ACTION`.  
     * **Ações de Sistema:** Botões para *Exportar para Excel*, *Configurações de Coluna* (personalização) e *Tela Cheia*.  
   
-  * **Tabela (Smart Table):** O grid de dados propriamente dito. Configurada via @UI.lineItem, ela suporta renderização responsiva (colunas que somem em telas pequenas), navegação para detalhes (clique na linha) e indicadores visuais de status (Criticality).
+  * **Tabela (Smart Table):** O grid de dados propriamente dito. Configurada via `@UI.lineItem`, ela suporta renderização responsiva (colunas que somem em telas pequenas), navegação para detalhes (clique na linha) e indicadores visuais de status (Criticality).
 
 ## 2. Anatomia da Object Page (Página de Objeto)
 

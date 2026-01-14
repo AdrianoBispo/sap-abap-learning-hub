@@ -12,7 +12,7 @@
 
 - Entender e implementar o uso de **Sub-Seções** aninhadas para organizar formulários longos em blocos lógicos menores, evitando a fadiga de rolagem.  
 
-- Identificar como referenciar Associações (targetElement) para criar abas que contêm **Tabelas Filhas** (Listas de Itens), permitindo a gestão de relacionamentos 1:N (Um para Muitos).
+- Identificar como referenciar Associações (`targetElement`) para criar abas que contêm **Tabelas Filhas** (Listas de Itens), permitindo a gestão de relacionamentos 1:N (Um para Muitos).
 
 ## 1. Header Facets: Destacando o Importante
 

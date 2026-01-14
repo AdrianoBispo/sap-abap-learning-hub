@@ -8,7 +8,7 @@
 
 - Implementar **Criticality** (Cores Semânticas) para destacar colunas de status, compreendendo como mapear valores numéricos do backend para feedback visual no frontend.  
 
-- Adicionar **Botões de Ação** na tabela (DataFieldForAction), distinguindo entre ações globais (Toolbar) e ações específicas de linha (Inline).  
+- Adicionar **Botões de Ação** na tabela (`DataFieldForAction`), distinguindo entre ações globais (Toolbar) e ações específicas de linha (Inline).  
 
 - Gerenciar a visibilidade de botões padrão (**Create**, **Delete**, **Update**) via anotações de UI, independentemente das capacidades do backend.  
 
@@ -27,7 +27,7 @@ Não escolhemos cores arbitrárias (como "Azul #0000FF"); usamos **Cores Semânt
 
 ### Passo 1: O Campo Calculado (Backend)
 
-A lógica de decisão ("Este registro é crítico?") deve residir no Backend (CDS View), não no Frontend. Criamos um campo calculado, geralmente nomeado como StatusCriticality, que retorna os inteiros 0, 1, 2 ou 3.
+A lógica de decisão ("Este registro é crítico?") deve residir no Backend (CDS View), não no Frontend. Criamos um campo calculado, geralmente nomeado como `StatusCriticality`, que retorna os inteiros 0, 1, 2 ou 3.
 
 ``` CDS
 /* Exemplo na CDS View */  

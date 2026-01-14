@@ -8,7 +8,7 @@
 
 - Compreender profundamente o ciclo de vida de **Deployment** (Implantação), transformando um projeto de desenvolvimento local em um artefato de produção hospedado no servidor ABAP.  
 
-- Utilizar as **SAP Fiori Tools** para executar o processo de build e deploy, compreendendo o papel dos arquivos de configuração ui5-deploy.yaml.  
+- Utilizar as **SAP Fiori Tools** para executar o processo de build e deploy, compreendendo o papel dos arquivos de configuração `ui5-deploy.yaml`.  
 
 - Diferenciar com precisão arquitetural os **Catálogos Técnicos** (Repositório de Definições) dos **Catálogos de Negócio** (Agrupamento de Funções), e como eles se relacionam com o Fiori Launchpad.  
 

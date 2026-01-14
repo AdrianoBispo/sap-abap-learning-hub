@@ -6,7 +6,7 @@
 
 ## Objetivos de Aprendizagem
 
-- Aplicar **Ordenação Padrão** (Sorting) na tabela do List Report usando a anotação complexa PresentationVariant, compreendendo como isso afeta a percepção inicial do usuário.  
+- Aplicar **Ordenação Padrão** (Sorting) na tabela do List Report usando a anotação complexa `PresentationVariant`, compreendendo como isso afeta a percepção inicial do usuário.  
 
 - Implementar a estrutura hierárquica de **Facetas** na _Metadata Extension_ para transformar uma Object Page vazia em uma interface organizada com Seções e Subseções.  
 

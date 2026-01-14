@@ -165,11 +165,11 @@ WebsiteLink;
 
 ## Quiz de Fixação
 
-1. Qual a diferença fundamental de uso entre a anotação #FOR_INTENT_BASED_NAVIGATION e #WITH_URL?  
-  R: #FOR_INTENT_BASED_NAVIGATION é usada para navegar para outros aplicativos Fiori dentro do ecossistema SAP/Launchpad usando abstrações semânticas (Objeto-Ação), garantindo integração e flexibilidade. #WITH_URL é usada para abrir links externos arbitrários da internet (como Google ou portais de parceiros) baseados em um endereço web absoluto.  
+1. Qual a diferença fundamental de uso entre a anotação `#FOR_INTENT_BASED_NAVIGATION` e `#WITH_URL`?  
+  R: `#FOR_INTENT_BASED_NAVIGATION` é usada para navegar para outros aplicativos Fiori dentro do ecossistema SAP/Launchpad usando abstrações semânticas (Objeto-Ação), garantindo integração e flexibilidade. `#WITH_URL` é usada para abrir links externos arbitrários da internet (como Google ou portais de parceiros) baseados em um endereço web absoluto.  
 
 2. Se eu quiser que um clique no campo SalesOrderID abra o aplicativo padrão de exibição de pedidos de venda, quais informações obrigatórias preciso fornecer na anotação da linha?  
-  R: Preciso fornecer o type: #FOR_INTENT_BASED_NAVIGATION, o semanticObject (ex: SalesOrder) e a semanticObjectAction (ex: display ou manage).
+  R: Preciso fornecer o `type: #FOR_INTENT_BASED_NAVIGATION`, o semanticObject (ex: SalesOrder) e a semanticObjectAction (ex: display ou manage).
 
 3. Como o aplicativo de destino sabe exatamente qual registro abrir quando o usuário clica em um link de navegação?
   R: O Fiori Elements (framework de origem) passa automaticamente os valores da linha selecionada (o contexto, como o ID) como parâmetros de URL na chamada da intenção. O aplicativo de destino é projetado para ler esses parâmetros de URL na sua inicialização (Startup Parameters) e usá-los para filtrar os dados ou carregar o registro específico.
