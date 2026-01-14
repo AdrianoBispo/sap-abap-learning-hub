@@ -7,7 +7,7 @@
 ## Objetivos de Aprendizagem
 
 - Diferenciar com clareza **Tipos Elementares** de **Tipos Estruturados**, e compreender a distinção entre **Estruturas Planas (Flat)** e **Estruturas Profundas (Deep)**.  
-- Definir e declarar estruturas localmente utilizando TYPES e DATA, bem como reutilizar tipos globais do Dicionário de Dados (SE11).  
+- Definir e declarar estruturas localmente utilizando `TYPES` e `DATA`, bem como reutilizar tipos globais do Dicionário de Dados (`SE11`).  
 - Acessar e manipular componentes individuais de uma estrutura utilizando a sintaxe do hífen (-).  
 - Dominar o operador construtor **CORRESPONDING**, incluindo suas variações avançadas (MAPPING, EXCEPT, BASE), essencial para a transferência de dados entre camadas no modelo RAP.
 

@@ -12,7 +12,7 @@
 
 - Aplicar corretamente os comandos **MODIFY ENTITIES** para operações de criação, atualização, exclusão e execução de ações customizadas.  
 
-- Gerenciar a transacionalidade utilizando **COMMIT ENTITIES**, compreendendo a distinção entre o *Transactional Buffer* e a persistência física no banco de dados.  
+- Gerenciar a transacionalidade utilizando **`COMMIT ENTITIES`**, compreendendo a distinção entre o *Transactional Buffer* e a persistência física no banco de dados.  
 
 - Interpretar e manipular as estruturas de retorno padrão **FAILED**, **MAPPED** e **REPORTED** para tratamento robusto de erros.
 
@@ -31,13 +31,13 @@ Ao inserir diretamente na tabela, você está ignorando ("bypassing") toda a int
 A Solução (RAP):  
 No modelo RAP, aplicamos o princípio de Encapsulamento. A tabela do banco de dados é privada do Business Object. Ninguém de fora pode tocá-la. Para modificar dados, você deve "pedir" ao Business Object. O BO atua como um guardião, garantindo que todas as regras sejam cumpridas antes que qualquer dado seja gravado.
 
-## 2. O que é EML (Entity Manipulation Language)?
+## 2. O que é *EML* (Entity Manipulation Language)?
 
-O EML não é uma nova linguagem separada, mas uma extensão poderosa da sintaxe ABAP nativa, desenhada especificamente para o modelo RAP. Enquanto o SQL foca em *tabelas*, o EML foca em *entidades* e *comportamentos*.
+O *EML* não é uma nova linguagem separada, mas uma extensão poderosa da sintaxe ABAP nativa, desenhada especificamente para o modelo RAP. Enquanto o SQL foca em *tabelas*, o *EML* foca em *entidades* e *comportamentos*.
 
 * **ABAP SQL (SELECT):** Utilizado para **Leitura** de dados em massa. O RAP permite (e encoraja) o uso de SQL para leitura direta de CDS Views para relatórios, pois leitura não afeta a integridade.  
 
-* **EML (MODIFY, READ):** Utilizado para **Transações**. É a única porta de entrada para alterar dados ou executar lógicas de negócio (Ações) em um BO.
+* **EML (`MODIFY`, `READ`):** Utilizado para **Transações**. É a única porta de entrada para alterar dados ou executar lógicas de negócio (Ações) em um BO.
 
 **Vantagens do EML:**
 
