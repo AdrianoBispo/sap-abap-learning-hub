@@ -2,7 +2,7 @@
 
 ![Infográfico - Classes Locais](./01.03_Classes_Locais.png)
 
-> **Comece pelos slides: [O Artesão de Código Moderno](./01.03_O_Artesão_de_Código_Moderno.pdf)**
+> **Comece pelos slides: [Trabalhando com Classes Locais e Orientação a Objetos no ABAP](./01.03_Trabalhando_com_Classes_Locais_OO_no_ABAP.pdf)**
 
 ## Objetivos de Aprendizagem
 

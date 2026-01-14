@@ -241,11 +241,17 @@ ENDCLASS.
 ## Glossário Técnico
 
 * **Structure (Estrutura):** Um objeto de dados complexo que contém uma sequência de componentes (campos) de qualquer tipo. É a representação em memória de uma linha de tabela ou entidade de negócio.  
+
 * **Flat Structure (Estrutura Plana):** Estrutura que contém apenas tipos elementares de comprimento fixo. Não contém strings, tabelas internas ou referências. Essencial para chaves de tabelas e operações de banco de dados simples.  
+
 * **Deep Structure (Estrutura Profunda):** Estrutura que contém referências (strings, tabelas internas, objetos). Exige gerenciamento de memória mais complexo pelo sistema.  
+
 * **Nested Structure (Estrutura Aninhada):** Uma estrutura que contém outra subestrutura como um dos seus componentes. Permite modelar dados hierárquicos (ex: Cabeçalho -> Endereço).  
+
 * **CORRESPONDING Operator:** Poderoso operador construtor que projeta dados de uma estrutura para outra baseando-se na correspondência de nomes ou regras de mapeamento explícito.  
+
 * **BASE Addition:** Cláusula do operador CORRESPONDING (e outros construtores) que permite definir um valor inicial para a estrutura de destino antes de aplicar a cópia dos novos valores, essencial para operações de *Merge* ou *Update*.  
+
 * **TYPES vs DATA:** TYPES define o "molde" ou a "planta" da estrutura (tempo de compilação). DATA aloca a memória e cria a "instância" utilizável (tempo de execução).
 
 ## Quiz de Fixação

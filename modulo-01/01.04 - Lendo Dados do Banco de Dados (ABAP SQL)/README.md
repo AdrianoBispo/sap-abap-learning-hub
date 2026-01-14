@@ -2,14 +2,18 @@
 
 ![Infográfico - A Evolução do SQL no ABAP Moderno](./01.04_A_Evolucao_do_ABAP_SQL.png)
 
-> **Comece pelos slides: [Evolução e Maestria: Dominando a Leitura de Dados com o ABAP SQL Moderno](./01.04_ABAP_SQL_Moderno_Maestria_em_Leitura_de_Dados.pdf)**
+> **Comece pelos slides: [Lendo Dados do Banco de Dados (ABAP SQL)](./01.04_Lendo_Dados_do_Banco_de_Dados_(ABAP%20SQL).pdf)**
 
 ## Objetivos de Aprendizagem
 
 - Escrever comandos **SELECT** robustos utilizando a sintaxe moderna (Strict Mode), compreendendo suas regras sintáticas e benefícios.  
+
 - Entender a fundo o uso do caractere de escape **@ (Host Variables)** para diferenciar variáveis ABAP de colunas SQL.  
+
 - Utilizar **Declarações Inline** (@DATA) para criação automática de tabelas internas e estruturas complexas baseadas na projeção da consulta.  
+
 - Aplicar filtros avançados (WHERE, IN, LIKE), ordenação (ORDER BY) e limitar resultados (UP TO n ROWS) de forma eficiente.  
+
 - Diferenciar o uso de **SELECT SINGLE** para leituras únicas e entender as variáveis de sistema **sy-subrc** e **sy-dbcnt**.
 
 ## 1. ABAP SQL Moderno: O Que Mudou e Por Quê?
@@ -117,6 +121,7 @@ Após cada comando SELECT, o sistema atualiza duas variáveis críticas na estru
    * 4: Aviso. Nenhuma linha foi encontrada que satisfaça o WHERE.  
    * 8: Erro (menos comum em SELECTs simples).  
    * *Dica:* Sempre verifique sy-subrc imediatamente após o SELECT.  
+
 2. **sy-dbcnt (Database Count):**  
    * Contém o número de linhas processadas/retornadas.  
    * Se sy-subrc = 0, sy-dbcnt dirá quantas linhas vieram (ex: 500).  

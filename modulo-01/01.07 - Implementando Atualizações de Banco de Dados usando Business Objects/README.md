@@ -2,14 +2,18 @@
 
 ![Infográfico - Atualização de Dados no ABAP Moderno](./01.07_Atualizacao_de_Dados_no_ABAP_RAP.png)
 
-> **Comece pelos slides: [Dominando a Persistência de Dados no ABAP Moderno](./01.07_ABAP_Persistência_EML_Guardião_de_Dados.pdf)**
+> **Comece pelos slides: [Implementando Atualizações de Banco de Dados](./01.07_Implementando_Atualizacoes_de_Banco_de_Dados.pdf)**
 
 ## Objetivos de Aprendizagem
 
 - Compreender profundamente a arquitetura transacional do RAP e por que comandos de atualização direta SQL (INSERT, UPDATE, DELETE) são estritamente proibidos em cenários de negócio modernos.  
+
 - Dominar a sintaxe e a semântica da **EML (Entity Manipulation Language)** para interagir programaticamente com Business Objects, tanto para leitura quanto para modificação.  
+
 - Aplicar corretamente os comandos **MODIFY ENTITIES** para operações de criação, atualização, exclusão e execução de ações customizadas.  
+
 - Gerenciar a transacionalidade utilizando **COMMIT ENTITIES**, compreendendo a distinção entre o *Transactional Buffer* e a persistência física no banco de dados.  
+
 - Interpretar e manipular as estruturas de retorno padrão **FAILED**, **MAPPED** e **REPORTED** para tratamento robusto de erros.
 
 ## 1. O Fim do SQL Direto (INSERT/UPDATE)
@@ -32,6 +36,7 @@ No modelo RAP, aplicamos o princípio de Encapsulamento. A tabela do banco de da
 O EML não é uma nova linguagem separada, mas uma extensão poderosa da sintaxe ABAP nativa, desenhada especificamente para o modelo RAP. Enquanto o SQL foca em *tabelas*, o EML foca em *entidades* e *comportamentos*.
 
 * **ABAP SQL (SELECT):** Utilizado para **Leitura** de dados em massa. O RAP permite (e encoraja) o uso de SQL para leitura direta de CDS Views para relatórios, pois leitura não afeta a integridade.  
+
 * **EML (MODIFY, READ):** Utilizado para **Transações**. É a única porta de entrada para alterar dados ou executar lógicas de negócio (Ações) em um BO.
 
 **Vantagens do EML:**
@@ -66,7 +71,9 @@ MODIFY ENTITIES OF Nome_Da_Definicao_De_Comportamento
 ```
 
 * **FAILED:** Contém as chaves das linhas que falharam. O framework preenche isso automaticamente se uma validação falhar.  
+
 * **REPORTED:** Contém as mensagens de erro (T100) associadas às falhas. É aqui que você descobre *por que* falhou (ex: "Cliente inválido").  
+
 * **MAPPED:** (Usado no `CREATE`) Contém o mapeamento entre o ID temporário (`%cid`) e o ID final gerado pelo sistema, vital para numeração tardia (_Late Numbering_).
 
 ## 4. Transacionalidade: COMMIT ENTITIES
@@ -76,6 +83,7 @@ Uma diferença crítica entre o ABAP Clássico e o RAP é o gerenciamento da tra
 No clássico, `COMMIT WORK` disparava a gravação física imediata. No RAP, o processo é dividido em duas fases distintas:
 
 1. **Interaction Phase (Fase de Interação):** Onde ocorrem os `MODIFY ENTITIES`. Os dados são validados e colocados no **Transactional Buffer** (memória do servidor de aplicação). Nada foi gravado no banco ainda.  
+
 2. **Save Phase (Fase de Salvamento):** Disparada pelo comando `COMMIT ENTITIES`. O framework pega os dados do buffer, executa validações finais ("Save Validations") e, se tudo estiver ok, persiste no banco de dados.
 
 **Sintaxe de Commit:**
@@ -229,11 +237,17 @@ ENDCLASS.
 ## Glossário Técnico
 
 * **EML (Entity Manipulation Language):** Extensão da linguagem ABAP utilizada para interagir com Business Objects no modelo RAP. Permite operações transacionais (MODIFY) e leitura com privilégios (READ).  
+
 * **Business Object (BO):** Representação virtual de uma entidade de negócio (ex: Viagem) que encapsula dados (CDS) e comportamento (Behavior Pool).  
+
 * **%cid (Content ID):** Identificador temporário alfanumérico atribuído pelo consumidor (você) durante uma operação de CREATE. Ele serve para identificar a linha no buffer antes que o banco de dados gere a chave primária definitiva.  
+
 * **Transactional Buffer:** Área de memória no servidor de aplicação onde o RAP armazena o estado das entidades modificadas durante a *Interaction Phase*. O SQL INSERT/UPDATE só ocorre quando este buffer é processado na *Save Phase*.  
+
 * **FAILED Structure:** Tabela de retorno do EML que contém as chaves das instâncias que falharam na operação. Se uma linha está em FAILED, ela não será salva.  
+
 * **REPORTED Structure:** Tabela de retorno do EML que contém objetos de mensagem (referências a T100) explicando a causa do erro. Geralmente ligada à chave da instância falha.  
+
 * **MAPPED Structure:** Tabela de retorno vital para operações de criação (CREATE). Ela mapeia o %cid (ID temporário) para a chave real gerada pelo BO (ex: número do pedido).
 
 

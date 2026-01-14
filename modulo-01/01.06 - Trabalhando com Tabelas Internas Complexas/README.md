@@ -2,7 +2,7 @@
 
 ![Infográfico - Otimização de Tabelas Internas](./01.06_Otimizacao_de_Tabelas_Internas.png)
 
-> **Comece pelos slides: [O Playbook de Performance para ABAP Moderno](./01.06_ABAP_Performance_Playbook.pdf)**
+> **Comece pelos slides: [ABAP Moderno: Tabelas Internas Complexas](./01.06_ABAP_Moderno_Tabelas_Internas_Complexas.pdf)**
 
 ## Objetivos de Aprendizagem
 
@@ -201,10 +201,15 @@ ENDCLASS.
 ## Glossário Técnico
 
 * **Standard Table:** Tipo de tabela interna onde o acesso por chave não é otimizado (Busca Linear - O(n)). Ideal para acesso via índice ou APPEND simples.  
+
 * **Hashed Table:** Tipo de tabela interna otimizada para acesso via chave única (Algoritmo de Hash - O(1)). Ideal para grandes volumes de dados únicos.  
+
 * **Sorted Table:** Tipo de tabela interna mantida sempre ordenada (Busca Binária - O(log n)). Ideal para buscas por intervalo ou chave parcial.  
+
 * **Secondary Key (Chave Secundária):** Um índice adicional criado sobre uma tabela interna que permite buscas rápidas por campos que não compõem a chave primária. Pode ser SORTED ou HASHED.  
+
 * **Table Expression (itab[...]):** Sintaxe funcional para leitura de registros. Lança exceção cx_sy_itab_line_not_found em caso de falha, ao contrário do sy-subrc.  
+
 * **Big O Notation:** Notação matemática usada para descrever a eficiência de um algoritmo. O(1) é o melhor (constante), O(n) é linear (proporcional ao tamanho).
 
 ## Quiz de Fixação
