@@ -1,6 +1,6 @@
 # Projetando Código Orientado a Objetos Eficaz
 
-![Infográfico - Projetando Código Orientado a Objetos Eficaz](./04.07_Principios_para_um_Codigo_ABAP_OO_Eficaz.png)
+![Infográfico - Princípios para um Código ABAP OO Eficaz](./04.07_Principios_para_um_Codigo_ABAP_OO_Eficaz.png)
 
 > **Comece pelos slides: [Dominando os Pilares do Código Flexível e Resiliente para S/4HANA, RAP e Clean Core](./04.07_De_Construtor_a_Arquiteto_ABAP_Moderno.pdf)**
 

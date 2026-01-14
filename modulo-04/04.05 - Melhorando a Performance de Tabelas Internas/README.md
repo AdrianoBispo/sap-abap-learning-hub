@@ -1,8 +1,8 @@
 # Melhorando a Performance de Tabelas Internas
 
-![Infográfico - Melhorando a Performance de Tabelas Internas](./04.05_Guia_de_Performance_para_Tabelas_ABAP.png)
+![Infográfico - Guia de Performance para Tabelas Internas ABAP](./04.05_Guia_de_Performance_para_Tabelas_ABAP.png)
 
-> **Comece pelos slides: [Melhorando a Performance de Tabelas Internas](./04.05_ABAP_Performance_Tabelas_Internas.pdf)**
+> **Comece pelos slides: [ABAP Moderno: Performance de Elite em Tabelas Internas](./04.05_ABAP_Performance_Tabelas_Internas.pdf)**
 
 ## Objetivos de Aprendizagem
 

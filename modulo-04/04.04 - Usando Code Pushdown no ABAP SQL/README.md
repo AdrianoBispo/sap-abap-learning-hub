@@ -1,8 +1,8 @@
 # Usando Code Pushdown no ABAP SQL
 
-![Infográfico - Modernize seu Code Pushdown](./04.04_Modernize_seu_ABAP_com_Code_Pushdown.png)
+![Infográfico - Modernize seu ABAP com Code Pushdown](./04.04_Modernize_seu_ABAP_com_Code_Pushdown.png)
 
-> **Comece pelos slides: [Dominando o Code Pushdown para Performance Máxima](./04.04_Code_Pushdown_Guia_Definitivo.pdf)**
+> **Comece pelos slides: [Usando Code Pushdown no ABAP SQL](./04.04_Usando_Code_Pushdown_no_ABAP_SQL.pdf)**
 
 ## Objetivos de Aprendizagem
 

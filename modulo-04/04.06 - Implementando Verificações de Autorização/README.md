@@ -1,8 +1,8 @@
 # Implementando Verificações de Autorização
 
-![Infográfico - Implementando Verificações de Autorização](./04.06_ABAP_vs_CDS.png)
+![Infográfico - Verificação de Autorização no SAP Moderno: ABAP vs CDS](./04.06_ABAP_vs_CDS.png)
 
-> **Comece pelos slides: [Dominando a Segurança em ABAP](./04.06_Segurança_ABAP_Do_Básico_à_Maestria.pdf)**
+> **Comece pelos slides: [Segurança e Autorização no ABAP](./04.06_Seguranca_e_Autorizacao_no_ABAP.pdf)**
 
 ## Objetivos de Aprendizagem
 
