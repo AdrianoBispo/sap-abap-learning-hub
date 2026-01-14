@@ -6,13 +6,13 @@
 
 ## Objetivos de Aprendizagem
 
-- Compreender profundamente a mudança de paradigma do _ABAP Clássico_ para o _ABAP Cloud_ e suas implicações na arquitetura de sistemas.  
+- Compreender a mudança de paradigma do _ABAP Clássico_ para o _ABAP Cloud_ e suas implicações na arquitetura de sistemas.  
 
--  Identificar e configurar o ambiente de desenvolvimento moderno: _ABAP Development Tools (ADT)_ no _Eclipse_, entendendo suas vantagens sobre a `SE80`.  
+- Identificar e configurar o ambiente de desenvolvimento moderno: _ABAP Development Tools (ADT)_ no _Eclipse_, entendendo suas vantagens sobre a `SE80`.  
 
--  Entender a hierarquia de organização de software: _Componentes de Software, Pacotes e o papel do **abapGit**_.  
+- Entender a hierarquia de organização de software: _Componentes de Software, Pacotes e o papel do **abapGit**_.  
 
--  Criar, ativar e executar a primeira aplicação ABAP ("Hello World") utilizando uma _Classe Global_ e a _Interface de Console_, abandonando o conceito de _Reports_ tradicionais.
+- Criar, ativar e executar a primeira aplicação ABAP ("Hello World") utilizando uma _Classe Global_ e a _Interface de Console_, abandonando o conceito de _Reports_ tradicionais.
 
 ## 1. Introdução ao Ambiente de Desenvolvimento Moderno
 
