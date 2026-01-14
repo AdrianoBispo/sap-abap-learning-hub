@@ -20,11 +20,11 @@ A escolha da edição do S/4HANA define as regras do jogo para o desenvolvedor.
 
 * **S/4HANA Cloud Public Edition:** É um ambiente SaaS (Software as a Service) puro. A infraestrutura é compartilhada e gerenciada pela SAP.  
   
-  * **Restrição:** O ABAP Clássico não existe aqui. Você não tem acesso ao SAP GUI, nem à SE38. O Clean Core é tecnicamente imposto; o compilador simplesmente não aceita código que viole as regras da nuvem. É Clean Core ou nada.  
+  * **Restrição:** O ABAP Clássico não existe aqui. Você não tem acesso ao SAP GUI, nem à `SE38`. O Clean Core é tecnicamente imposto; o compilador simplesmente não aceita código que viole as regras da nuvem. É Clean Core ou nada.  
 
 * **S/4HANA Cloud Private Edition (e On-Premise):** É um ambiente dedicado (Single Tenant). Você tem controle total sobre o servidor.  
   
-  * **Liberdade:** Você tem acesso total ao SAP GUI, transações antigas (SE80, SM30) e pode escrever código legado à vontade.  
+  * **Liberdade:** Você tem acesso total ao SAP GUI, transações antigas (`SE80`, `SM30`) e pode escrever código legado à vontade.  
   
   * **O Perigo:** A liberdade é tentadora. É muito fácil continuar desenvolvendo "como em 2010" (usando includes, acessando tabelas diretamente, modificando standard), gerando nova dívida técnica.  
   
@@ -133,7 +133,7 @@ Visualizando a convivência pacífica entre o novo e o velho:
 
 ## Quiz de Fixação
 
-1. No S/4HANA Private Cloud, por que eu deveria me preocupar em usar ABAP Cloud (Tier 2) se eu tenho acesso total à SE38 e ao modo clássico (Tier 3)?  
+1. No S/4HANA Private Cloud, por que eu deveria me preocupar em usar ABAP Cloud (Tier 2) se eu tenho acesso total à `SE38` e ao modo clássico (Tier 3)?  
   R: Para garantir a "Upgradeability" (facilidade de atualização) e a longevidade do código. Código escrito no Tier 3, embora funcione hoje, pode quebrar em futuros upgrades da SAP (pois usa APIs internas instáveis) ou dificultar uma futura migração para a Public Cloud. O código no Tier 2 usa apenas APIs estáveis garantidas pela SAP, blindando a extensão contra mudanças no núcleo.  
 
 2. Tenho uma BAPI padrão da SAP que não está na lista de "Released Objects" (Whitelist), mas preciso muito usá-la no meu novo App Fiori RAP desenvolvido no Tier 2. Qual a solução arquitetural correta no Private Cloud?  

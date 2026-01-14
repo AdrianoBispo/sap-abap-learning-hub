@@ -8,7 +8,7 @@
 
 - Compreender profundamente o papel arquitetural dos **Cloud BAdIs (Business Add-Ins)** como a evolução orientada a objetos e segura para os antigos User Exits e Customer Exits, garantindo a estabilidade do sistema.  
 
-- Dominar a navegação e busca de pontos de extensão liberados (**Released BAdIs**) utilizando as ferramentas de repositório do ADT (Eclipse), abandonando transações legadas como SE18.  
+- Dominar a navegação e busca de pontos de extensão liberados (**Released BAdIs**) utilizando as ferramentas de repositório do ADT (Eclipse), abandonando transações legadas como `SE18`.  
 
 - Implementar uma **Enhancement Implementation** completa para cenários de validação ou modificação de dados em processos standard, respeitando os contratos de interface.  
 
@@ -36,7 +36,7 @@ A SAP substituiu esses mecanismos pelos Cloud BAdIs (Business Add-Ins). Ao contr
 
 ## 2. Localizando BAdIs Liberados
 
-A era da transação SE18 (Definição de BAdI) e SE19 (Implementação) acabou para o desenvolvedor Cloud. No modelo ABAP Cloud, a descoberta de pontos de extensão acontece exclusivamente no **ADT (Eclipse)**.
+A era da transação `SE18` (Definição de BAdI) e `SE19` (Implementação) acabou para o desenvolvedor Cloud. No modelo ABAP Cloud, a descoberta de pontos de extensão acontece exclusivamente no **ADT (Eclipse)**.
 
 **Passo a Passo de Descoberta:**
 
@@ -161,7 +161,7 @@ Para evitar esse desperdício, usamos **BAdI Filters**.
   R: O uso de filtros permite que o Kernel do ABAP verifique a condição antes mesmo de carregar a classe de implementação na memória. Se o filtro não for atendido, a execução é pulada instantaneamente, economizando recursos de memória e CPU que seriam gastos para instanciar a classe e rodar o IF.  
 
 3. Onde um desenvolvedor Clean Core deve procurar por BAdIs disponíveis para uso em um projeto S/4HANA Cloud?  
-  R: Na árvore de "Released Objects" dentro do ABAP Development Tools (Eclipse), navegando até a categoria "Enhancements". A transação clássica SE18 não deve ser usada, pois ela mostra todos os BAdIs do sistema, incluindo aqueles que não são liberados ou seguros para uso na nuvem.
+  R: Na árvore de "Released Objects" dentro do ABAP Development Tools (Eclipse), navegando até a categoria "Enhancements". A transação clássica `SE18` não deve ser usada, pois ela mostra todos os BAdIs do sistema, incluindo aqueles que não são liberados ou seguros para uso na nuvem.
 
 ## Links de Demonstrações
 
