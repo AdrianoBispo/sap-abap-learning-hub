@@ -6,15 +6,15 @@
 
 ## Objetivos de Aprendizagem
 
-- Escrever comandos **SELECT** robustos utilizando a sintaxe moderna (Strict Mode), compreendendo suas regras sintáticas e benefícios.  
+- Escrever comandos `SELECT` robustos utilizando a sintaxe moderna (Strict Mode), compreendendo suas regras sintáticas e benefícios.  
 
-- Entender a fundo o uso do caractere de escape **@ (Host Variables)** para diferenciar variáveis ABAP de colunas SQL.  
+- Entender a fundo o uso do caractere de escape `@` (Host Variables) para diferenciar variáveis ABAP de colunas SQL.  
 
-- Utilizar **Declarações Inline** (@DATA) para criação automática de tabelas internas e estruturas complexas baseadas na projeção da consulta.  
+- Utilizar **Declarações Inline** (`@DATA`) para criação automática de tabelas internas e estruturas complexas baseadas na projeção da consulta.  
 
-- Aplicar filtros avançados (WHERE, IN, LIKE), ordenação (ORDER BY) e limitar resultados (UP TO n ROWS) de forma eficiente.  
+- Aplicar filtros avançados (`WHERE`, `IN`, `LIKE`), ordenação (`ORDER BY`) e limitar resultados (`UP TO n ROWS`) de forma eficiente.  
 
-- Diferenciar o uso de **SELECT SINGLE** para leituras únicas e entender as variáveis de sistema **sy-subrc** e **sy-dbcnt**.
+- Diferenciar o uso de **`SELECT SINGLE`** para leituras únicas e entender as variáveis de sistema **`sy-subrc`** e **`sy-dbcnt`**.
 
 ## 1. ABAP SQL Moderno: O Que Mudou e Por Quê?
 

@@ -16,7 +16,7 @@
 
 ## 1. Introdução ao Ambiente de Desenvolvimento Moderno
 
-No ecossistema de desenvolvimento SAP tradicional, a transação **SE80 (Object Navigator)** dentro do SAP GUI reinou soberana por décadas. No entanto, com a evolução para o **SAP BTP (Business Technology Platform)** e o **SAP S/4HANA Cloud**, o desenvolvimento mudou para uma abordagem mais aberta e padronizada pela indústria.
+No ecossistema de desenvolvimento SAP tradicional, a transação **`SE80` (Object Navigator)** dentro do SAP GUI reinou soberana por décadas. No entanto, com a evolução para o **SAP BTP (Business Technology Platform)** e o **SAP S/4HANA Cloud**, o desenvolvimento mudou para uma abordagem mais aberta e padronizada pela indústria.
 
 A ferramenta padrão agora é o **ADT (ABAP Development Tools)**, um conjunto de plugins oficiais da SAP instalados sobre a plataforma Eclipse.
 
@@ -46,7 +46,7 @@ No ABAP Clássico, os desenvolvedores tinham "superpoderes" perigosos. Podiam le
 
 O **Clean Core** é a estratégia para garantir que o sistema ERP possa ser atualizado automaticamente (como seu smartphone atualiza o Android/iOS) sem quebrar as customizações. Para isso, o **ABAP Cloud** impõe restrições técnicas rigorosas:
 
-1. **Language Version 5 (ABAP for Cloud Development):** O compilador bloqueia comandos obsoletos ou perigosos. Você não pode usar CALL SCREEN (Dynpros), WRITE (Listas clássicas), ou acesso direto a arquivos do servidor.  
+1. **Language Version 5 (ABAP for Cloud Development):** O compilador bloqueia comandos obsoletos ou perigosos. Você não pode usar `CALL SCREEN` (Dynpros), `WRITE` (Listas clássicas), ou acesso direto a arquivos do servidor.  
 
 2. **Released Objects (Objetos Liberados):** Esta é a "Regra de Ouro". Você só pode referenciar objetos SAP que foram explicitamente marcados como **APIs Públicas (Whitelisted)**.  
    * *Exemplo:* No clássico, líamos a tabela MARA para dados de material. No Cloud, isso gera erro de sintaxe. Devemos usar a CDS View pública I_Product, que é a "interface contrato" estável que a SAP garante que não mudará.  

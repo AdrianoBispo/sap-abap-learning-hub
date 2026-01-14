@@ -9,7 +9,7 @@
 - Distinguir claramente entre **Classes Globais** e **Classes Locais**, compreendendo os casos de uso ideais para cada uma.  
 - Dominar a anatomia de uma classe: separar a **Definição** (Interface/Contrato) da **Implementação** (Lógica/Código).  
 - Aplicar estrategicamente as seções de visibilidade (`PUBLIC`, `PROTECTED`, `PRIVATE`) para garantir o encapsulamento e segurança do código.  
-- Utilizar a sintaxe moderna de instanciação com o operador NEW, incluindo a passagem de parâmetros para o construtor.  
+- Utilizar a sintaxe moderna de instanciação com o operador `NEW`, incluindo a passagem de parâmetros para o construtor.  
 - Entender a diferença entre membros de **Instância** e membros **Estáticos**.
 
 ## 1. Classes Globais vs. Classes Locais: Onde codificar?
@@ -17,7 +17,7 @@
 No ecossistema ABAP, a Orientação a Objetos (OO) é a espinha dorsal do desenvolvimento moderno (RAP). Embora a sintaxe seja idêntica, o escopo de uso difere:
 
 * **Classes Globais (Global Classes - Prefixo ZCL_):**  
-  * **Definição:** Criadas através do ABAP Development Tools (ADT/Eclipse) ou SE24. São objetos de repositório independentes.  
+  * **Definição:** Criadas através do ABAP Development Tools (ADT/Eclipse) ou `SE24`. São objetos de repositório independentes.  
   * **Visibilidade:** Visíveis por todo o sistema SAP. Qualquer programa, função ou outra classe pode instanciá-las.  
   * **Uso:** Lógica de negócio reutilizável, APIs públicas, Entidades de Negócio.  
 * **Classes Locais (Local Classes - Prefixo LCL_):**  
@@ -71,7 +71,7 @@ O encapsulamento é vital para manutenção. Se tudo for público, qualquer dese
   
 2. **PROTECTED SECTION:** A área da família. Acessível pela própria classe e por suas classes filhas (herança). Usado para permitir que subclasses reutilizem lógica interna sem expô-la ao mundo.
   
-3. **PRIVATE SECTION:** O cofre. Acessível *apenas* pela própria classe. É onde escondemos a complexidade. Se você mudar a lógica de um método privado, tem a garantia de que nenhum código externo quebrará, pois ninguém de fora consegue chamá-lo.
+3. `PRIVATE SECTION`: O cofre. Acessível *apenas* pela própria classe. É onde escondemos a complexidade. Se você mudar a lógica de um método privado, tem a garantia de que nenhum código externo quebrará, pois ninguém de fora consegue chamá-lo.
 
 ## 3. Instanciação Moderna: O Operador `NEW`
 
@@ -79,7 +79,7 @@ A criação de objetos evoluiu para tornar o código mais fluído e legível.
 
 ### Sintaxe Antiga vs. Moderna
 
-* **Antigo (CREATE OBJECT):** Exigia a declaração prévia da variável com o tipo exato, ocupando várias linhas.  
+* **Antigo (`CREATE OBJECT`):** Exigia a declaração prévia da variável com o tipo exato, ocupando várias linhas.  
 ``` ABAP
   DATA: lo_cliente TYPE REF TO lcl_cliente.  
   CREATE OBJECT lo_cliente  
@@ -247,16 +247,16 @@ ENDCLASS.
 
 ## Quiz de Fixação
 
-1. Qual a diferença fundamental entre a DEFINITION e a IMPLEMENTATION de uma classe?  
-  R: A DEFINITION descreve o contrato da classe (quais métodos e atributos ela possui e sua visibilidade), servindo como um manual de uso. A IMPLEMENTATION contém o código ABAP real (a lógica) que dita como esses métodos funcionam internamente.
+1. Qual a diferença fundamental entre a `DEFINITION` e a `IMPLEMENTATION` de uma classe?  
+  R: A `DEFINITION` descreve o contrato da classe (quais métodos e atributos ela possui e sua visibilidade), servindo como um manual de uso. A `IMPLEMENTATION` contém o código ABAP real (a lógica) que dita como esses métodos funcionam internamente.
   
-2. O que acontece se eu tentar acessar um atributo definido na PRIVATE SECTION a partir de um programa externo?  
+2. O que acontece se eu tentar acessar um atributo definido na `PRIVATE SECTION` a partir de um programa externo?  
   R: Ocorrerá um erro de sintaxe. O compilador ABAP impede o acesso direto a membros privados de fora da própria classe, garantindo o encapsulamento.
  
 3. Para que serve o método constructor e quando ele é chamado?  
-  R: Ele serve para inicializar o objeto, definindo valores padrão ou recebendo configurações iniciais. Ele é chamado automaticamente pelo sistema no momento em que o comando NEW (ou CREATE OBJECT) é executado.
+  R: Ele serve para inicializar o objeto, definindo valores padrão ou recebendo configurações iniciais. Ele é chamado automaticamente pelo sistema no momento em que o comando `NEW` (ou `CREATE OBJECT`) é executado.
 
-4. Se eu alterar um atributo estático (CLASS-DATA) em uma instância da classe, o que acontece com as outras instâncias?  
+4. Se eu alterar um atributo estático (`CLASS-DATA`) em uma instância da classe, o que acontece com as outras instâncias?  
   R: O valor muda para todas as instâncias. Atributos estáticos são compartilhados globalmente por todos os objetos daquela classe, pois residem na memória da classe, não na memória do objeto individual.
 
 ## Links de Demonstrações

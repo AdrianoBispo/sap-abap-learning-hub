@@ -8,8 +8,8 @@
 
 - Dominar o uso de **Declarações Inline** para variáveis e *Field Symbols*, compreendendo regras de escopo, inferência de tipos complexos e o impacto na legibilidade do código.  
 - Manipular textos de forma avançada utilizando **String Templates**, explorando formatações de data, número, conversão ALPHA, alinhamento e chamadas de métodos embutidas.  
-- Aplicar estruturas de controle de fluxo modernas, substituindo lógicas verbosas por operadores construtores como **COND**, **SWITCH** e introduzindo o uso de **LET** para variáveis auxiliares.  
-- Utilizar o operador **VALUE** para construção rápida de estruturas e tabelas.  
+- Aplicar estruturas de controle de fluxo modernas, substituindo lógicas verbosas por operadores construtores como **`COND`**, **`SWITCH`** e introduzindo o uso de **`LET`** para variáveis auxiliares.  
+- Utilizar o operador **`VALUE`** para construção rápida de estruturas e tabelas.  
 - Utilizar funções embutidas para operações de string e lógica booleana, alinhando-se aos princípios de *Clean Code* e evitando a criação de variáveis globais desnecessárias.
 
 ## 1. Declarações de Variáveis: O Jeito Moderno (Inline Declarations)
@@ -79,11 +79,11 @@ lv_temp = 10.
 
 ## 2. Manipulação de Strings: String Templates
 
-O comando CONCATENATE era limitado, verboso e difícil de ler quando envolvia muitas variáveis e espaços. Os **String Templates**, delimitados por barras verticais (| ... |), trouxeram o poder das linguagens modernas para o ABAP.
+O comando `CONCATENATE` era limitado, verboso e difícil de ler quando envolvia muitas variáveis e espaços. Os **String Templates**, delimitados por barras verticais (`| ... |`), trouxeram o poder das linguagens modernas para o ABAP.
 
 ### Interpolação, Cálculos e Chamadas de Método
 
-A grande vantagem é a capacidade de realizar processamento *dentro* da string. Qualquer expressão ABAP válida pode ser colocada entre chaves { ... }.
+A grande vantagem é a capacidade de realizar processamento *dentro* da string. Qualquer expressão ABAP válida pode ser colocada entre chaves `{ ... }`.
 
 ``` ABAP
 DATA(lv_nome) = 'Ana'.  
@@ -177,9 +177,9 @@ DATA(lv_cor_semaforo) = SWITCH string( lv_status
                           ELSE 'Cinza' ).         " Default
 ```
 
-### Expressão LET (Variáveis Locais Temporárias)
+### Expressão `LET` (Variáveis Locais Temporárias)
 
-Uma das adições mais poderosas. O LET permite definir variáveis auxiliares dentro de um construtor (COND, SWITCH, VALUE) que só existem durante aquela operação. Isso evita poluir o código com variáveis temporárias globais.
+Uma das adições mais poderosas. O `LET` permite definir variáveis auxiliares dentro de um construtor (`COND`, `SWITCH`, `VALUE`) que só existem durante aquela operação. Isso evita poluir o código com variáveis temporárias globais.
 
 ``` ABAP
 " Calcula desconto baseado na média de compras, sem criar variável para a média  
@@ -209,13 +209,13 @@ DATA(ls_user) = VALUE ty_user( id = 1 name = 'João' ).
 
 O ABAP clássico exigia truques para verificar condições booleanas.
 
-* **xsdbool( log_exp )**: Retorna abap_true ('X') ou abap_false (' ') baseado em uma expressão lógica.  
+* **`xsdbool( log_exp )`**: Retorna `abap_true ('X')` ou `abap_false (' ')` baseado em uma expressão lógica.  
 ``` ABAP
   " Passa 'X' para o método se a idade for maior que 18  
   lo_class->set_adult_flag( xsdbool( lv_age >= 18 ) ).
 ```
 
-* **line_exists( ... )**: Verifica se uma linha existe numa tabela interna sem precisar fazer um READ TABLE e checar o sy-subrc.  
+* **`line_exists( ... )`**: Verifica se uma linha existe numa tabela interna sem precisar fazer um `READ TABLE` e checar o `sy-subrc`.  
 ``` ABAP
   IF line_exists( lt_users[ id = 99 ] ).  
     " Usuário existe...  
@@ -224,7 +224,7 @@ O ABAP clássico exigia truques para verificar condições booleanas.
 
 ## 4. Exemplo Prático: Calculadora Robusta com Histórico
 
-Este exemplo expandido utiliza SWITCH para a lógica, VALUE para manipular tabelas internas e String Templates avançados.
+Este exemplo expandido utiliza `SWITCH` para a lógica, `VALUE` para manipular tabelas internas e String Templates avançados.
 
 ``` ABAP
 CLASS zcl_basic_concepts DEFINITION  
@@ -314,14 +314,14 @@ ENDCLASS.
 
 | Conceito | ABAP Clássico (Legacy) | ABAP Moderno (Recomendado) |
 | :---- | :---- | :---- |
-| **Declaração** | DATA: lv_val TYPE i. | DATA(lv_val) = 10. |
-| **Ponteiro** | FIELD-SYMBOLS <fs> TYPE any. | ASSIGNING FIELD-SYMBOL(<fs>). |
-| **Concatenação** | CONCATENATE a b INTO c. | c = |
-| **Condicional** | IF a EQ b. | IF a = b. |
-| **Atribuição Lógica** | Bloco IF/ELSE de várias linhas | DATA(x) = COND #( WHEN a > b ... ). |
-| **Estrutura** | ls_data-campo = val. (linha a linha) | ls_data = VALUE #( campo = val ). |
-| **Conversão Alpha** | CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT' | ` |
-| **Verificar Tabela** | READ TABLE ... TRANSPORTING NO FIELDS | IF line_exists( ... ). |
+| **Declaração** | `DATA: lv_val TYPE i.` | `DATA(lv_val) = 10.` |
+| **Ponteiro** | `FIELD-SYMBOLS <fs> TYPE any.` | `ASSIGNING FIELD-SYMBOL(<fs>).` |
+| **Concatenação** | `CONCATENATE a b INTO c.` | `DATA(c) = \| {a} {b}\|` |
+| **Condicional** | `IF a EQ b.` | `IF a = b.` |
+| **Atribuição Lógica** | Bloco `IF`/`ELSE` de várias linhas | `DATA(x) = COND #( WHEN a > b ... ).` |
+| **Estrutura** | `ls_data-campo = val.` (linha a linha) | `ls_data = VALUE #( campo = val ).` |
+| **Conversão Alpha** | `CALL FUNCTION 'CONVERSION_EXIT_ALPHA_INPUT'` | `DATA(lv_db_format) = \|{ lv_matnr ALPHA = IN }\|.` (Adiciona zeros. Output: 000000000000000123) e `DATA(lv_screen_format) = \|{ lv_db_format ALPHA = OUT }\|.` (Remove zeros. Output: 123) |
+| **Verificar Tabela** | `READ TABLE ... TRANSPORTING NO FIELDS` | `IF line_exists( ... )`. |
 
 ## Glossário Técnico
 
@@ -329,23 +329,23 @@ ENDCLASS.
 * **String Templates (|...|):** Mecanismo avançado de manipulação de strings que suporta interpolação de variáveis {var}, chamadas de métodos, expressões lógicas e formatação (data, número, alpha) diretamente no literal de texto.  
 * **Constructor Operators (COND, SWITCH, VALUE):** Família de operadores funcionais que permitem construir valores, estruturas ou tabelas em uma única instrução, substituindo blocos procedurais extensos de IF/CASE/LOOP.  
 * **LET Expression:** Cláusula usada dentro de operadores construtores para definir variáveis locais temporárias. Essencial para evitar cálculos repetitivos e melhorar a legibilidade de expressões complexas.  
-* **xsdbool:** Função embutida que converte o resultado de uma expressão lógica (True/False do Kernel) para o tipo ABAP abap_bool ('X' ou ' '), permitindo o uso de lógica booleana em parâmetros de métodos.  
-* **Type Inference (Inferência de Tipo):** Capacidade do compilador de determinar automaticamente o tipo técnico (ex: I, STRING, TYPE REF TO) de uma nova variável baseando-se no valor ou objeto à direita da atribuição.
+* **xsdbool:** Função embutida que converte o resultado de uma expressão lógica (True/False do Kernel) para o tipo ABAP `abap_bool ('X' ou ' ')`, permitindo o uso de lógica booleana em parâmetros de métodos.  
+* **Type Inference (Inferência de Tipo):** Capacidade do compilador de determinar automaticamente o tipo técnico (ex: `I`, `STRING`, `TYPE REF TO`) de uma nova variável baseando-se no valor ou objeto à direita da atribuição.
 
 
 ## Quiz de Fixação
 
-1. Qual é a principal vantagem de usar String Templates (|...|) em vez de CONCATENATE, além da legibilidade?  
-  R: String Templates oferecem opções de formatação embutidas e expressões. É possível converter formatos de data (DATE = ISO), números (NUMBER = USER), realizar conversões Alpha (ALPHA = IN/OUT) e até executar lógica (COND, chamadas de método) diretamente dentro da string, eliminando variáveis auxiliares.
+1. Qual é a principal vantagem de usar String Templates (`|...|`) em vez de `CONCATENATE`, além da legibilidade?  
+  R: String Templates oferecem opções de formatação embutidas e expressões. É possível converter formatos de data (`DATE = ISO`), números (`NUMBER = USER`), realizar conversões Alpha (`ALPHA = IN/OUT`) e até executar lógica (`COND`, chamadas de método) diretamente dentro da string, eliminando variáveis auxiliares.
 
-2. O operador COND pode substituir qualquer comando IF?  
-  R: Não. O COND é um operador construtor, projetado para retornar um valor a ser atribuído a uma variável ou passado como parâmetro. Ele substitui a lógica de IF usada para atribuição de valores. Para controle de fluxo de execução (ex: chamar métodos diferentes, sair de um loop ou encerrar o programa), o comando IF tradicional ainda é necessário.
+2. O operador `COND` pode substituir qualquer comando IF?  
+  R: Não. O `COND` é um operador construtor, projetado para retornar um valor a ser atribuído a uma variável ou passado como parâmetro. Ele substitui a lógica de IF usada para atribuição de valores. Para controle de fluxo de execução (ex: chamar métodos diferentes, sair de um loop ou encerrar o programa), o comando IF tradicional ainda é necessário.
 
-3. Qual a função da expressão LET dentro de um construtor COND ou VALUE?  
-  R: A expressão LET permite definir variáveis locais temporárias válidas apenas dentro daquele construtor. Isso é útil para armazenar resultados intermediários de cálculos ou chamadas de métodos, evitando que sejam recalculados múltiplas vezes dentro das condições WHEN, melhorando a performance e a clareza.
+3. Qual a função da expressão `LET` dentro de um construtor `COND` ou `VALUE`?  
+  R: A expressão `LET` permite definir variáveis locais temporárias válidas apenas dentro daquele construtor. Isso é útil para armazenar resultados intermediários de cálculos ou chamadas de métodos, evitando que sejam recalculados múltiplas vezes dentro das condições `WHEN`, melhorando a performance e a clareza.
 
-4. O que acontece com uma variável declarada inline (DATA(...)) dentro de um loop DO ou LOOP após o término do loop?  
-  R: A variável permanece acessível. No ABAP, o escopo de uma variável inline é o bloco de processamento atual (método, função ou form). Ela não "morre" ao final do loop. Reutilizar o mesmo nome de variável em loops subsequentes pode levar a erros de tipo ou valor residual se não for gerenciado com cuidado (ex: usando CLEAR).
+4. O que acontece com uma variável declarada inline (`DATA(...)`) dentro de um loop `DO` ou `LOOP` após o término do loop?  
+  R: A variável permanece acessível. No ABAP, o escopo de uma variável inline é o bloco de processamento atual (método, função ou form). Ela não "morre" ao final do loop. Reutilizar o mesmo nome de variável em loops subsequentes pode levar a erros de tipo ou valor residual se não for gerenciado com cuidado (ex: usando `CLEAR`).
 
 ## Links de Demonstrações
 

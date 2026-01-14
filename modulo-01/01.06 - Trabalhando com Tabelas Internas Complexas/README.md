@@ -7,8 +7,11 @@
 ## Objetivos de Aprendizagem
 
 - Distinguir tecnicamente entre os três tipos de tabelas internas: **Standard**, **Sorted** e **Hashed**, compreendendo a complexidade algorítmica de cada uma (Big O Notation).  
-- Utilizar **Expressões de Tabela** (lt_tab[ ... ]) para ler registros, realizar encadeamentos diretos e gerenciar exceções.  
+
+- Utilizar **Expressões de Tabela** (`lt_tab[ ... ]`) para ler registros, realizar encadeamentos diretos e gerenciar exceções.  
+
 - Povoar e manipular tabelas rapidamente usando o operador construtor **VALUE**, incluindo a adição de linhas com BASE.  
+
 - Implementar e consumir **Chaves Secundárias** para otimizar buscas em tabelas Standard sem alterar sua estrutura primária.
 
 ## 1. Os Três Tipos de Tabelas Internas
@@ -41,9 +44,12 @@ Mantém os dados automaticamente ordenados pela chave definida, inserção após
 O tipo mais performático para acesso por chave única.
 
 * **Estrutura:** Utiliza um algoritmo de Hash para calcular o endereço de memória exato de um registro baseado na sua chave.  
+
 * **Acesso por Chave:** Acesso Direto. Não importa se a tabela tem 10 ou 10 milhões de linhas, o tempo de resposta é teoricamente o mesmo.  
   * *Complexidade:* **O(1)** (Tempo Constante).  
+
 * **Restrições:** A chave deve ser **UNIQUE**. Não é possível acessar pelo índice (linha 1, linha 2), pois não existe ordem sequencial lógica.  
+
 * **Uso Ideal:** Caches, Tabelas de Mestre (Clientes, Materiais) onde o acesso é sempre pelo ID único.  
 * **Definição:** `TYPE HASHED TABLE OF ... WITH UNIQUE KEY ...`.
 
@@ -192,11 +198,11 @@ ENDCLASS.
 
 | Conceito | ABAP Legado | ABAP Moderno | Impacto |
 | :---- | :---- | :---- | :---- |
-| **Ler Linha** | READ TABLE tab WITH KEY k=v INTO wa. | wa = tab[ k = v ]. | Sintaxe mais limpa e direta. |
-| **Verificar** | READ TABLE ... TRANSPORTING NO FIELDS. | IF line_exists( tab[...] ). | Código mais legível. |
-| **Obter Índice** | READ TABLE ... depois verificar sy-tabix | idx = line_index( tab[...] ). | Acesso direto ao metadado. |
-| **Inserir/Adicionar** | APPEND wa TO tab. | tab = VALUE #( BASE tab ( ... ) ). | Construção em massa eficiente. |
-| **Busca Lenta** | LOOP WHERE em Tabela Standard | LOOP USING KEY Secundária | Transforma O(n) em O(log n) ou O(1). |
+| **Ler Linha** | `READ TABLE tab WITH KEY k=v INTO wa.` | `wa = tab[ k = v ].` | Sintaxe mais limpa e direta. |
+| **Verificar** | `READ TABLE ... TRANSPORTING NO FIELDS.` | `IF line_exists( tab[...] ).` | Código mais legível. |
+| **Obter Índice** | `READ TABLE ...` depois verificar `sy-tabix` | `idx = line_index( tab[...] ).` | Acesso direto ao metadado. |
+| **Inserir/Adicionar** | `APPEND wa TO tab.` | `tab = VALUE #( BASE tab ( ... ) ).` | Construção em massa eficiente. |
+| **Busca Lenta** | `LOOP WHERE` em Tabela Standard | `LOOP USING KEY` Secundária | Transforma O(n) em O(log n) ou O(1). |
 
 ## Glossário Técnico
 
@@ -206,9 +212,9 @@ ENDCLASS.
 
 * **Sorted Table:** Tipo de tabela interna mantida sempre ordenada (Busca Binária - O(log n)). Ideal para buscas por intervalo ou chave parcial.  
 
-* **Secondary Key (Chave Secundária):** Um índice adicional criado sobre uma tabela interna que permite buscas rápidas por campos que não compõem a chave primária. Pode ser SORTED ou HASHED.  
+* **Secondary Key (Chave Secundária):** Um índice adicional criado sobre uma tabela interna que permite buscas rápidas por campos que não compõem a chave primária. Pode ser `SORTED` ou `HASHED`.  
 
-* **Table Expression (itab[...]):** Sintaxe funcional para leitura de registros. Lança exceção cx_sy_itab_line_not_found em caso de falha, ao contrário do sy-subrc.  
+* **Table Expression (`itab[...]`):** Sintaxe funcional para leitura de registros. Lança exceção `cx_sy_itab_line_not_found` em caso de falha, ao contrário do sy-subrc.  
 
 * **Big O Notation:** Notação matemática usada para descrever a eficiência de um algoritmo. O(1) é o melhor (constante), O(n) é linear (proporcional ao tamanho).
 
@@ -217,14 +223,14 @@ ENDCLASS.
 1. Qual tipo de tabela interna garante tempo de acesso constante (O(1)), independentemente do número de registros, mas exige uma chave única?
   R: Hashed Table. Ela utiliza um algoritmo de hash para calcular a posição exata do registro na memória.
 
-2. O que acontece se eu tentar acessar lt_tabela[ id = '999' ] e o registro não existir?  
-  R: O sistema lançará uma exceção da classe cx_sy_itab_line_not_found. Se não for tratada com TRY...CATCH, causará um Short Dump (erro em tempo de execução).
+2. O que acontece se eu tentar acessar `lt_tabela[ id = '999' ]` e o registro não existir?  
+  R: O sistema lançará uma exceção da classe `cx_sy_itab_line_not_found`. Se não for tratada com `TRY...CATCH`, causará um Short Dump (erro em tempo de execução).
 
 3. Tenho uma tabela Standard gigante de "Vendas" e preciso filtrar frequentemente por "Data", que não é a chave primária. Como otimizar sem mudar o tipo da tabela?  
-  R: Definindo uma Chave Secundária (WITH NON-UNIQUE SORTED KEY sk_data COMPONENTS data) na definição da tabela e utilizando USING KEY sk_data nas leituras e loops.
+  R: Definindo uma Chave Secundária (`WITH NON-UNIQUE SORTED KEY sk_data COMPONENTS data`) na definição da tabela e utilizando `USING KEY sk_data` nas leituras e loops.
   
 4. Qual é o custo ("trade-off") de usar uma Tabela Sorted em comparação com uma Standard?  
-  R: A operação de inserção (INSERT) é mais lenta na Tabela Sorted, pois o sistema precisa encontrar a posição correta para manter a ordenação. Na Standard, o APPEND apenas adiciona ao final, o que é instantâneo.
+  R: A operação de inserção (`INSERT`) é mais lenta na Tabela Sorted, pois o sistema precisa encontrar a posição correta para manter a ordenação. Na Standard, o `APPEND` apenas adiciona ao final, o que é instantâneo.
 
 ## Links de Demonstrações
 
