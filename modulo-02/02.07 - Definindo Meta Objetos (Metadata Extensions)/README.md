@@ -2,7 +2,7 @@
 
 ![Infográfico - As Vantagens da Metadata Extensions](./02.07_A_Vantagem_das_Metadatas_Extensions.png)
 
-> **Comece pelos slides: [Definindo Meta Objetos (Metadata Exetensions](./02.07_Definindo_Meta_Objetos.pdf)**
+> **Comece pelos slides: [Definindo Meta Objetos (Metadata Extensions)](./02.07_Definindo_Meta_Objetos.pdf)**
 
 ## Objetivos de Aprendizagem
 

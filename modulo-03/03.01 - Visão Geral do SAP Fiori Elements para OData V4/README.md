@@ -16,7 +16,7 @@
 
 ## 1. O Que é SAP Fiori Elements?
 
-No desenvolvimento web tradicional (e no início do SAPUI5), o programador era um "artesão". Para criar uma tela de cadastro, ele desenhava cada botão, tabela e campo de entrada manualmente usando HTML, JavaScript e CSS. Embora flexível, esse método ("Freestyle") é custoso, propenso a erros visuais e difícil de manter. Se a SAP mudasse o design dos botões, você teria que reescrever código em centenas de aplicativos.
+No desenvolvimento web tradicional (e no início do SAPUI5), o programador atuava como um "artesão". Para criar uma tela de cadastro, desenhava cada botão, tabela e campo de entrada manualmente usando HTML, JavaScript e CSS. Embora flexível, esse método ("Freestyle") é custoso, propenso a erros visuais e difícil de manter. Se a SAP mudasse o design dos botões, seria necessário reescrever código em centenas de aplicativos.
 
 O **SAP Fiori Elements** é uma biblioteca de **modelos de interface (templates)** pré-construídos e inteligentes. Ele muda o papel do desenvolvedor de "artesão de pixels" para "arquiteto de dados".
 

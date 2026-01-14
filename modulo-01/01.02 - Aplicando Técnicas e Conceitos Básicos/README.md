@@ -2,7 +2,7 @@
 
 ![Infográfico - Um Guia Rápido do Sintaxe](./01.02_Um_Guia_Visual_de_Boas_Praticas.png)
 
-> **Comece pelos slides: [ABAP Moderno: Escreva Menos, Ralize Mais](./01.02_ABAP_Moderno_Escreva_Menos_Realize_Mais.pdf)**
+> **Comece pelos slides: [ABAP Moderno: Escreva Menos, Realize Mais](./01.02_ABAP_Moderno_Escreva_Menos_Realize_Mais.pdf)**
 
 ## Objetivos de Aprendizagem
 

@@ -19,7 +19,8 @@ No passado, durante a era do SAP ECC (ERP Central Component), a modelagem de dad
 * **Database Views:** Realizavam junções simples (Inner Joins) entre tabelas.  
 * **Limitações:** As views da SE11 não suportavam cálculos, agregações, parâmetros ou lógica condicional (CASE).
 
-O Problema da Abordagem Clássica (Data-to-Code):  
+### Desafios da Abordagem Clássica (Data-to-Code)
+
 Toda a inteligência residia no servidor de aplicação (ABAP). Para calcular o "Total de Vendas por Cliente", o programa precisava:
 
 1. Selecionar milhões de linhas de itens de venda do banco.  

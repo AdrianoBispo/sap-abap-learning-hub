@@ -34,7 +34,7 @@ No mundo do *SAP ECC (On-Premise)* tradicional, a flexibilidade era uma faca de 
 
 O princípio **Clean Core** (Núcleo Limpo) é a resposta da SAP para eliminar esse ciclo vicioso. A ideia central é simples: o código padrão da SAP (o Core) deve permanecer intocado, tratado como uma "Caixa Preta" selada.
 
-**Os 3 Mandamentos do Clean Core:**
+**Os 3 Pilares do Clean Core:**
 
 1. **Nenhuma Modificação Direta:** É estritamente proibido alterar objetos standard. As antigas "User Exits" e modificações de código fonte são substituídas por pontos de extensão formais e estáveis.
  

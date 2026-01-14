@@ -14,21 +14,21 @@
 
 - Executar e interpretar rastreamentos de **ABAP Profiling** no Eclipse para identificar o consumo de recursos (CPU vs. Banco de Dados) e otimizar rotinas críticas.
 
-## 1. A Tríade da Qualidade de Código: Do "Funciona" para o "É Robusto"
+## 1. A Tríade da Qualidade de Código: De "Funciona" para "Robusto"
 
-No desenvolvimento de software moderno, especialmente em ambientes ERP críticos como o S/4HANA, "funcionar na minha máquina" não é suficiente. Um código pode produzir o resultado correto hoje, mas ser impossível de manter amanhã ou derrubar o servidor quando o volume de dados aumentar.
+No desenvolvimento de software moderno, especialmente em ambientes ERP críticos como o S/4HANA, "funcionar na minha máquina" não é suficiente. Um código pode produzir o resultado correto hoje, mas ser impossível de manter amanhã ou causar falhas quando o volume de dados aumentar.
 
 A qualidade de código no ABAP apoia-se em três pilares fundamentais, frequentemente automatizados em esteiras de CI/CD (Integração Contínua):
 
 1. **Conformidade (Compliance) -> ATC:** O código segue as regras da empresa e da SAP? Ele é seguro? Ele está pronto para a nuvem?  
 
-2. **Correção (Correctness) -> ABAP Unit:** O código faz exatamente o que a regra de negócio pede? Se eu mudar uma linha hoje, eu quebro uma regra antiga (Regressão)?  
+2. **Correção (Correctness) -> ABAP Unit:** O código faz exatamente o que a regra de negócio pede? Se uma linha for alterada hoje, causará regressão?  
 
 3. **Performance -> ABAP Profiling:** O código é eficiente? Ele consome memória excessiva ou faz chamadas desnecessárias ao banco?
 
 ## 2. Análise Estática: ABAP Test Cockpit (ATC)
 
-O ATC é o "inspetor de qualidade" automatizado. Ele utiliza a engine do *Code Inspector (SCI)* para ler seu código fonte sem executá-lo, procurando por padrões conhecidos de má programação, vulnerabilidades de segurança ou sintaxe obsoleta.
+O ATC atua como um "inspetor de qualidade" automatizado. Ele utiliza a engine do *Code Inspector (SCI)* para ler seu código fonte sem executá-lo, procurando por padrões conhecidos de má programação, vulnerabilidades de segurança ou sintaxe obsoleta.
 
 ### O que o ATC verifica (Categorias Principais):
 

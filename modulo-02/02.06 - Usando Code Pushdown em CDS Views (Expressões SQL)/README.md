@@ -2,7 +2,7 @@
 
 ![Infográfico - Code Pushdown com ABAP CDS](./02.06_Code_Pushdown_com_ABAP_CDS.png)
 
-> **Comece pelos slides: [O Fim do LOOP: Dominando o Code Pushdown em ABAP CDS com Expressões SQL)](./02.06_O_Fim_do_LOOP_Code_Pushdown_em_ABAP_CDS.pdf)**
+> **Comece pelos slides: [O Fim do LOOP: Dominando o Code Pushdown em ABAP CDS com Expressões SQL](./02.06_O_Fim_do_LOOP_Code_Pushdown_em_ABAP_CDS.pdf)**
 
 ## Objetivos de Aprendizagem
 

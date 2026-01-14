@@ -2,7 +2,7 @@
 
 ![Infográfico - CDS Views: Do Legado ao Moderno](./02.04_CDS_Views.png)
 
-> **Comece pelos slides: [A Base de Aplicações Modernas: Dominando as CDS Views Essencias](./02.04_CDS_Views_Essenciais_Uma_Nova_Arquitetura.pdf)**
+> **Comece pelos slides: [A Base de Aplicações Modernas: Dominando as CDS Views Essenciais](./02.04_CDS_Views_Essenciais_Uma_Nova_Arquitetura.pdf)**
 
 ## Objetivos de Aprendizagem
 

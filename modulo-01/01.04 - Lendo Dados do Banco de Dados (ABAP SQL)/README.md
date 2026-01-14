@@ -1,4 +1,4 @@
-# Lendo Dados do Banco de Dados (ABAP SQL)**
+# Lendo Dados do Banco de Dados (ABAP SQL)
 
 ![Infográfico - A Evolução do SQL no ABAP Moderno](./01.04_A_Evolucao_do_ABAP_SQL.png)
 

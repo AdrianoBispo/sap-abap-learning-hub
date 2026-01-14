@@ -1,6 +1,6 @@
 # Criando Tabelas de Banco de Dados (Source-Based)
 
-![Infográfico - Modernizando Tabelas ABAP)](./02.02_Modernizando_Tabelas_ABAP.png)
+![Infográfico - Modernizando Tabelas ABAP](./02.02_Modernizando_Tabelas_ABAP.png)
 
 > **Comece pelos slides: [A Evolução da Modelagem de Dados no ABAP](./02.02_A_Evolucao_da_Modelagem_de_Dados_no_ABAP.pdf)**
 

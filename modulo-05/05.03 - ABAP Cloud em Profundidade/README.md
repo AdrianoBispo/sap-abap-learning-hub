@@ -2,7 +2,7 @@
 
 ![Infográfico - Extensibilidade SAP: A Evolução do Legado para o Clean Core](./05.03_Extensibilidade_SAP.png)
 
-> **Comece pelos slides: [Desmetificando o ABAP Cloud](./05.03_ABAP_Cloud_Guia_Arquitetural.pdf)**
+> **Comece pelos slides: [Desmistificando o ABAP Cloud](./05.03_ABAP_Cloud_Guia_Arquitetural.pdf)**
 
 ## Objetivos de Aprendizagem
 
