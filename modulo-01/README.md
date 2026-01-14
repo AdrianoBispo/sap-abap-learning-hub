@@ -2,7 +2,7 @@
 
 ![Guia Visual: ABAP Clássico vs ABAP Moderno](./01.00_A_Evolucao_do_ABAP.png)
 
-O material foi construído com base no curso [**"Basic ABAP Programming"**](https://learning.sap.com/courses/basic-abap-programming) da plataforma SAP Learning. Ele se trata de uma introdução abrangente, de nível iniciante, à linguagem de programação ABAP voltada ao ambiente cloud.
+Material baseado no curso [**"Basic ABAP Programming"**](https://learning.sap.com/courses/basic-abap-programming) da SAP Learning. Este módulo oferece uma introdução abrangente à linguagem de programação ABAP com foco no desenvolvimento para a nuvem.
 
 > **Comece por aqui: [A Evolução do ABAP: Guia Essencial para o Desenvolvedor Moderno](./01.00_ABAP_Moderno_Uma_Jornada_Essencial.pdf)**
 
