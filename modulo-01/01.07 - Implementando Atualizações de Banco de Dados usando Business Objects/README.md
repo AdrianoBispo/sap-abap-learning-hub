@@ -267,5 +267,5 @@ ENDCLASS.
 
 ## Links de Demonstrações
 
-- ![Como analisar um objeto de negócios](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_6DC14C585665F186:demo)
-- ![Como implementar uma declaração EML](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_3AD00A7871CEE7A8:demo)
+- [Como analisar um objeto de negócios](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_6DC14C585665F186:demo)
+- [Como implementar uma declaração EML](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_3AD00A7871CEE7A8:demo)
