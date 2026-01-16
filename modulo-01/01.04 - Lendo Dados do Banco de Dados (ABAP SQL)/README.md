@@ -237,5 +237,5 @@ ENDCLASS.
 
 ## Links de Demonstrações
 
-- ![Como Analisar uma Tabela de Banco de Dados](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_44B67792CC5AACB1:demo)
-- ![Como Analisar uma Visualização CDS](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_3E120CA182A03BAE:demo)
+- [Como Analisar uma Tabela de Banco de Dados](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_44B67792CC5AACB1:demo)
+- [Como Analisar uma Visualização CDS](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_3E120CA182A03BAE:demo)
