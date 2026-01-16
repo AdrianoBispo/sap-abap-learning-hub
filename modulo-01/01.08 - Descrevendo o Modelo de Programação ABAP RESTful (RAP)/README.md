@@ -159,9 +159,9 @@ Para criar um App Fiori do zero no ADT (Eclipse), seguimos um fluxo rigoroso:
 
 ## Links de Demonstrações
 
-- ![Como criar elementos de dados](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_64D8208310F6C3A7:demo)
-- ![Como criar uma tabela de banco de dados](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_40AB455BABB1E6AD:demo)
-- ![Como gerar os objetos adicionais](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_C5F2D28BA24C47B7:demo)
-- ![Como validar a chave semântica](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_560AA21E57073699:demo)
-- ![Como determinar as cidades e os países](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_8D5D08FDC9FDAF8A:demo)
-- ![Como controlar as propriedades do campo](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_E81E62C6D6EA70A4:demo)
+- [Como criar elementos de dados](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_64D8208310F6C3A7:demo)
+- [Como criar uma tabela de banco de dados](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_40AB455BABB1E6AD:demo)
+- [Como gerar os objetos adicionais](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_C5F2D28BA24C47B7:demo)
+- [Como validar a chave semântica](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_560AA21E57073699:demo)
+- [Como determinar as cidades e os países](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_8D5D08FDC9FDAF8A:demo)
+- [Como controlar as propriedades do campo](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_E81E62C6D6EA70A4:demo)
