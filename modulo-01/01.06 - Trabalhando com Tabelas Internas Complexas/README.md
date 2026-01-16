@@ -234,4 +234,4 @@ ENDCLASS.
 
 ## Links de Demonstrações
 
-- ![Como depurar tabelas internas complexas](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_9171F14114573EA8:demo)
+- [Como depurar tabelas internas complexas](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_9171F14114573EA8:demo)
