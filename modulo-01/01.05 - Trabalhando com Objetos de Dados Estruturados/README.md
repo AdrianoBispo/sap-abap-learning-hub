@@ -270,4 +270,4 @@ ENDCLASS.
 
 ## Links de Demonstrações
 
-- ![Como analisar objetos de dados estruturados usando a perspectiva de depuração](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_3A36CFBA3590F685:demo)
+- [Como analisar objetos de dados estruturados usando a perspectiva de depuração](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_3A36CFBA3590F685:demo)
