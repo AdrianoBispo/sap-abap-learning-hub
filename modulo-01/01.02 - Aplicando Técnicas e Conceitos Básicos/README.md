@@ -349,7 +349,7 @@ ENDCLASS.
 
 ## Links de Demonstrações
 
-- ![Como Comentar e Descomentar um código ABAP](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_BE9803D7D14C7EAB:demo)
-- ![Como Iniciar o Debugger](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_42BD2588C06F3CA6:demo)
-- ![Como controlar a Execução do Código](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_645B252C3E912386:demo)
-- ![Como analisar os conteúdos dos objetos de dados](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_6624D135F97CCBAC:demo)
+- [Como Comentar e Descomentar um código ABAP](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_BE9803D7D14C7EAB:demo)
+- [Como Iniciar o Debugger](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_42BD2588C06F3CA6:demo)
+- [Como controlar a Execução do Código](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_645B252C3E912386:demo)
+- [Como analisar os conteúdos dos objetos de dados](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?library=library.txt&show=project!PR_6624D135F97CCBAC:demo)
