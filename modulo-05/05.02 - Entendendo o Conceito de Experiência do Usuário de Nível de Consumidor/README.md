@@ -138,5 +138,5 @@ Q3: Do ponto de vista econômico (TCO), qual é a principal desvantagem de um de
 
 ## Links de Demonstrações
 
-- ![Crie uma aplicação SAP Fiori](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_E638047297BCDEB3:uebung)
-- ![Crie uma experiência do usuário (UX) usando o SAP Build Apps.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_B483C3DF4A2E1B9A:uebung)
+- [Crie uma aplicação SAP Fiori](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_E638047297BCDEB3:uebung)
+- [Crie uma experiência do usuário (UX) usando o SAP Build Apps.](https://learnsap.enable-now.cloud.sap/pub/mmcp/index.html?show=project!PR_B483C3DF4A2E1B9A:uebung)
